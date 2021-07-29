@@ -1,4 +1,5 @@
 import 'package:butex_notebot/provider/theme_provider.dart';
+import 'package:butex_notebot/screens/subjects_screen.dart';
 import 'package:butex_notebot/widgets/appBar_widget.dart';
 import 'package:butex_notebot/widgets/drawer_widget.dart';
 import 'package:butex_notebot/widgets/top_Container_widget.dart';
@@ -34,12 +35,24 @@ class NotesScreen extends StatelessWidget {
                   _levelList(
                     title: "Level 1",
                     isDarkTheme: isDarkTheme,
-                    onPress: () {},
+                    onPress: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => SubjectScreen(level: 1),
+                        ),
+                      );
+                    },
                   ),
                   _levelList(
                     title: "Level 2",
                     isDarkTheme: isDarkTheme,
-                    onPress: () {},
+                    onPress: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => SubjectScreen(level: 2),
+                        ),
+                      );
+                    },
                   ),
                   _levelList(
                     title: "Level 3",
