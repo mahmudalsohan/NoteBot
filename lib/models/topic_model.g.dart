@@ -1,21 +1,21 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'subject_model.dart';
+part of 'topic_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Subject _$SubjectFromJson(Map<String, dynamic> json) {
-  return Subject(
-    subName: json['subName'] as String,
+Topic _$TopicFromJson(Map<String, dynamic> json) {
+  return Topic(
+    topic: json['topic'] as String,
     route: json['route'] as String?,
     url: json['url'] as String?,
   );
 }
 
-Map<String, dynamic> _$SubjectToJson(Subject instance) => <String, dynamic>{
-      'subName': instance.subName,
+Map<String, dynamic> _$TopicToJson(Topic instance) => <String, dynamic>{
+      'topic': instance.topic,
       'route': instance.route,
       'url': instance.url,
     };

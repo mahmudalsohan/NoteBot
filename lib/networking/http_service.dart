@@ -11,6 +11,8 @@ class HttpService {
     );
     initializeInterceptors();
   }
+
+  //to monitor request, response and error
   initializeInterceptors() {
     _dio.interceptors.add(
       InterceptorsWrapper(
@@ -33,6 +35,7 @@ class HttpService {
     );
   }
 
+  //get a response providing the endpoint (baseURL excluded)
   Future<Response> getResponse(String endPoint) async {
     Response response;
 

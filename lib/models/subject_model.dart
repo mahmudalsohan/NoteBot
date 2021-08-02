@@ -4,8 +4,9 @@ part 'subject_model.g.dart';
 
 @JsonSerializable()
 class Subject {
-  String? subName, route, url;
-  Subject({this.subName, this.route, this.url});
+  String subName;
+  String? route, url;
+  Subject({required this.subName, this.route, this.url});
 
   factory Subject.fromJson(Map<String, dynamic> json) =>
       _$SubjectFromJson(json);
