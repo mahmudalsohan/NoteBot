@@ -36,22 +36,17 @@ class NotesScreen extends StatelessWidget {
                     title: "Level 1",
                     isDarkTheme: isDarkTheme,
                     onPress: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => SubjectScreen(level: 1),
-                        ),
-                      );
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => SubjectsScreen(level: 1),
+                      ));
                     },
                   ),
                   _levelList(
                     title: "Level 2",
                     isDarkTheme: isDarkTheme,
                     onPress: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => SubjectScreen(level: 2),
-                        ),
-                      );
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => SubjectsScreen(level: 2)));
                     },
                   ),
                   _levelList(

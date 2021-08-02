@@ -33,7 +33,7 @@ class HttpService {
     );
   }
 
-  Future<Response> getRequest(String endPoint) async {
+  Future<Response> getResponse(String endPoint) async {
     Response response;
 
     try {

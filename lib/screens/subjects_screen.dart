@@ -1,48 +1,22 @@
-import 'package:butex_notebot/models/subject_model.dart';
-import 'package:butex_notebot/networking/http_service.dart';
-import 'package:dio/dio.dart';
+import 'package:butex_notebot/provider/subjects_provider.dart';
 import 'package:flutter/material.dart';
 
-class SubjectScreen extends StatefulWidget {
+class SubjectsScreen extends StatelessWidget {
   final int level;
-  const SubjectScreen({Key? key, required this.level}) : super(key: key);
-
-  @override
-  _SubjectScreenState createState() => _SubjectScreenState();
-}
-
-class _SubjectScreenState extends State<SubjectScreen> {
-  late HttpService http;
-  late List<Subject> subjects;
-
-  Future<List<dynamic>> getSubjects() async {
-    Response response;
-
-    response = await http.getRequest("/app/notes/${widget.level}");
-    List<dynamic> subjects =
-        response.data.map((data) => Subject.fromJson(data)).toList();
-    return subjects;
-  }
-
-  @override
-  void initState() {
-    http = HttpService();
-    getSubjects();
-    super.initState();
-  }
+  const SubjectsScreen({Key? key, required this.level}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Level ${widget.level}"),
+        title: Text("Level $level"),
       ),
       body: Container(
-        child: FutureBuilder<List<dynamic>>(
-          future: getSubjects(),
-          builder: (context, data) {
-            if (data.hasData) {
-              var subjectList = data.data;
+        child: FutureBuilder<dynamic>(
+          future: SubjectsProvider().getSubjects(level),
+          builder: (context, subjects) {
+            if (subjects.hasData) {
+              var subjectList = subjects.data;
               return ListView.builder(
                 itemCount: subjectList!.length,
                 itemBuilder: (context, index) {

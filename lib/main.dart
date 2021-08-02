@@ -1,5 +1,5 @@
 import 'package:butex_notebot/provider/theme_provider.dart';
-import 'package:butex_notebot/screens/home_screen.dart';
+import 'package:butex_notebot/screens/material_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,17 +10,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (BuildContext context) => ThemeProvider(),
-      builder: (context, _) {
-        final themeProvider = Provider.of<ThemeProvider>(context);
-        return MaterialApp(
-          home: HomeScreen(),
-          theme: themeProvider.isDarkTheme
-              ? MyThemes.darkTheme
-              : MyThemes.lightTheme,
-        );
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => ThemeProvider(),
+          child: MaterialScreen(),
+        ),
+      ],
+      child: MaterialScreen(),
     );
   }
 }
