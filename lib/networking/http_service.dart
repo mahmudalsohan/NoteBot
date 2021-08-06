@@ -6,7 +6,7 @@ class HttpService {
   HttpService() {
     _dio = Dio(
       BaseOptions(
-        baseUrl: "https://notebot-engine-v1.herokuapp.com",
+        baseUrl: "https://notebot-engine-v1.herokuapp.com/",
       ),
     );
     initializeInterceptors();

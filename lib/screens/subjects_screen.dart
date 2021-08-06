@@ -1,5 +1,6 @@
 import 'package:butex_notebot/provider/subjects_provider.dart';
 import 'package:butex_notebot/screens/topics_screen.dart';
+import 'package:butex_notebot/utils/open_url.dart';
 import 'package:flutter/material.dart';
 
 class SubjectsScreen extends StatelessWidget {
@@ -13,7 +14,7 @@ class SubjectsScreen extends StatelessWidget {
         title: Text("Level $level"),
       ),
       body: Container(
-        child: FutureBuilder<dynamic>(
+        child: FutureBuilder<List<dynamic>>(
           future: SubjectsProvider().getSubjects(level),
           builder: (context, subjects) {
             if (subjects.hasData) {
@@ -25,7 +26,7 @@ class SubjectsScreen extends StatelessWidget {
                   var subjectData = subjectList[index];
                   return InkWell(
                     onTap: () {
-                      if (subjectData.route != null) {
+                      if (subjectData.url == null) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -35,11 +36,15 @@ class SubjectsScreen extends StatelessWidget {
                             ),
                           ),
                         );
+                      } else {
+                        UrlLauncher.openUrl(url: subjectData.url);
                       }
                     },
                     child: ListTile(
                       title: Text(subjectData.subName),
-                      subtitle: Text(subjectData.route ?? subjectData.url),
+                      subtitle: Text(subjectData.route ??
+                          subjectData.url ??
+                          "No Route/Url found"),
                     ),
                   );
                 },

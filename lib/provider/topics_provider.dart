@@ -9,7 +9,7 @@ class TopicsProvider {
     _http = HttpService();
   }
 
-  getTopics(String subjectRoute) async {
+  Future<List<dynamic>> getTopics(String subjectRoute) async {
     Response response;
 
     response = await _http.getResponse(subjectRoute);

@@ -1,5 +1,5 @@
 import 'package:butex_notebot/provider/theme_provider.dart';
-import 'package:butex_notebot/screens/notes_screen.dart';
+import 'package:butex_notebot/screens/levels_screen.dart';
 import 'package:butex_notebot/widgets/appBar_widget.dart';
 import 'package:butex_notebot/widgets/drawer_widget.dart';
 import 'package:butex_notebot/widgets/function_tile_widget.dart';
@@ -43,7 +43,7 @@ class AcademicScreen extends StatelessWidget {
                     onPress: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => NotesScreen(),
+                          builder: (context) => LevelsScreen(),
                         ),
                       );
                     },

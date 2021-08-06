@@ -1,4 +1,6 @@
-import 'package:butex_notebot/provider/topicsProvider.dart';
+import 'package:butex_notebot/provider/topics_provider.dart';
+import 'package:butex_notebot/screens/topic_content_screen.dart';
+import 'package:butex_notebot/utils/open_url.dart';
 import 'package:flutter/material.dart';
 
 class TopicsScreen extends StatelessWidget {
@@ -17,7 +19,7 @@ class TopicsScreen extends StatelessWidget {
         title: Text(subjectName),
       ),
       body: Container(
-        child: FutureBuilder<dynamic>(
+        child: FutureBuilder<List<dynamic>>(
           future: TopicsProvider().getTopics(subjectRoute),
           builder: (context, topics) {
             if (topics.hasData) {
@@ -28,10 +30,26 @@ class TopicsScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   var topicData = topicList[index];
                   return InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      if (topicData.url == null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TopicContentScreen(
+                              topicName: topicData.topic,
+                              topicRoute: topicData.route,
+                            ),
+                          ),
+                        );
+                      } else {
+                        UrlLauncher.openUrl(url: topicData.url);
+                      }
+                    },
                     child: ListTile(
                       title: Text(topicData.topic),
-                      subtitle: Text(topicData.route ?? topicData.url),
+                      subtitle: Text(
+                        topicData.route ?? topicData.url,
+                      ),
                     ),
                   );
                 },

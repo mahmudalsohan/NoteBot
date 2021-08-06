@@ -6,8 +6,8 @@ import 'package:butex_notebot/widgets/top_Container_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class NotesScreen extends StatelessWidget {
-  const NotesScreen({Key? key}) : super(key: key);
+class LevelsScreen extends StatelessWidget {
+  const LevelsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,28 +36,45 @@ class NotesScreen extends StatelessWidget {
                     title: "Level 1",
                     isDarkTheme: isDarkTheme,
                     onPress: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => SubjectsScreen(level: 1),
-                      ));
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => SubjectsScreen(level: 1),
+                        ),
+                      );
                     },
                   ),
                   _levelList(
                     title: "Level 2",
                     isDarkTheme: isDarkTheme,
                     onPress: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => SubjectsScreen(level: 2)));
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => SubjectsScreen(level: 2),
+                        ),
+                      );
                     },
                   ),
                   _levelList(
                     title: "Level 3",
                     isDarkTheme: isDarkTheme,
-                    onPress: () {},
+                    onPress: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => SubjectsScreen(level: 3),
+                        ),
+                      );
+                    },
                   ),
                   _levelList(
                     title: "Level 4",
                     isDarkTheme: isDarkTheme,
-                    onPress: () {},
+                    onPress: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => SubjectsScreen(level: 4),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

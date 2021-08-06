@@ -9,10 +9,10 @@ class SubjectsProvider {
     _http = HttpService();
   }
 
-  getSubjects(int level) async {
+  Future<List<dynamic>> getSubjects(int level) async {
     Response response;
 
-    response = await _http.getResponse("/app/notes/$level");
+    response = await _http.getResponse("app/notes/$level");
     return response.data.map((data) => Subject.fromJson(data)).toList();
   }
 }
