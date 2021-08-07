@@ -33,6 +33,7 @@ dependencies:
   dio: ^4.0.0
   json_serializable:
   url_launcher: ^6.0.9
+  api_cache_manager: ^1.0.2
 
 dev_dependencies:
   flutter_test:

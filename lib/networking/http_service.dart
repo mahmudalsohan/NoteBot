@@ -1,3 +1,6 @@
+import 'package:butex_notebot/models/subject_model.dart';
+import 'package:butex_notebot/models/topic_content_model.dart';
+import 'package:butex_notebot/models/topic_model.dart';
 import 'package:dio/dio.dart';
 
 class HttpService {
@@ -47,5 +50,50 @@ class HttpService {
     }
 
     return response;
+  }
+
+  //get all the subjects of a level
+  Future<List<Subject>> getSubjects({required int level}) async {
+    List<Subject> data = <Subject>[];
+
+    var response = await getResponse("app/notes/$level");
+
+    data = (response.data as List)
+        .map(
+          (e) => Subject.fromJson(e),
+        )
+        .toList();
+
+    return data;
+  }
+
+  //get all the topics of a subject
+  Future<List<Topic>> getTopics({required String subjectRoute}) async {
+    List<Topic> data = <Topic>[];
+
+    var response = await getResponse(subjectRoute);
+
+    data = (response.data as List)
+        .map(
+          (e) => Topic.fromJson(e),
+        )
+        .toList();
+
+    return data;
+  }
+
+  //get all the content links of a topic
+  Future<List<TopicContent>> getTopicContent(String topicRoute) async {
+    List<TopicContent> data = <TopicContent>[];
+
+    var response = await getResponse(topicRoute);
+
+    data = (response.data as List)
+        .map(
+          (e) => TopicContent.fromJson(e),
+        )
+        .toList();
+
+    return data;
   }
 }

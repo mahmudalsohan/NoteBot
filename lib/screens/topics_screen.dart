@@ -1,10 +1,11 @@
-import 'package:butex_notebot/provider/topics_provider.dart';
+import 'package:butex_notebot/models/topic_model.dart';
+import 'package:butex_notebot/networking/http_service.dart';
 import 'package:butex_notebot/screens/topic_content_screen.dart';
 import 'package:butex_notebot/utils/open_url.dart';
 import 'package:flutter/material.dart';
 
 class TopicsScreen extends StatelessWidget {
-  final String subjectRoute;
+  final String? subjectRoute;
   final String subjectName;
   const TopicsScreen({
     Key? key,
@@ -19,8 +20,8 @@ class TopicsScreen extends StatelessWidget {
         title: Text(subjectName),
       ),
       body: Container(
-        child: FutureBuilder<List<dynamic>>(
-          future: TopicsProvider().getTopics(subjectRoute),
+        child: FutureBuilder<List<Topic>>(
+          future: HttpService().getTopics(subjectRoute: subjectRoute!),
           builder: (context, topics) {
             if (topics.hasData) {
               var topicList = topics.data;
@@ -48,7 +49,9 @@ class TopicsScreen extends StatelessWidget {
                     child: ListTile(
                       title: Text(topicData.topic),
                       subtitle: Text(
-                        topicData.route ?? topicData.url,
+                        topicData.route ??
+                            topicData.url ??
+                            "No URL/Route found",
                       ),
                     ),
                   );

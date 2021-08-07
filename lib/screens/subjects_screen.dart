@@ -1,4 +1,5 @@
-import 'package:butex_notebot/provider/subjects_provider.dart';
+import 'package:butex_notebot/models/subject_model.dart';
+import 'package:butex_notebot/networking/http_service.dart';
 import 'package:butex_notebot/screens/topics_screen.dart';
 import 'package:butex_notebot/utils/open_url.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +15,8 @@ class SubjectsScreen extends StatelessWidget {
         title: Text("Level $level"),
       ),
       body: Container(
-        child: FutureBuilder<List<dynamic>>(
-          future: SubjectsProvider().getSubjects(level),
+        child: FutureBuilder<List<Subject>>(
+          future: HttpService().getSubjects(level: level),
           builder: (context, subjects) {
             if (subjects.hasData) {
               var subjectList = subjects.data;

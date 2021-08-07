@@ -1,4 +1,5 @@
-import 'package:butex_notebot/provider/topic_content_provider.dart';
+import 'package:butex_notebot/models/topic_content_model.dart';
+import 'package:butex_notebot/networking/http_service.dart';
 import 'package:butex_notebot/utils/open_url.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +10,7 @@ class TopicContentScreen extends StatelessWidget {
     required this.topicRoute,
   }) : super(key: key);
 
-  final String topicRoute;
+  final String? topicRoute;
   final String topicName;
 
   @override
@@ -21,8 +22,8 @@ class TopicContentScreen extends StatelessWidget {
         title: Text(topicName),
       ),
       body: Container(
-        child: FutureBuilder<List<dynamic>>(
-          future: TopicContentProvider().getTopicContent(topicRoute),
+        child: FutureBuilder<List<TopicContent>>(
+          future: HttpService().getTopicContent(topicRoute!),
           builder: (context, topicContent) {
             if (topicContent.hasData) {
               var topicContentList = topicContent.data;
