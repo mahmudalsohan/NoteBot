@@ -20,14 +20,10 @@ class HttpService {
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
-          print("Request sent");
-          print(options.path);
-          print(options.method);
           return handler.next(options);
         },
         onResponse: (response, handler) {
-          print("Got this response: ");
-          print(response.data.toString());
+          print("onResponse: ${response.data}");
           return handler.next(response);
         },
         onError: (DioError e, handler) {
@@ -39,7 +35,7 @@ class HttpService {
   }
 
   //get a response providing the endpoint (baseURL excluded)
-  Future<Response> getResponse(String endPoint) async {
+  Future<Response> _getResponse(String endPoint) async {
     Response response;
 
     try {
@@ -55,14 +51,9 @@ class HttpService {
   //get all the subjects of a level
   Future<List<Subject>> getSubjects({required int level}) async {
     List<Subject> data = <Subject>[];
+    var response = await _getResponse("app/notes/$level");
 
-    var response = await getResponse("app/notes/$level");
-
-    data = (response.data as List)
-        .map(
-          (e) => Subject.fromJson(e),
-        )
-        .toList();
+    data = (response.data as List).map((e) => Subject.fromJson(e)).toList();
 
     return data;
   }
@@ -71,7 +62,7 @@ class HttpService {
   Future<List<Topic>> getTopics({required String subjectRoute}) async {
     List<Topic> data = <Topic>[];
 
-    var response = await getResponse(subjectRoute);
+    var response = await _getResponse(subjectRoute);
 
     data = (response.data as List)
         .map(
@@ -86,7 +77,7 @@ class HttpService {
   Future<List<TopicContent>> getTopicContent(String topicRoute) async {
     List<TopicContent> data = <TopicContent>[];
 
-    var response = await getResponse(topicRoute);
+    var response = await _getResponse(topicRoute);
 
     data = (response.data as List)
         .map(

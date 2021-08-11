@@ -1,6 +1,7 @@
 import 'package:butex_notebot/models/topic_content_model.dart';
 import 'package:butex_notebot/networking/http_service.dart';
 import 'package:butex_notebot/utils/open_url.dart';
+import 'package:butex_notebot/widgets/reusable_list_tile.dart';
 import 'package:flutter/material.dart';
 
 class TopicContentScreen extends StatelessWidget {
@@ -32,14 +33,12 @@ class TopicContentScreen extends StatelessWidget {
                 itemCount: topicContentList!.length,
                 itemBuilder: (context, index) {
                   var topicContentData = topicContentList[index];
-                  return InkWell(
+                  return reusableListTile(
+                    subjectName: topicContentData.title,
                     onTap: () {
                       UrlLauncher.openUrl(url: topicContentData.url);
                     },
-                    child: ListTile(
-                      title: Text(topicContentData.title),
-                      subtitle: Text(topicContentData.url),
-                    ),
+                    trailer: Icon(Icons.launch),
                   );
                 },
               );

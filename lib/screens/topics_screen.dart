@@ -2,7 +2,9 @@ import 'package:butex_notebot/models/topic_model.dart';
 import 'package:butex_notebot/networking/http_service.dart';
 import 'package:butex_notebot/screens/topic_content_screen.dart';
 import 'package:butex_notebot/utils/open_url.dart';
+import 'package:butex_notebot/widgets/reusable_list_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class TopicsScreen extends StatelessWidget {
   final String? subjectRoute;
@@ -30,30 +32,22 @@ class TopicsScreen extends StatelessWidget {
                 itemCount: topicList!.length,
                 itemBuilder: (context, index) {
                   var topicData = topicList[index];
-                  return InkWell(
-                    onTap: () {
-                      if (topicData.url == null) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => TopicContentScreen(
-                              topicName: topicData.topic,
-                              topicRoute: topicData.route,
-                            ),
-                          ),
-                        );
-                      } else {
-                        UrlLauncher.openUrl(url: topicData.url);
+                  return reusableListTile(subjectName: topicData.topic,
+                      trailer: topicData.url == null ? Icon(Icons.arrow_forward_ios_sharp) : Icon(Icons.launch),
+                      onTap: (){
+                        if (topicData.url == null) {
+                          Navigator.push(
+                            context,
+                            PageTransition(
+                              type: PageTransitionType.rightToLeft,
+                              child: TopicContentScreen(
+                                topicName: topicData.topic,
+                                topicRoute: topicData.route,
+                              ),),);
+                        } else {
+                          UrlLauncher.openUrl(url: topicData.url);
+                        }
                       }
-                    },
-                    child: ListTile(
-                      title: Text(topicData.topic),
-                      subtitle: Text(
-                        topicData.route ??
-                            topicData.url ??
-                            "No URL/Route found",
-                      ),
-                    ),
                   );
                 },
               );
