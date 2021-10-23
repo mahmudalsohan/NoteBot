@@ -50,35 +50,9 @@ class ThemeProvider extends ChangeNotifier {
 }
 
 //this class contains both light and dark theme config
-class MyThemes {
+class MyThemes extends ThemeProvider {
   static final lightTheme = ThemeData(
-    primaryColor: Colors.lightBlue,
-    backgroundColor: Colors.white,
-    scaffoldBackgroundColor: Colors.white,
-    textTheme: TextTheme(
-        headline1: TextStyle(
-          color: Colors.black,
-          fontSize: 25,
-          fontWeight: FontWeight.bold,
-        ),
-        bodyText1: TextStyle(
-          color: Colors.black,
-          fontSize: 18,
-        )),
+    backgroundColor: Color(0xfff5f7fa),
   );
-  static final darkTheme = ThemeData(
-    primaryColor: Colors.black,
-    backgroundColor: Colors.blueGrey.shade900,
-    scaffoldBackgroundColor: Colors.blueGrey.shade900,
-    textTheme: TextTheme(
-        headline1: TextStyle(
-          color: Colors.white,
-          fontSize: 25,
-          fontWeight: FontWeight.bold,
-        ),
-        bodyText1: TextStyle(
-          color: Colors.white,
-          fontSize: 18,
-        )),
-  );
+  static final darkTheme = ThemeData.dark();
 }

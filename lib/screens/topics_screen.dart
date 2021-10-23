@@ -21,42 +21,52 @@ class TopicsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(subjectName),
       ),
-      body: Container(
-        child: FutureBuilder<List<Topic>>(
-          future: HttpService().getTopics(subjectRoute: subjectRoute!),
-          builder: (context, topics) {
-            if (topics.hasData) {
-              var topicList = topics.data;
-              return ListView.builder(
-                physics: BouncingScrollPhysics(),
-                itemCount: topicList!.length,
-                itemBuilder: (context, index) {
-                  var topicData = topicList[index];
-                  return reusableListTile(subjectName: topicData.topic,
-                      trailer: topicData.url == null ? Icon(Icons.arrow_forward_ios_sharp) : Icon(Icons.launch),
-                      onTap: (){
-                        if (topicData.url == null) {
-                          Navigator.push(
-                            context,
-                            PageTransition(
-                              type: PageTransitionType.rightToLeft,
-                              child: TopicContentScreen(
-                                topicName: topicData.topic,
-                                topicRoute: topicData.route,
-                              ),),);
-                        } else {
-                          UrlLauncher.openUrl(url: topicData.url);
-                        }
-                      }
-                  );
-                },
-              );
-            } else {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 15,
+          vertical: 10,
+        ),
+        child: Container(
+          child: FutureBuilder<List<Topic>>(
+            future: HttpService().getTopics(subjectRoute: subjectRoute!),
+            builder: (context, topics) {
+              if (topics.hasData) {
+                var topicList = topics.data;
+                return ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  itemCount: topicList!.length,
+                  itemBuilder: (context, index) {
+                    var topicData = topicList[index];
+                    return reusableListTile(
+                        titleName: topicData.topic,
+                        trailer: topicData.url == null
+                            ? Icon(Icons.arrow_forward_ios_sharp)
+                            : Icon(Icons.launch),
+                        onTap: () {
+                          if (topicData.url == null) {
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                child: TopicContentScreen(
+                                  topicName: topicData.topic,
+                                  topicRoute: topicData.route,
+                                ),
+                              ),
+                            );
+                          } else {
+                            UrlLauncher.openUrl(url: topicData.url);
+                          }
+                        });
+                  },
+                );
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
         ),
       ),
     );

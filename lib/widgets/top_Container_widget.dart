@@ -31,7 +31,7 @@ class TopContainer extends StatelessWidget {
                   child: Text(
                     title!,
                     style: TextStyle(
-                        color: isDarkTheme ? Colors.white : Colors.blue,
+                        color: isDarkTheme ? Colors.white : Colors.black,
                         fontSize: 25,
                         fontWeight: FontWeight.bold),
                   ),

@@ -1,13 +1,12 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 Widget reusableListTile({
-  required String subjectName,
-  required Widget trailer,
+  String? leadingImage,
+  required String titleName,
+  Widget? trailer,
   required Function onTap,
-}){
+}) {
   return Padding(
     padding: const EdgeInsets.all(5),
     child: Card(
@@ -16,13 +15,20 @@ Widget reusableListTile({
         borderRadius: BorderRadius.circular(20),
       ),
       child: ListTile(
-        trailing: trailer,
-        onTap: (){
+        onTap: () {
           onTap();
         },
+        leading: leadingImage != null
+            ? Container(
+                height: 40,
+                width: 40,
+                child: Image.asset(leadingImage),
+              )
+            : null,
+        trailing: trailer,
         title: Center(
           child: Text(
-            subjectName,
+            titleName,
             style: TextStyle(fontSize: 25),
           ),
         ),

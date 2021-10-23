@@ -32,15 +32,13 @@ dependencies:
   shared_preferences:
   dio: ^4.0.0
   url_launcher: ^6.0.9
-  api_cache_manager: ^1.0.2
-  card_swiper : ^1.0.4
   page_transition: ^2.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  #following adds native splash screen
-  flutter_native_splash: ^1.2.0
+#  #following adds native splash screen
+  flutter_native_splash: ^1.2.3
   #following build dart object with json serializable
   build_runner:
 

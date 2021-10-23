@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 
 class FunctionTile extends StatelessWidget {
   final String title;
   final bool isDarkTheme;
   final String imagePath;
   final Function onPress;
+
   const FunctionTile({
     Key? key,
     required this.isDarkTheme,
@@ -19,10 +21,19 @@ class FunctionTile extends StatelessWidget {
       onTap: () {
         onPress();
       },
-      child: Card(
-        elevation: 10,
-        color: isDarkTheme ? Colors.blueGrey : Colors.blue,
-        shadowColor: isDarkTheme ? Colors.grey : Colors.black,
+      child: Container(
+        decoration: BoxDecoration(
+          color: isDarkTheme ? Colors.blueGrey : Colors.white,
+          borderRadius: BorderRadius.circular(40),
+          boxShadow: [
+            BoxShadow(
+              color: Color(0xfff3e5f5),
+              blurRadius: 5,
+              spreadRadius: 0,
+              offset: Offset.zero,
+            )
+          ],
+        ),
         child: Column(
           children: [
             Container(
@@ -36,7 +47,7 @@ class FunctionTile extends StatelessWidget {
             Text(
               title,
               style: TextStyle(
-                color: isDarkTheme ? Colors.blueGrey.shade900 : Colors.white,
+                color: isDarkTheme ? Colors.blueGrey.shade900 : Colors.black,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),

@@ -17,7 +17,10 @@ class SubjectsScreen extends StatelessWidget {
         title: Text("Level $level"),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10,),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 15,
+          vertical: 10,
+        ),
         child: Container(
           child: FutureBuilder<List<Subject>>(
             future: HttpService().getSubjects(level: level),
@@ -31,9 +34,11 @@ class SubjectsScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     var subjectData = subjectList[index];
                     return reusableListTile(
-                        subjectName: subjectData.subName,
-                        trailer: subjectData.url == null ? Icon(Icons.arrow_forward_ios_sharp) : Icon(Icons.launch),
-                        onTap: (){
+                        titleName: subjectData.subName,
+                        trailer: subjectData.url == null
+                            ? Icon(Icons.arrow_forward_ios_sharp)
+                            : Icon(Icons.launch),
+                        onTap: () {
                           if (subjectData.url == null) {
                             Navigator.push(
                               context,
@@ -42,12 +47,13 @@ class SubjectsScreen extends StatelessWidget {
                                 child: TopicsScreen(
                                   subjectRoute: subjectData.route,
                                   subjectName: subjectData.subName,
-                                ),),);
+                                ),
+                              ),
+                            );
                           } else {
                             UrlLauncher.openUrl(url: subjectData.url);
                           }
-                        }
-                        );
+                        });
                   },
                 );
               } else {

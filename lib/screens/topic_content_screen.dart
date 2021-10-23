@@ -22,32 +22,38 @@ class TopicContentScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(topicName),
       ),
-      body: Container(
-        child: FutureBuilder<List<TopicContent>>(
-          future: HttpService().getTopicContent(topicRoute!),
-          builder: (context, topicContent) {
-            if (topicContent.hasData) {
-              var topicContentList = topicContent.data;
-              return ListView.builder(
-                physics: BouncingScrollPhysics(),
-                itemCount: topicContentList!.length,
-                itemBuilder: (context, index) {
-                  var topicContentData = topicContentList[index];
-                  return reusableListTile(
-                    subjectName: topicContentData.title,
-                    onTap: () {
-                      UrlLauncher.openUrl(url: topicContentData.url);
-                    },
-                    trailer: Icon(Icons.launch),
-                  );
-                },
-              );
-            } else {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 15,
+          vertical: 10,
+        ),
+        child: Container(
+          child: FutureBuilder<List<TopicContent>>(
+            future: HttpService().getTopicContent(topicRoute!),
+            builder: (context, topicContent) {
+              if (topicContent.hasData) {
+                var topicContentList = topicContent.data;
+                return ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  itemCount: topicContentList!.length,
+                  itemBuilder: (context, index) {
+                    var topicContentData = topicContentList[index];
+                    return reusableListTile(
+                      titleName: topicContentData.title,
+                      onTap: () {
+                        UrlLauncher.openUrl(url: topicContentData.url);
+                      },
+                      trailer: Icon(Icons.launch),
+                    );
+                  },
+                );
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
         ),
       ),
     );
