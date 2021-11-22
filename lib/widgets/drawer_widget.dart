@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-Widget drawer(bool isDarkTheme) {
-  final Color themeColor = isDarkTheme ? Colors.black : Colors.white;
+Widget drawer() {
+  final Color themeColor = Colors.white;
   return Drawer(
     child: ListView(
       children: [

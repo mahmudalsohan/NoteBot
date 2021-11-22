@@ -1,10 +1,11 @@
 import 'package:butex_notebot/models/subject_model.dart';
 import 'package:butex_notebot/networking/http_service.dart';
-import 'package:butex_notebot/screens/topics_screen.dart';
+import 'package:butex_notebot/views/academic_views/topics_screen.dart';
 import 'package:butex_notebot/utils/open_url.dart';
 import 'package:butex_notebot/widgets/reusable_list_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 
 class SubjectsScreen extends StatelessWidget {
   final int level;
@@ -25,7 +26,6 @@ class SubjectsScreen extends StatelessWidget {
           child: FutureBuilder<List<Subject>>(
             future: HttpService().getSubjects(level: level),
             builder: (BuildContext context, subjects) {
-              print("subjects.data: ${subjects.data}");
               if (subjects.hasData) {
                 var subjectList = subjects.data;
                 return ListView.builder(
@@ -40,16 +40,10 @@ class SubjectsScreen extends StatelessWidget {
                             : Icon(Icons.launch),
                         onTap: () {
                           if (subjectData.url == null) {
-                            Navigator.push(
-                              context,
-                              PageTransition(
-                                type: PageTransitionType.rightToLeft,
-                                child: TopicsScreen(
+                            Get.to(() => TopicsScreen(
                                   subjectRoute: subjectData.route,
                                   subjectName: subjectData.subName,
-                                ),
-                              ),
-                            );
+                                ));
                           } else {
                             UrlLauncher.openUrl(url: subjectData.url);
                           }

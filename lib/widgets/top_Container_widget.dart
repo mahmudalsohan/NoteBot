@@ -1,21 +1,21 @@
+import 'package:butex_notebot/constants/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class TopContainer extends StatelessWidget {
   final String imagePath;
-  final bool isDarkTheme;
   final String? title;
   const TopContainer({
     Key? key,
     required this.imagePath,
     this.title,
-    required this.isDarkTheme,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.12,
-      width: MediaQuery.of(context).size.width,
+      height: Get.height * 0.12,
+      width: Get.width,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.baseline,
         textBaseline: TextBaseline.alphabetic,
@@ -30,10 +30,7 @@ class TopContainer extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 10),
                   child: Text(
                     title!,
-                    style: TextStyle(
-                        color: isDarkTheme ? Colors.white : Colors.black,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold),
+                    style: AppTextStyles().kTopContainerTextStyle,
                   ),
                 )
               : Text(""),

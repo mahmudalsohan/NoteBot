@@ -1,28 +1,27 @@
-import 'package:butex_notebot/entertainment/notebird/notebird_home.dart';
-import 'package:butex_notebot/provider/theme_provider.dart';
+import 'package:butex_notebot/constants/asset_path.dart';
 import 'package:butex_notebot/widgets/appBar_widget.dart';
 import 'package:butex_notebot/widgets/function_tile_widget.dart';
 import 'package:butex_notebot/widgets/top_Container_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+import 'notebird/notebird_home.dart';
 
 class EntertainmentHomeScreen extends StatelessWidget {
   const EntertainmentHomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    bool isDarkTheme = Provider.of<ThemeProvider>(context).isDarkTheme;
     return Scaffold(
-      appBar: customAppBar(isDarkTheme),
+      appBar: customAppBar(context),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: Column(
           children: [
             TopContainer(
-              imagePath: "assets/images/entertainment.png",
-              isDarkTheme: isDarkTheme,
+              imagePath: entertainmentImage,
               title: "Entertainment",
             ),
             Expanded(
@@ -34,16 +33,9 @@ class EntertainmentHomeScreen extends StatelessWidget {
                 children: [
                   FunctionTile(
                     title: "Note Bird",
-                    imagePath: "assets/images/notebot_logo.png",
-                    isDarkTheme: isDarkTheme,
+                    imagePath: logo,
                     onPress: () {
-                      Navigator.push(
-                        context,
-                        PageTransition(
-                          child: NotebirdHomePage(),
-                          type: PageTransitionType.rightToLeft,
-                        ),
-                      );
+                      Get.to(() => NotebirdHomePage());
                     },
                   ),
                 ],

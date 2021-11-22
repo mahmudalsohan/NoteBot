@@ -1,10 +1,11 @@
 import 'package:butex_notebot/models/topic_model.dart';
 import 'package:butex_notebot/networking/http_service.dart';
-import 'package:butex_notebot/screens/topic_content_screen.dart';
+import 'package:butex_notebot/views/academic_views/topic_content_screen.dart';
 import 'package:butex_notebot/utils/open_url.dart';
 import 'package:butex_notebot/widgets/reusable_list_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 
 class TopicsScreen extends StatelessWidget {
   final String? subjectRoute;
@@ -44,16 +45,10 @@ class TopicsScreen extends StatelessWidget {
                             : Icon(Icons.launch),
                         onTap: () {
                           if (topicData.url == null) {
-                            Navigator.push(
-                              context,
-                              PageTransition(
-                                type: PageTransitionType.rightToLeft,
-                                child: TopicContentScreen(
-                                  topicName: topicData.topic,
-                                  topicRoute: topicData.route,
-                                ),
-                              ),
-                            );
+                            Get.to(TopicContentScreen(
+                              topicName: topicData.topic,
+                              topicRoute: topicData.route,
+                            ));
                           } else {
                             UrlLauncher.openUrl(url: topicData.url);
                           }

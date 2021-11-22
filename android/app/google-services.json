@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "393120085405",
+    "project_id": "notebot-c67bb",
+    "storage_bucket": "notebot-c67bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:393120085405:android:f07228b16a25b6cd6d2b74",
+        "android_client_info": {
+          "package_name": "com.example.butex_notebot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "393120085405-hm97kh8uemjmfudsag5n1okf6330lcek.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.butex_notebot",
+            "certificate_hash": "6e798345520b0debf1cde4bc464555c7cc7c140e"
+          }
+        },
+        {
+          "client_id": "393120085405-lt4u1d50oi16qm4sfnurvgd4186cg0l6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPGjAuHmpWNctHxpJcVaFj2WFk7OARfLM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "393120085405-lt4u1d50oi16qm4sfnurvgd4186cg0l6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

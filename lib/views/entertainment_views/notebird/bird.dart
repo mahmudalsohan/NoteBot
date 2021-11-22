@@ -12,7 +12,7 @@ class MyBird extends StatelessWidget {
     return Container(
         alignment: Alignment(0, (2 * birdY + birdHeight) / (2 - birdHeight)),
         child: Image.asset(
-          'assets/images/notebot_logo.png',
+          'assets/images/notebot.png',
           width: MediaQuery.of(context).size.height * birdWidth / 2,
           height: MediaQuery.of(context).size.height * 3 / 4 * birdHeight / 2,
           fit: BoxFit.fill,

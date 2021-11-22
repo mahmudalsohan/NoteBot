@@ -1,20 +1,18 @@
-import 'package:butex_notebot/provider/theme_provider.dart';
-import 'package:butex_notebot/screens/levels_screen.dart';
+import 'package:butex_notebot/constants/asset_path.dart';
+import 'package:butex_notebot/views/academic_views/levels_screen.dart';
 import 'package:butex_notebot/widgets/appBar_widget.dart';
 import 'package:butex_notebot/widgets/function_tile_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 
 class AcademicScreen extends StatelessWidget {
   const AcademicScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkTheme = Provider.of<ThemeProvider>(context).isDarkTheme;
-
     return Scaffold(
-      appBar: customAppBar(isDarkTheme),
+      appBar: customAppBar(context),
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 10),
         child: GridView.count(
@@ -25,22 +23,14 @@ class AcademicScreen extends StatelessWidget {
           children: [
             FunctionTile(
               title: "Notes",
-              imagePath: "assets/images/notes.png",
-              isDarkTheme: isDarkTheme,
+              imagePath: noteSectionImage,
               onPress: () {
-                Navigator.push(
-                  context,
-                  PageTransition(
-                    type: PageTransitionType.rightToLeft,
-                    child: LevelsScreen(),
-                  ),
-                );
+                Get.to(() => LevelsScreen());
               },
             ),
             FunctionTile(
               title: "Lab Reports",
-              imagePath: "assets/images/lab_reports.png",
-              isDarkTheme: isDarkTheme,
+              imagePath: labReportSectionImage,
               onPress: () {},
             ),
           ],

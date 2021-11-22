@@ -1,15 +1,14 @@
+import 'package:butex_notebot/constants/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 class FunctionTile extends StatelessWidget {
   final String title;
-  final bool isDarkTheme;
   final String imagePath;
   final Function onPress;
 
   const FunctionTile({
     Key? key,
-    required this.isDarkTheme,
     required this.onPress,
     required this.title,
     required this.imagePath,
@@ -23,7 +22,7 @@ class FunctionTile extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: isDarkTheme ? Colors.blueGrey : Colors.white,
+          color: Theme.of(context).colorScheme.primary,
           borderRadius: BorderRadius.circular(40),
           boxShadow: [
             BoxShadow(
@@ -46,11 +45,7 @@ class FunctionTile extends StatelessWidget {
             ),
             Text(
               title,
-              style: TextStyle(
-                color: isDarkTheme ? Colors.blueGrey.shade900 : Colors.black,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: AppTextStyles().kFunctionTileTextStyle,
             ),
           ],
         ),

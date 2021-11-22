@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'change_theme_button_widget.dart';
 
-PreferredSizeWidget customAppBar(bool isDarkTheme) {
+PreferredSizeWidget customAppBar(BuildContext context) {
   return AppBar(
     elevation: 0,
-    backgroundColor: isDarkTheme ? Colors.blueGrey : Color(0xffce93d8),
+    backgroundColor: Theme.of(context).colorScheme.primary,
     title: Text(
       "NoteBot",
       style: TextStyle(
