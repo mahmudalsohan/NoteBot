@@ -25,25 +25,6 @@ class ThemeController extends GetxController {
     isDarkMode.value = _getStorage.read(GetStorageKey.IS_DARK_MODE);
   }
 
-  /*ThemeData darkTheme() {
-    return ThemeData.dark().copyWith(
-      primaryColor: Color(0xff15181C),
-      textTheme: TextTheme(
-        headline1: TextStyle(
-          color: Colors.red,
-          fontSize: 25,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
-  }
-
-  ThemeData lightTheme() {
-    return ThemeData.light().copyWith(
-      primaryColor: Color(0xffce93d8),
-    );
-  }*/
-
   void changeTheme(BuildContext context) {
     final theme =
         Get.isDarkMode ? AppThemes.lightThemeData : AppThemes.darkThemeData;

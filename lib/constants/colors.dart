@@ -20,4 +20,8 @@ class AppColors {
       ? Color(0xDDFFFFFF)
       : Color(0xDDFFFFFF);
   var kBlackColor = Colors.black;
+
+  var kThemeIconColor = GetStorage().read(GetStorageKey.IS_DARK_MODE)
+      ? Colors.yellow
+      : Color(0xDDFFFFFF);
 }

@@ -36,6 +36,7 @@ dependencies:
   firebase_core: ^1.8.0
   google_fonts: ^2.1.0
   animated_theme_switcher: ^2.0.1
+  card_swiper: ^1.0.4
 
 dev_dependencies:
   flutter_test:

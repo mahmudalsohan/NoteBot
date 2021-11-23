@@ -12,15 +12,18 @@ class ChangeThemeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ThemeSwitcher(
       builder: (context) => Obx(
-        () => IconButton(
-          onPressed: () {
+        () => InkWell(
+          onTap: () {
             themeController.changeTheme(context);
           },
-          icon: themeController.isDarkMode.value
-              ? Icon(CupertinoIcons.brightness)
+          child: themeController.isDarkMode.value
+              ? Icon(
+                  CupertinoIcons.brightness,
+                  color: AppColors().kThemeIconColor,
+                )
               : Icon(
                   CupertinoIcons.moon_stars,
-                  color: AppColors().kBlackColor,
+                  color: AppColors().kThemeIconColor,
                 ),
         ),
       ),

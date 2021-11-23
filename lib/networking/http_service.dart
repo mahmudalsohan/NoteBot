@@ -1,3 +1,4 @@
+import 'package:butex_notebot/models/notice_model.dart';
 import 'package:butex_notebot/models/subject_model.dart';
 import 'package:butex_notebot/models/topic_content_model.dart';
 import 'package:butex_notebot/models/topic_model.dart';
@@ -82,6 +83,21 @@ class HttpService {
     data = (response.data as List)
         .map(
           (e) => TopicContent.fromJson(e),
+        )
+        .toList();
+
+    return data;
+  }
+
+  //get all the Notices from Butex Website
+  Future<List<Notice>> getNotices({required String noticeRoute}) async {
+    List<Notice> data = <Notice>[];
+
+    var response = await _getResponse(noticeRoute);
+
+    data = (response.data as List)
+        .map(
+          (e) => Notice.fromJson(e),
         )
         .toList();
 

@@ -28,6 +28,7 @@ void main() async {
           isDarkMode ? AppThemes.darkThemeData : AppThemes.lightThemeData,
       child: Builder(
         builder: (context) => GetMaterialApp(
+          debugShowCheckedModeBanner: false,
           home: HomeScreen(),
           theme: ThemeProvider.of(context),
           darkTheme: AppThemes.darkThemeData,
