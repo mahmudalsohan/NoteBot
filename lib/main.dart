@@ -32,7 +32,7 @@ void main() async {
           home: HomeScreen(),
           theme: ThemeProvider.of(context),
           darkTheme: AppThemes.darkThemeData,
-          defaultTransition: Transition.rightToLeftWithFade,
+          defaultTransition: Transition.rightToLeft,
         ),
       ),
     ),

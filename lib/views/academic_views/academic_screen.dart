@@ -12,7 +12,10 @@ class AcademicScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(context),
+      appBar: customAppBar(
+        context: context,
+        title: "Academic",
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 10),
         child: GridView.count(

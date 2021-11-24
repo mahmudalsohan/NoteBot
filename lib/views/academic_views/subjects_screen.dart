@@ -2,6 +2,7 @@ import 'package:butex_notebot/models/subject_model.dart';
 import 'package:butex_notebot/networking/http_service.dart';
 import 'package:butex_notebot/views/academic_views/topics_screen.dart';
 import 'package:butex_notebot/utils/open_url.dart';
+import 'package:butex_notebot/widgets/appBar_widget.dart';
 import 'package:butex_notebot/widgets/reusable_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -14,12 +15,12 @@ class SubjectsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Level $level"),
+      appBar: customAppBar(
+        context: context,
+        title: "Level: $level",
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: 15,
           vertical: 10,
         ),
         child: Container(
@@ -34,6 +35,7 @@ class SubjectsScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     var subjectData = subjectList[index];
                     return reusableListTile(
+                        isSlidable: true,
                         titleName: subjectData.subName,
                         trailer: subjectData.url == null
                             ? Icon(Icons.arrow_forward_ios_sharp)

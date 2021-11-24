@@ -5,12 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'change_theme_button_widget.dart';
 
-PreferredSizeWidget customAppBar(BuildContext context) {
+PreferredSizeWidget customAppBar(
+    {required BuildContext context, required String title}) {
   return AppBar(
     elevation: 0,
     backgroundColor: Theme.of(context).colorScheme.primary,
     title: Text(
-      "NoteBot",
+      title,
       style: TextStyle(
         color: Colors.white,
       ),

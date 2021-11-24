@@ -15,7 +15,7 @@ class EntertainmentHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(context),
+      appBar: customAppBar(context: context, title: "Entertainment"),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: Column(
