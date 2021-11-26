@@ -1,5 +1,7 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:butex_notebot/constants/asset_path.dart';
+import 'package:butex_notebot/constants/controller.dart';
+import 'package:butex_notebot/controllers/home_screen_controller.dart';
 import 'package:butex_notebot/views/academic_views/academic_screen.dart';
 import 'package:butex_notebot/widgets/appBar_widget.dart';
 import 'package:butex_notebot/widgets/carousel.dart';
@@ -19,7 +21,7 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         appBar: customAppBar(
           context: context,
-          title: "NoteBot",
+          title: "Notebot",
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
@@ -27,7 +29,7 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               children: [
                 //Carousel(),
-                ChipsContainer(),
+                //ChipsContainer(),
                 Container(
                   height: Get.height,
                   width: Get.width,

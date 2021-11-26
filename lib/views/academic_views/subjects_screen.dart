@@ -35,6 +35,7 @@ class SubjectsScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     var subjectData = subjectList[index];
                     return reusableListTile(
+                        route: subjectData.route,
                         isSlidable: true,
                         titleName: subjectData.subName,
                         trailer: subjectData.url == null

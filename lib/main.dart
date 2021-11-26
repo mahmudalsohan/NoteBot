@@ -2,6 +2,7 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:butex_notebot/constants/firebase.dart';
 import 'package:butex_notebot/constants/themes.dart';
 import 'package:butex_notebot/controllers/app_controller.dart';
+import 'package:butex_notebot/controllers/home_screen_controller.dart';
 import 'package:butex_notebot/controllers/theme_controller.dart';
 import 'package:butex_notebot/views/academic_views/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ void main() async {
   await initializeFirebase.then((value) {
     Get.put(AppController());
     Get.put(ThemeController());
+    Get.put(HomeScreenController());
   });
   runApp(
     ThemeProvider(
