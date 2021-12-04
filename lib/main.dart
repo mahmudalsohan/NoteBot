@@ -1,42 +1,54 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/constants/firebase.dart';
 import 'package:butex_notebot/constants/themes.dart';
-import 'package:butex_notebot/controllers/app_controller.dart';
-import 'package:butex_notebot/controllers/home_screen_controller.dart';
-import 'package:butex_notebot/controllers/theme_controller.dart';
-import 'package:butex_notebot/views/academic_views/home_screen.dart';
+import 'package:butex_notebot/views/auth_view/auth_view.dart';
+import 'package:butex_notebot/views/home_view/home_view.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:flutter_config/flutter_config.dart';
+import 'constants/get_storage.dart';
 
-import 'constants/get_storage_key.dart';
+Future<void> backgroundMessageHandler(RemoteMessage message) async {
+  print(message.data.toString());
+  print(message.notification!.title);
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await GetStorage.init();
-  final _getStorage = GetStorage();
-  bool isDarkMode = _getStorage.read(GetStorageKey.IS_DARK_MODE) ?? false;
-  _getStorage.write(GetStorageKey.IS_DARK_MODE, isDarkMode);
+  await FlutterConfig.loadEnvVariables();
+  await initializeGetStorage();
   await initializeFirebase.then((value) {
-    Get.put(AppController());
-    Get.put(ThemeController());
-    Get.put(HomeScreenController());
+    FirebaseMessaging.onBackgroundMessage(backgroundMessageHandler);
+    initializeControllers();
   });
-  runApp(
-    ThemeProvider(
-      initTheme:
-          isDarkMode ? AppThemes.darkThemeData : AppThemes.lightThemeData,
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ThemeProvider(
+      initTheme: themeController.isDarkMode.value
+          ? AppThemes.darkThemeData
+          : AppThemes.lightThemeData,
       child: Builder(
         builder: (context) => GetMaterialApp(
+          getPages: [
+            GetPage(name: '/', page: () => AuthView()),
+            GetPage(name: '/home', page: () => HomeView())
+          ],
+          initialRoute: '/',
           debugShowCheckedModeBanner: false,
-          home: HomeScreen(),
+          //home: AuthView(),
           theme: ThemeProvider.of(context),
           darkTheme: AppThemes.darkThemeData,
           defaultTransition: Transition.rightToLeft,
         ),
       ),
-    ),
-  );
+    );
+  }
 }

@@ -1,9 +1,8 @@
-import 'package:butex_notebot/models/menu_item.dart';
-import 'package:butex_notebot/models/menu_items.dart';
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:butex_notebot/constants/colors.dart';
+import 'package:butex_notebot/constants/controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'change_theme_button_widget.dart';
 
 PreferredSizeWidget customAppBar(
     {required BuildContext context, required String title}) {
@@ -16,39 +15,38 @@ PreferredSizeWidget customAppBar(
         color: Colors.white,
       ),
     ),
-    actions: [
-      ChangeThemeButton(),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 5),
-        child: Icon(Icons.refresh),
-      ),
-      InkWell(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: Image.asset(
-            "assets/images/messenger.png",
-            height: 20,
-            width: 20,
-          ),
-        ),
-      ),
-      InkWell(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: Icon(
-            Icons.phone,
-            color: Colors.greenAccent,
-          ),
-        ),
-      ),
-      PopupMenuButton<MenuItem>(
-        itemBuilder: (context) =>
-            MenuItems.menuItemsList.map(buildItem).toList(),
-      )
-    ],
+    // actions: [
+    //   ThemeSwitcher(
+    //     builder: (context) => Obx(
+    //       () => InkWell(
+    //         onTap: () {
+    //           themeController.changeTheme(context);
+    //         },
+    //         child: themeController.isDarkMode.value
+    //             ? Icon(
+    //                 CupertinoIcons.brightness,
+    //                 color: AppColors().kThemeIconColor,
+    //               )
+    //             : Icon(
+    //                 CupertinoIcons.moon_stars,
+    //                 color: AppColors().kThemeIconColor,
+    //               ),
+    //       ),
+    //     ),
+    //   ),
+    //   /*PopupMenuButton<MenuItem>(
+    //     itemBuilder: (context) =>
+    //         MenuItems.menuItemsList.map(buildItem).toList(),
+    //   )*/
+    // ],
   );
 }
 
+/*
 PopupMenuItem<MenuItem> buildItem(MenuItem item) => PopupMenuItem(
+      onTap: () {
+        item.onTap();
+      },
       child: Text(item.text),
     );
+*/

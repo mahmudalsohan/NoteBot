@@ -9,7 +9,7 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 
 class TopicsScreen extends StatelessWidget {
   final String? subjectRoute;
-  final String subjectName;
+  final String? subjectName;
   const TopicsScreen({
     Key? key,
     required this.subjectName,
@@ -20,7 +20,7 @@ class TopicsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(subjectName),
+        title: Text(subjectName ?? ""),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -39,7 +39,7 @@ class TopicsScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     var topicData = topicList[index];
                     return reusableListTile(
-                        titleName: topicData.topic,
+                        title: topicData.topic,
                         trailer: topicData.url == null
                             ? Icon(Icons.arrow_forward_ios_sharp)
                             : Icon(Icons.launch),

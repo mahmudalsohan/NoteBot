@@ -1,4 +1,6 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:butex_notebot/constants/controller.dart';
+import 'package:butex_notebot/constants/themes.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,15 +18,15 @@ class Carousel extends StatelessWidget {
     return Obx(() => Container(
           height: 160,
           width: Get.width,
-          child: homeScreenController.feed.value.items != null
+          child: homeViewController.feed.value.items != null
               ? Swiper(
                   itemBuilder: (BuildContext context, int index) {
-                    final item = homeScreenController.feed.value.items![index];
+                    final item = homeViewController.feed.value.items![index];
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 30),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: ThemeProvider.of(context)!.backgroundColor,
                           borderRadius: BorderRadius.circular(15),
                           boxShadow: [
                             BoxShadow(
@@ -63,7 +65,7 @@ class Carousel extends StatelessWidget {
                       ),
                     );
                   },
-                  itemCount: homeScreenController.feed.value.items!.length,
+                  itemCount: homeViewController.feed.value.items!.length,
                   viewportFraction: 0.8,
                   scale: 0.9,
                   autoplay: true,

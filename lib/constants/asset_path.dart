@@ -11,6 +11,8 @@ final String levelThreeImage = _getImagePath("l3.png");
 final String levelFourImage = _getImagePath("l4.png");
 final String labReportSectionImage = _getImagePath("lab_reports.png");
 final String noteSectionImage = _getImagePath("notes.png");
+final String googleLogo = _getImagePath("google-logo.png");
+final String messengerImage = _getImagePath("messenger.png");
 
 String _getImagePath(String filename) {
   return imageAssetsRoot + filename;

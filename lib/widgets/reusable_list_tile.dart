@@ -1,4 +1,5 @@
 import 'package:butex_notebot/constants/controller.dart';
+import 'package:butex_notebot/constants/get_storage_key.dart';
 import 'package:butex_notebot/models/shortcut_chip.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,12 +7,14 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get_storage/get_storage.dart';
 
 Widget reusableListTile({
   bool isSlidable = false,
-  required String titleName,
+  required String title,
   String? route,
   Widget? trailer,
+  Widget? leading,
   required Function onTap,
 }) {
   Widget slidableListTile = Slidable(
@@ -21,10 +24,10 @@ Widget reusableListTile({
         SlidableAction(
           onPressed: (context) {
             if (route != null) {
-              if (homeScreenController.allChips.length < 4) {
-                homeScreenController.allChips.add(
-                  ShortcutChip(subName: titleName, route: route),
-                );
+              if (homeViewController.chipTitles.length < 8) {
+                GetStorage().write(title, route);
+                homeViewController.chipTitles.add(title);
+                homeViewController.updateChipsStorage();
               } else {
                 Get.snackbar(
                   "Warning",
@@ -32,10 +35,16 @@ Widget reusableListTile({
                   snackPosition: SnackPosition.BOTTOM,
                 );
               }
+            } else {
+              Get.snackbar(
+                "Warning",
+                "Only Subjects can be added for Shortcut",
+                snackPosition: SnackPosition.BOTTOM,
+              );
             }
           },
-          backgroundColor: Colors.blueAccent,
-          foregroundColor: Colors.white,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
           icon: Icons.push_pin,
           label: 'Pin',
         ),
@@ -44,9 +53,10 @@ Widget reusableListTile({
     child: ListTile(
       onTap: () => onTap(),
       trailing: trailer,
+      leading: leading,
       title: Center(
         child: Text(
-          titleName,
+          title,
           style: TextStyle(fontSize: 25),
         ),
       ),
@@ -61,7 +71,7 @@ Widget reusableListTile({
               trailing: trailer,
               title: Center(
                 child: Text(
-                  titleName,
+                  title,
                   style: TextStyle(fontSize: 25),
                 ),
               ),

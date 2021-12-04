@@ -1,19 +1,41 @@
-import 'menu_item.dart';
-
-class MenuItems {
-  static const List<MenuItem> menuItemsList = [
-    itemNotebotWeb,
-    itemCommunities,
-    itemSubmission,
-    itemSettings,
-    itemAbout,
-    itemExit,
-  ];
-
-  static const itemNotebotWeb = MenuItem(text: "NoteBot Web");
-  static const itemCommunities = MenuItem(text: "Communities");
-  static const itemSubmission = MenuItem(text: "Submission");
-  static const itemSettings = MenuItem(text: "Settings");
-  static const itemAbout = MenuItem(text: "About");
-  static const itemExit = MenuItem(text: "Exit");
-}
+// import 'package:butex_notebot/constants/controller.dart';
+//
+// import 'menu_item.dart';
+//
+// class MenuItems {
+//   static final List<MenuItem> menuItemsList = [
+//     itemNotebotWeb,
+//     itemCommunities,
+//     itemSubmission,
+//     itemSettings,
+//     itemAbout,
+//     itemLogout,
+//   ];
+//
+//   static final itemNotebotWeb = MenuItem(
+//     text: "Notebot Web",
+//     onTap: () {},
+//   );
+//   static final itemCommunities = MenuItem(
+//     text: "Communities",
+//     onTap: () {},
+//   );
+//   static final itemSubmission = MenuItem(
+//     text: "Submission",
+//     onTap: () {},
+//   );
+//   static final itemSettings = MenuItem(
+//     text: "Settings",
+//     onTap: () {},
+//   );
+//   static final itemAbout = MenuItem(
+//     text: "About",
+//     onTap: () {},
+//   );
+//   static final itemLogout = MenuItem(
+//     text: "Log Out",
+//     onTap: () {
+//       authController.logout();
+//     },
+//   );
+// }

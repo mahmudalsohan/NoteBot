@@ -1,7 +1,9 @@
-import 'package:flutter/cupertino.dart';
-
-class MenuItem {
+/*class MenuItem {
   final String text;
+  final Function onTap;
 
-  const MenuItem({required this.text});
-}
+  const MenuItem({
+    required this.text,
+    required this.onTap,
+  });
+}*/

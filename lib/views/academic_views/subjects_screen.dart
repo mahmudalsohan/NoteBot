@@ -37,7 +37,7 @@ class SubjectsScreen extends StatelessWidget {
                     return reusableListTile(
                         route: subjectData.route,
                         isSlidable: true,
-                        titleName: subjectData.subName,
+                        title: subjectData.subName,
                         trailer: subjectData.url == null
                             ? Icon(Icons.arrow_forward_ios_sharp)
                             : Icon(Icons.launch),
