@@ -1,5 +1,4 @@
 import 'package:butex_notebot/constants/get_storage_key.dart';
-import 'package:butex_notebot/models/shortcut_chip.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
@@ -23,23 +22,27 @@ class HomeViewController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    //load();
+    //Load RSS
+    load();
+
+    //Initialize Get Storage
     _getStorage = GetStorage();
+
+    //Get the saved shortcut chips from storage
+    getShortcutChips();
+  }
+
+  getShortcutChips() {
     if (_getStorage.read(GetStorageKey.SHORTCUT_CHIPS) != null) {
-      print("GetStorageKey.SHORTCUT_CHIPS trying to assign");
       chipTitles.value = _getStorage.read(GetStorageKey.SHORTCUT_CHIPS);
-      //print(_getStorage.read(GetStorageKey.SHORTCUT_CHIPS));
-      print("GetStorageKey.SHORTCUT_CHIPS assigned");
     }
   }
 
   updateChipsStorage() {
     _getStorage.write(GetStorageKey.SHORTCUT_CHIPS, chipTitles);
-    /*chipTitles.forEach((element) {
-      _getStorage.write(GetStorageKey.SHORTCUT_CHIPS, element);
-    });*/
   }
 
+  //Here starts the methods of Fetching RSS Feed
   updateFeed(newFeed) {
     //print("updateFeed: Called");
     feed.value = newFeed;
@@ -82,4 +85,5 @@ class HomeViewController extends GetxController {
     //print("loadFeed: Null Returned");
     return null;
   }
+  //
 }

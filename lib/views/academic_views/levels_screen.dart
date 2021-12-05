@@ -1,7 +1,5 @@
-import 'package:butex_notebot/constants/asset_path.dart';
 import 'package:butex_notebot/views/academic_views/subjects_screen.dart';
 import 'package:butex_notebot/widgets/appBar_widget.dart';
-import 'package:butex_notebot/widgets/function_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
@@ -18,37 +16,33 @@ class LevelsScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 10),
-        child: GridView.count(
-          crossAxisCount: 2,
-          padding: const EdgeInsets.all(20),
-          crossAxisSpacing: 20,
-          mainAxisSpacing: 20,
+        child: Column(
           children: [
-            FunctionTile(
-              title: "Level 1",
-              imagePath: levelOneImage,
-              onPress: () {
+            ListTile(
+              title: Text("Level 1"),
+              //imagePath: levelOneImage,
+              onTap: () {
                 Get.to(() => SubjectsScreen(level: 1));
               },
             ),
-            FunctionTile(
-              title: "Level 2",
-              imagePath: levelTwoImage,
-              onPress: () {
+            ListTile(
+              title: Text("Level 2"),
+              //imagePath: levelTwoImage,
+              onTap: () {
                 Get.to(() => SubjectsScreen(level: 2));
               },
             ),
-            FunctionTile(
-              title: "Level 3",
-              imagePath: levelThreeImage,
-              onPress: () {
+            ListTile(
+              title: Text("Level 3"),
+              //imagePath: levelThreeImage,
+              onTap: () {
                 Get.to(() => SubjectsScreen(level: 3));
               },
             ),
-            FunctionTile(
-              title: "Level 4",
-              imagePath: levelFourImage,
-              onPress: () {
+            ListTile(
+              title: Text("Level 4"),
+              //imagePath: levelFourImage,
+              onTap: () {
                 Get.to(() => SubjectsScreen(level: 4));
               },
             ),

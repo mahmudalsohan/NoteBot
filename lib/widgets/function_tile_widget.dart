@@ -1,4 +1,3 @@
-import 'package:butex_notebot/constants/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
@@ -7,7 +6,9 @@ class FunctionTile extends StatelessWidget {
   final String imagePath;
   final Function onPress;
 
-  const FunctionTile({
+  final Color kTenBlackColor = Colors.black12; // alpha = 0.2
+
+  FunctionTile({
     Key? key,
     required this.onPress,
     required this.title,
@@ -22,30 +23,47 @@ class FunctionTile extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary,
-          borderRadius: BorderRadius.circular(40),
+          color: Theme.of(context).colorScheme.background,
+          borderRadius: BorderRadius.circular(20),
+          /*gradient: RadialGradient(
+            center: Alignment(0, 0), // near the top right
+            radius: 0.2,
+            colors: <Color>[
+              Theme.of(context)
+                  .colorScheme
+                  .onBackground, //Color(0xFFFFFF00), // yellow sun
+              Theme.of(context)
+                  .colorScheme
+                  .onSecondary, //Color(0xFF0099FF), // blue sky
+            ],
+            stops: <double>[0.4, 1.0],
+          ),*/
           boxShadow: [
             BoxShadow(
-              color: Color(0xfff3e5f5),
-              blurRadius: 5,
-              spreadRadius: 0,
-              offset: Offset.zero,
-            )
+              //offset: Offset(8.0, 8.0),
+              blurRadius: 25,
+              spreadRadius: 5,
+              color: kTenBlackColor,
+            ),
           ],
         ),
         child: Column(
           children: [
-            Container(
-              height: 130,
-              width: 100,
-              child: Image(
-                image: AssetImage(imagePath),
-                fit: BoxFit.contain,
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image(
+                  image: AssetImage(imagePath),
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
-            Text(
-              title,
-              style: AppTextStyles().kFunctionTileTextStyle,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Text(
+                title,
+                //style: AppTextStyles().kFunctionTileTextStyle,
+              ),
             ),
           ],
         ),

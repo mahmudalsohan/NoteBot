@@ -21,7 +21,7 @@ class EntertainmentHomeScreen extends StatelessWidget {
         child: Column(
           children: [
             TopContainer(
-              imagePath: entertainmentImage,
+              imagePath: entertainmentSectionImage,
               title: "Entertainment",
             ),
             Expanded(

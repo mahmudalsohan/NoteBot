@@ -1,6 +1,5 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:butex_notebot/constants/controller.dart';
-import 'package:butex_notebot/constants/themes.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +25,7 @@ class Carousel extends StatelessWidget {
                       padding: const EdgeInsets.only(bottom: 30),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: ThemeProvider.of(context)!.backgroundColor,
+                          color: Theme.of(context).colorScheme.background,
                           borderRadius: BorderRadius.circular(15),
                           boxShadow: [
                             BoxShadow(
@@ -73,9 +72,7 @@ class Carousel extends StatelessWidget {
                   duration: 500,
                   curve: Curves.easeInOutQuart,
                 )
-              : Center(
-                  child: CircularProgressIndicator(),
-                ),
+              : Center(child: CircularProgressIndicator()),
         ));
   }
 }

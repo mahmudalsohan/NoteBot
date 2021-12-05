@@ -51,11 +51,12 @@ class HttpService {
 
   //get all the subjects of a level
   Future<List<Subject>> getSubjects({required int level}) async {
+    print("getSubject: $level");
     List<Subject> data = <Subject>[];
     var response = await _getResponse("app/notes/$level");
 
     data = (response.data as List).map((e) => Subject.fromJson(e)).toList();
-
+    print("getSubject: Returning Future");
     return data;
   }
 

@@ -1,5 +1,5 @@
 import 'package:butex_notebot/controllers/app_controller.dart';
-import 'package:butex_notebot/controllers/home_screen_controller.dart';
+import 'package:butex_notebot/controllers/home_view_controller.dart';
 import 'package:butex_notebot/controllers/theme_controller.dart';
 import 'package:butex_notebot/controllers/auth_controller.dart';
 import 'package:get/get_core/src/get_main.dart';
