@@ -22,7 +22,7 @@ class HomeView extends StatelessWidget {
         physics: BouncingScrollPhysics(),
         child: Column(
           children: [
-            SizedBox(height: 20),
+            SizedBox(height: 15),
             //
             Carousel(),
             //
@@ -33,7 +33,7 @@ class HomeView extends StatelessWidget {
             PinSection(),
             //
             //
-            SizedBox(height: 50),
+            SizedBox(height: 40),
             //
             //
             //Grid Container

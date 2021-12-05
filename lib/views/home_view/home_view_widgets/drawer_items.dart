@@ -74,11 +74,6 @@ final List<Widget> drawerItems = [
     title: 'Settings',
   ),
   drawerListTile(
-    onTap: () {},
-    leading: Icon(Icons.info),
-    title: 'About Us',
-  ),
-  drawerListTile(
     onTap: () {
       authController.logout();
     },

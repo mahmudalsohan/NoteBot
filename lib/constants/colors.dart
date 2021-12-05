@@ -7,15 +7,23 @@ class AppColors {
   static const Color _kKeyPenumbraOpacity = Color(0x24000000); // alpha = 0.14
   static const Color _kAmbientShadowOpacity = Color(0x1F000000);
 
-  var carouselGradientColors = GetStorage().read(GetStorageKey.IS_DARK_MODE)
-      ? [
-          Colors.lightBlue,
-          Colors.lightBlue.shade100,
-        ]
-      : [
-          Colors.deepPurple.shade300,
-          Color(0xFF6200EE),
-        ];
+  List carouselGradientColors = [
+    [
+      Color(0xffffe287),
+      Color(0xffffc103),
+      Color(0xffffc000),
+    ],
+    [
+      Color(0xfffe9d9b),
+      Color(0xfff85b50),
+      Color(0xfffc5c4d),
+    ],
+    [
+      Color(0xff9996fb),
+      Color(0xff7c3efb),
+      Color(0xff8037fa),
+    ],
+  ];
 
   final List<BoxShadow> carouselShadowColors =
       GetStorage().read(GetStorageKey.IS_DARK_MODE)

@@ -18,15 +18,17 @@ class Carousel extends StatelessWidget {
               ? Swiper(
                   itemBuilder: (BuildContext context, int index) {
                     final item = homeViewController.feed.value.items![index];
+                    final int gradient = index % 3;
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 30),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: AppColors().carouselGradientColors,
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomLeft,
+                            colors:
+                                AppColors().carouselGradientColors[gradient],
                           ),
                           boxShadow: AppColors().carouselShadowColors,
                         ),
@@ -53,7 +55,11 @@ class Carousel extends StatelessWidget {
                   viewportFraction: 0.8,
                   scale: 0.9,
                   autoplay: true,
-                  pagination: SwiperPagination(),
+                  pagination: SwiperPagination(
+                      builder: DotSwiperPaginationBuilder(
+                    activeColor: Theme.of(context).primaryColor,
+                    color: Colors.grey,
+                  )),
                   duration: 500,
                   curve: Curves.easeInOutQuart,
                 )
