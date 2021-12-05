@@ -25,19 +25,6 @@ class FunctionTile extends StatelessWidget {
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.background,
           borderRadius: BorderRadius.circular(20),
-          /*gradient: RadialGradient(
-            center: Alignment(0, 0), // near the top right
-            radius: 0.2,
-            colors: <Color>[
-              Theme.of(context)
-                  .colorScheme
-                  .onBackground, //Color(0xFFFFFF00), // yellow sun
-              Theme.of(context)
-                  .colorScheme
-                  .onSecondary, //Color(0xFF0099FF), // blue sky
-            ],
-            stops: <double>[0.4, 1.0],
-          ),*/
           boxShadow: [
             BoxShadow(
               //offset: Offset(8.0, 8.0),

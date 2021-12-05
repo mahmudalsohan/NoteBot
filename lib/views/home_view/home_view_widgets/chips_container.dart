@@ -1,5 +1,6 @@
 import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/constants/get_storage_key.dart';
+import 'package:butex_notebot/constants/text_styles.dart';
 import 'package:butex_notebot/views/academic_views/topics_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class ChipsContainer extends StatelessWidget {
                 .map(
                   (chipTitle) => Padding(
                     padding:
-                        const EdgeInsets.symmetric(horizontal: 3, vertical: 3),
+                        const EdgeInsets.symmetric(horizontal: 4, vertical: 5),
                     child: InkWell(
                       onTap: () {
                         final String route = GetStorage().read(chipTitle);
@@ -32,40 +33,30 @@ class ChipsContainer extends StatelessWidget {
                         );
                       },
                       onLongPress: () {
-                        Get.defaultDialog(
-                          title: "WARNING!!!",
-                          titleStyle: TextStyle(),
-                          middleText: "Remove $chipTitle from shortcut?",
-                          confirm: TextButton(
-                            onPressed: () {
-                              Get.back();
-                              homeViewController.chipTitles.remove(chipTitle);
-                              GetStorage().remove(chipTitle);
-                            },
-                            child: Text(
-                              "Remove",
-                              style: TextStyle(color: Colors.red),
-                            ),
-                          ),
-                          cancel: TextButton(
-                            onPressed: () {
-                              Get.back();
-                            },
-                            child: Text("Don't Remove"),
-                          ),
-                        );
+                        _showDialog(chipTitle);
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
-                          borderRadius: BorderRadius.circular(20),
+                          color: Theme.of(context).colorScheme.background,
+                          borderRadius: BorderRadius.circular(5),
+                          boxShadow: [
+                            BoxShadow(
+                              //offset: Offset(8.0, 8.0),
+                              blurRadius: 15,
+                              spreadRadius: 5,
+                              color: Colors.black12,
+                            ),
+                          ],
                         ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 5,
+                            horizontal: 10,
+                            vertical: 8,
                           ),
-                          child: Text(chipTitle),
+                          child: Text(
+                            chipTitle,
+                            style: AppTextStyles().kShortcutChipTextStyle,
+                          ),
                         ),
                       ),
                     ),
@@ -78,6 +69,31 @@ class ChipsContainer extends StatelessWidget {
                   style: TextStyle(color: Colors.grey),
                 ),
               ],
+      ),
+    );
+  }
+
+  _showDialog(chipTitle) {
+    return Get.defaultDialog(
+      title: "WARNING!!!",
+      titleStyle: TextStyle(),
+      middleText: "Remove $chipTitle from shortcut?",
+      confirm: TextButton(
+        onPressed: () {
+          Get.back();
+          homeViewController.chipTitles.remove(chipTitle);
+          GetStorage().remove(chipTitle);
+        },
+        child: Text(
+          "Remove",
+          style: TextStyle(color: Colors.red),
+        ),
+      ),
+      cancel: TextButton(
+        onPressed: () {
+          Get.back();
+        },
+        child: Text("Don't Remove"),
       ),
     );
   }

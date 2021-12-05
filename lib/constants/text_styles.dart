@@ -14,4 +14,14 @@ class AppTextStyles {
     fontSize: 15,
     color: AppColors().kSecondaryTextColor,
   );
+
+  var kHomeViewTitleTextStyle = GoogleFonts.montserrat(
+    fontSize: 25,
+    color: AppColors().kSecondaryTextColor,
+  );
+
+  var kShortcutChipTextStyle = GoogleFonts.montserrat(
+    fontSize: 15,
+    color: AppColors().kSecondaryTextColor,
+  );
 }
