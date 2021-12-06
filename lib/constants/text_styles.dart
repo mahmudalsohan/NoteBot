@@ -24,4 +24,14 @@ class AppTextStyles {
     fontSize: 15,
     color: AppColors().kSecondaryTextColor,
   );
+
+  var kLevelsViewTitleTextStyle = GoogleFonts.montserrat(
+    fontSize: 22,
+    color: AppColors().kSecondaryTextColor,
+  );
+
+  var kSelectLevelButtonTextStyle = GoogleFonts.montserrat(
+    fontSize: 25,
+    color: AppColors().kSecondaryTextColor,
+  );
 }

@@ -1,5 +1,5 @@
 import 'package:butex_notebot/constants/asset_path.dart';
-import 'package:butex_notebot/views/academic_views/levels_screen.dart';
+import 'package:butex_notebot/views/levels_view/levels_view.dart';
 import 'package:butex_notebot/widgets/appBar_widget.dart';
 import 'package:butex_notebot/widgets/function_tile_widget.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +28,7 @@ class AcademicScreen extends StatelessWidget {
               title: "Notes",
               imagePath: notesSectionImage,
               onPress: () {
-                Get.to(() => LevelsScreen());
+                Get.to(() => LevelsView());
               },
             ),
             FunctionTile(

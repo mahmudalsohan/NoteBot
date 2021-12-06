@@ -2,7 +2,7 @@ import 'dart:ffi';
 
 import 'package:butex_notebot/constants/asset_path.dart';
 import 'package:butex_notebot/constants/text_styles.dart';
-import 'package:butex_notebot/views/academic_views/levels_screen.dart';
+import 'package:butex_notebot/views/levels_view/levels_view.dart';
 import 'package:butex_notebot/views/entertainment_views/entertainment_home.dart';
 import 'package:butex_notebot/widgets/function_tile_widget.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +37,7 @@ class DashboardSection extends StatelessWidget {
                   title: "Notes",
                   imagePath: notesSectionImage,
                   onPress: () {
-                    Get.to(() => LevelsScreen());
+                    Get.to(() => LevelsView());
                   },
                 ),
                 FunctionTile(

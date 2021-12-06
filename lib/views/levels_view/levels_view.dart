@@ -1,11 +1,13 @@
+import 'package:butex_notebot/constants/text_styles.dart';
 import 'package:butex_notebot/views/academic_views/subjects_screen.dart';
 import 'package:butex_notebot/widgets/appBar_widget.dart';
+import 'package:butex_notebot/widgets/level_selection_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 
-class LevelsScreen extends StatelessWidget {
-  const LevelsScreen({Key? key}) : super(key: key);
+class LevelsView extends StatelessWidget {
+  const LevelsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,33 +17,35 @@ class LevelsScreen extends StatelessWidget {
         title: "Select Level",
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ListTile(
-              title: Text("Level 1"),
-              //imagePath: levelOneImage,
+            Text(
+              "📖 Choose Level for Notes -",
+              style: AppTextStyles().kLevelsViewTitleTextStyle,
+            ),
+            SizedBox(height: 50),
+            levelSelectionTile(
+              title: "Level 1",
               onTap: () {
                 Get.to(() => SubjectsScreen(level: 1));
               },
             ),
-            ListTile(
-              title: Text("Level 2"),
-              //imagePath: levelTwoImage,
+            levelSelectionTile(
+              title: "Level 2",
               onTap: () {
                 Get.to(() => SubjectsScreen(level: 2));
               },
             ),
-            ListTile(
-              title: Text("Level 3"),
-              //imagePath: levelThreeImage,
+            levelSelectionTile(
+              title: "Level 3",
               onTap: () {
                 Get.to(() => SubjectsScreen(level: 3));
               },
             ),
-            ListTile(
-              title: Text("Level 4"),
-              //imagePath: levelFourImage,
+            levelSelectionTile(
+              title: "Level 4",
               onTap: () {
                 Get.to(() => SubjectsScreen(level: 4));
               },

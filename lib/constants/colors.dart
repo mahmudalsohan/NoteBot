@@ -3,8 +3,8 @@ import 'package:get_storage/get_storage.dart';
 import 'get_storage_key.dart';
 
 class AppColors {
-  static const Color _kKeyUmbraOpacity = Color(0x33000000); // alpha = 0.2
-  static const Color _kKeyPenumbraOpacity = Color(0x24000000); // alpha = 0.14
+  static const Color _kKeyUmbraOpacity = Color(0x33000000);
+  static const Color _kKeyPenumbraOpacity = Color(0x24000000);
   static const Color _kAmbientShadowOpacity = Color(0x1F000000);
 
   List carouselGradientColors = [
