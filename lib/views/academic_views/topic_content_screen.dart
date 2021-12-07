@@ -39,6 +39,7 @@ class TopicContentScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     var topicContentData = topicContentList[index];
                     return reusableListTile(
+                      context: context,
                       title: topicContentData.title,
                       onTap: () {
                         UrlLauncher.openUrl(url: topicContentData.url);

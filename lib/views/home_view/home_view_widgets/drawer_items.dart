@@ -1,5 +1,6 @@
 import 'package:butex_notebot/constants/asset_path.dart';
 import 'package:butex_notebot/constants/controller.dart';
+import 'package:butex_notebot/utils/open_url.dart';
 import 'package:butex_notebot/views/settings_view/settings_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -35,12 +36,16 @@ final List<Widget> drawerItems = [
     ),
   ),
   drawerListTile(
-    onTap: () {},
+    onTap: () {
+      UrlLauncher.openUrl(url: "https://notebot.netlify.app/#/");
+    },
     leading: Icon(Icons.web),
     title: 'Notebot Web',
   ),
   drawerListTile(
-    onTap: () {},
+    onTap: () {
+      UrlLauncher.openUrl(url: "https://www.messenger.com/t/103148557940299");
+    },
     leading: Image.asset(
       messengerImage,
       height: 25,
@@ -54,15 +59,20 @@ final List<Widget> drawerItems = [
     title: 'Communities',
   ),
   drawerListTile(
-    onTap: () {},
+    onTap: () {
+      UrlLauncher.openUrl(
+          url: "https://triptoafsin.github.io/BUTEX-PhoneBook/");
+    },
     leading: Icon(
       Icons.phone,
       color: Colors.green,
     ),
-    title: 'Phonebook',
+    title: 'BUTEX Phonebook',
   ),
   drawerListTile(
-    onTap: () {},
+    onTap: () {
+      UrlLauncher.openUrl(url: "https://forms.gle/xRgr7HhS9Zycsvqn6");
+    },
     leading: Icon(Icons.book),
     title: 'Submit Notes',
   ),

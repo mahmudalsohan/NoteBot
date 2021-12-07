@@ -39,6 +39,7 @@ class TopicsScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     var topicData = topicList[index];
                     return reusableListTile(
+                        context: context,
                         title: topicData.topic,
                         trailer: topicData.url == null
                             ? Icon(Icons.arrow_forward_ios_sharp)

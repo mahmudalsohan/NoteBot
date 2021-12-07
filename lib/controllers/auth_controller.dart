@@ -29,7 +29,6 @@ class AuthController extends GetxController {
 
       await FirebaseAuth.instance.signInWithCredential(credential);
     } catch (e) {
-      Get.snackbar("Network Error", "A stable internet connection is needed");
       print(e.toString());
     }
   }

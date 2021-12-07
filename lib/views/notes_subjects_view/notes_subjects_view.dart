@@ -3,14 +3,15 @@ import 'package:butex_notebot/networking/http_service.dart';
 import 'package:butex_notebot/views/academic_views/topics_screen.dart';
 import 'package:butex_notebot/utils/open_url.dart';
 import 'package:butex_notebot/widgets/appBar_widget.dart';
-import 'package:butex_notebot/widgets/reusable_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 
-class SubjectsScreen extends StatelessWidget {
+import 'notes_subjects_view_widgets/slidable_list_tile.dart';
+
+class NotesSubjectsView extends StatelessWidget {
   final int level;
-  const SubjectsScreen({Key? key, required this.level}) : super(key: key);
+  const NotesSubjectsView({Key? key, required this.level}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +30,15 @@ class SubjectsScreen extends StatelessWidget {
             builder: (BuildContext context, subjects) {
               if (subjects.hasData) {
                 var subjectList = subjects.data;
-                return ListView.builder(
+                return ListView.separated(
                   physics: BouncingScrollPhysics(),
                   itemCount: subjectList!.length,
+                  separatorBuilder: (BuildContext context, int index) =>
+                      Divider(thickness: 2),
                   itemBuilder: (context, index) {
                     var subjectData = subjectList[index];
-                    return reusableListTile(
+                    return SlidableListTile(
                         route: subjectData.route,
-                        isSlidable: true,
                         title: subjectData.subName,
                         trailer: subjectData.url == null
                             ? Icon(Icons.arrow_forward_ios_sharp)

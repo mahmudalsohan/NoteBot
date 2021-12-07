@@ -1,5 +1,5 @@
 import 'package:butex_notebot/constants/text_styles.dart';
-import 'package:butex_notebot/views/academic_views/subjects_screen.dart';
+import 'package:butex_notebot/views/notes_subjects_view/notes_subjects_view.dart';
 import 'package:butex_notebot/widgets/appBar_widget.dart';
 import 'package:butex_notebot/widgets/level_selection_tile.dart';
 import 'package:flutter/material.dart';
@@ -29,25 +29,25 @@ class NotesLevelsView extends StatelessWidget {
             levelSelectionTile(
               title: "Level 1",
               onTap: () {
-                Get.to(() => SubjectsScreen(level: 1));
+                Get.to(() => NotesSubjectsView(level: 1));
               },
             ),
             levelSelectionTile(
               title: "Level 2",
               onTap: () {
-                Get.to(() => SubjectsScreen(level: 2));
+                Get.to(() => NotesSubjectsView(level: 2));
               },
             ),
             levelSelectionTile(
               title: "Level 3",
               onTap: () {
-                Get.to(() => SubjectsScreen(level: 3));
+                Get.to(() => NotesSubjectsView(level: 3));
               },
             ),
             levelSelectionTile(
               title: "Level 4",
               onTap: () {
-                Get.to(() => SubjectsScreen(level: 4));
+                Get.to(() => NotesSubjectsView(level: 4));
               },
             ),
           ],

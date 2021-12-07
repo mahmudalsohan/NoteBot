@@ -12,6 +12,7 @@ class HomeViewController extends GetxController {
   late final GetStorage _getStorage;
 
   final RxList chipTitles = [].obs;
+  //final RxBool isPinned = false.obs;
   final Rx<RssFeed> feed = Rx(RssFeed());
   static String feedUrl = FlutterConfig.get('FEED_URL');
   final RxString title = "RSS DEMO TITLE".obs;

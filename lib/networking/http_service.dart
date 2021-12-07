@@ -1,3 +1,4 @@
+import 'package:butex_notebot/models/lab_subject_model.dart';
 import 'package:butex_notebot/models/notice_model.dart';
 import 'package:butex_notebot/models/subject_model.dart';
 import 'package:butex_notebot/models/topic_content_model.dart';
@@ -28,7 +29,7 @@ class HttpService {
           return handler.next(response);
         },
         onError: (DioError e, handler) {
-          print(e.message);
+          print("onError: ${e.response!.statusCode}");
           return handler.next(e);
         },
       ),
@@ -42,21 +43,17 @@ class HttpService {
     try {
       response = await _dio.get(endPoint);
     } on DioError catch (e) {
-      print(e.toString());
       throw Exception(e.message);
     }
-
     return response;
   }
 
   //get all the subjects of a level
   Future<List<Subject>> getSubjects({required int level}) async {
-    print("getSubject: $level");
     List<Subject> data = <Subject>[];
     var response = await _getResponse("app/notes/$level");
 
     data = (response.data as List).map((e) => Subject.fromJson(e)).toList();
-    print("getSubject: Returning Future");
     return data;
   }
 
@@ -101,6 +98,17 @@ class HttpService {
           (e) => Notice.fromJson(e),
         )
         .toList();
+
+    return data;
+  }
+
+  //get levels for lab reports
+  Future<List<LabSubject>> getLabSubjects(int level) async {
+    print("getLabLevels");
+    List<LabSubject> data = <LabSubject>[];
+    var response = await _getResponse("app/labs/$level");
+
+    data = (response.data as List).map((e) => LabSubject.fromJson(e)).toList();
 
     return data;
   }

@@ -1,4 +1,5 @@
 import 'package:butex_notebot/constants/text_styles.dart';
+import 'package:butex_notebot/views/lab_subjects_view.dart';
 import 'package:butex_notebot/widgets/appBar_widget.dart';
 import 'package:butex_notebot/widgets/level_selection_tile.dart';
 import 'package:flutter/material.dart';
@@ -26,23 +27,20 @@ class LabReportsLevelsView extends StatelessWidget {
             ),
             SizedBox(height: 50),
             levelSelectionTile(
-              title: "Level 1",
-              onTap: () {
-                //Get.to(() => SubjectsScreen(level: 1));
-              },
-            ),
+                title: "Level 1",
+                onTap: () {
+                  Get.to(() => LabSubjectsView(level: 1));
+                }),
             levelSelectionTile(
-              title: "Level 2",
-              onTap: () {
-                //Get.to(() => SubjectsScreen(level: 2));
-              },
-            ),
+                title: "Level 2",
+                onTap: () {
+                  Get.to(() => LabSubjectsView(level: 2));
+                }),
             levelSelectionTile(
-              title: "Level 3",
-              onTap: () {
-                //Get.to(() => SubjectsScreen(level: 3));
-              },
-            ),
+                title: "Level 3",
+                onTap: () {
+                  Get.to(() => LabSubjectsView(level: 3));
+                }),
           ],
         ),
       ),

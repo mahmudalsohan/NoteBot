@@ -1,3 +1,4 @@
+/*
 class ShortcutChip {
   final String? subName;
   final String? route;
@@ -7,3 +8,4 @@ class ShortcutChip {
     this.route,
   });
 }
+*/
