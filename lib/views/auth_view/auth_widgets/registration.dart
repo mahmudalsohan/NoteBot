@@ -56,7 +56,7 @@ class RegistrationWidget extends StatelessWidget {
           padding: const EdgeInsets.all(25),
           child: SocialSignInButton(
             text: 'Sign Up with Google',
-            assetName: googleLogo,
+            assetName: iconGoogle,
             buttonColor: Colors.white,
             textColor: Colors.black87,
             onTap: () async {

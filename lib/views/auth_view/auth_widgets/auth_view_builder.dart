@@ -23,7 +23,7 @@ class AuthViewBuilder extends StatelessWidget {
               children: [
                 //Logo
                 Image.asset(
-                  logo,
+                  logoNotebot,
                   width: 140,
                 ),
                 //

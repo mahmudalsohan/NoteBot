@@ -1,14 +1,21 @@
-String imageAssetsRoot = "assets/images/";
+final String imageAssetsRoot = "assets/images/";
 
-final String logo = _getImagePath("notebot.png");
-final String notesSectionImage = _getImagePath("bookshelf.png");
-final String syllabusSectionImage = _getImagePath("curriculum.png");
-final String noticeSectionImage = _getImagePath("notice.png");
-final String toolsSectionImage = _getImagePath("tool-box.png");
-final String entertainmentSectionImage = _getImagePath("confetti.png");
-final String labReportSectionImage = _getImagePath("clipboard.png");
-final String googleLogo = _getImagePath("google-logo.png");
-final String messengerImage = _getImagePath("messenger.png");
+//Logo
+final String logoNotebot = _getImagePath("notebot.png");
+final String logoHawkers = _getImagePath("Hawkers_white.png");
+final String logoCircleHawkers = _getImagePath("hawkers_inCircle.png");
+
+//Images
+final String imageNotesSection = _getImagePath("bookshelf.png");
+final String imageSyllabusSection = _getImagePath("curriculum.png");
+final String imageNoticeSection = _getImagePath("notice.png");
+final String imageToolsSection = _getImagePath("tool-box.png");
+final String imageEntertainmentSection = _getImagePath("confetti.png");
+final String imageLabReportSection = _getImagePath("clipboard.png");
+
+//Icons
+final String iconMessenger = _getImagePath("messenger.png");
+final String iconGoogle = _getImagePath("google-logo.png");
 
 String _getImagePath(String filename) {
   return imageAssetsRoot + filename;

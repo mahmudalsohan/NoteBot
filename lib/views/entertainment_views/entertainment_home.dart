@@ -21,7 +21,7 @@ class EntertainmentHomeScreen extends StatelessWidget {
         child: Column(
           children: [
             TopContainer(
-              imagePath: entertainmentSectionImage,
+              imagePath: imageEntertainmentSection,
               title: "Entertainment",
             ),
             Expanded(
@@ -33,7 +33,7 @@ class EntertainmentHomeScreen extends StatelessWidget {
                 children: [
                   FunctionTile(
                     title: "Note Bird",
-                    imagePath: logo,
+                    imagePath: logoNotebot,
                     onPress: () {
                       Get.to(() => NotebirdHomePage());
                     },

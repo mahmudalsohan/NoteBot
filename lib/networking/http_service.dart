@@ -1,3 +1,4 @@
+import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/models/lab_subject_model.dart';
 import 'package:butex_notebot/models/notice_model.dart';
 import 'package:butex_notebot/models/subject_model.dart';
@@ -11,7 +12,7 @@ class HttpService {
   HttpService() {
     _dio = Dio(
       BaseOptions(
-        baseUrl: "https://notebot-engine-v1.herokuapp.com/",
+        baseUrl: networkController.BASE_URL.value,
       ),
     );
     initializeInterceptors();
@@ -30,6 +31,7 @@ class HttpService {
         },
         onError: (DioError e, handler) {
           print("onError: ${e.response!.statusCode}");
+          print("onError: ${e.message}");
           return handler.next(e);
         },
       ),
@@ -39,7 +41,7 @@ class HttpService {
   //get a response providing the endpoint (baseURL excluded)
   Future<Response> _getResponse(String endPoint) async {
     Response response;
-
+    print("BASE_URL: ${networkController.BASE_URL.value}");
     try {
       response = await _dio.get(endPoint);
     } on DioError catch (e) {
@@ -59,6 +61,7 @@ class HttpService {
 
   //get all the topics of a subject
   Future<List<Topic>> getTopics({required String subjectRoute}) async {
+    print("getTopics: $subjectRoute");
     List<Topic> data = <Topic>[];
 
     var response = await _getResponse(subjectRoute);
@@ -68,7 +71,6 @@ class HttpService {
           (e) => Topic.fromJson(e),
         )
         .toList();
-
     return data;
   }
 
@@ -104,7 +106,6 @@ class HttpService {
 
   //get levels for lab reports
   Future<List<LabSubject>> getLabSubjects(int level) async {
-    print("getLabLevels");
     List<LabSubject> data = <LabSubject>[];
     var response = await _getResponse("app/labs/$level");
 

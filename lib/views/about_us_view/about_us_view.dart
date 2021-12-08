@@ -1,3 +1,4 @@
+import 'package:butex_notebot/constants/controller.dart';
 import 'package:flutter/material.dart';
 
 class AboutUsView extends StatelessWidget {
@@ -5,6 +6,12 @@ class AboutUsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 5,
+        title: Text("About Us"),
+      ),
+      body: Column(),
+    );
   }
 }

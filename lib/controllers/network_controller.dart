@@ -1,4 +1,8 @@
+import 'package:butex_notebot/models/base_request_model.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dio/dio.dart' as dio;
+import 'package:dio/dio.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:get/get.dart';
 
 class NetworkController extends GetxController {
@@ -6,14 +10,23 @@ class NetworkController extends GetxController {
 
   late final Connectivity _connectivity;
 
-  RxInt statusCode = 0.obs;
-  RxBool isConnected = false.obs;
+  static final String _primaryUrl = FlutterConfig.get('PRIMARY_URL');
+
+  //final RxInt statusCode = 0.obs;
+  final RxBool isConnected = false.obs;
+  final RxBool isApiLive = false.obs;
+  final RxString BASE_URL = "".obs;
+  final RxList<InMemoryOf> memorialList = <InMemoryOf>[].obs;
 
   @override
   void onInit() async {
     super.onInit();
     _connectivity = Connectivity();
     await checkConnectivity();
+
+    if (isConnected.value) {
+      await getBaseRequest();
+    }
   }
 
   checkConnectivity() async {
@@ -25,5 +38,16 @@ class NetworkController extends GetxController {
     } else if (connectivityResult == ConnectivityResult.none) {
       isConnected.value = false;
     }
+  }
+
+  getBaseRequest() async {
+    BaseRequest baseRequest;
+    var response = await Dio().get(_primaryUrl);
+    baseRequest = BaseRequest.fromJson(response.data);
+
+    //
+    BASE_URL.value = baseRequest.apiInfo.primary.liveApiUrl;
+    isApiLive.value = baseRequest.apiInfo.isApiLive;
+    memorialList.value = baseRequest.inMemoryOf;
   }
 }

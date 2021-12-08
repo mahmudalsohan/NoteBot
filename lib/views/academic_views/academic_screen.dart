@@ -26,14 +26,14 @@ class AcademicScreen extends StatelessWidget {
           children: [
             FunctionTile(
               title: "Notes",
-              imagePath: notesSectionImage,
+              imagePath: imageNotesSection,
               onPress: () {
                 Get.to(() => NotesLevelsView());
               },
             ),
             FunctionTile(
               title: "Lab Reports",
-              imagePath: labReportSectionImage,
+              imagePath: imageLabReportSection,
               onPress: () {},
             ),
           ],

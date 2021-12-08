@@ -36,36 +36,36 @@ class DashboardSection extends StatelessWidget {
               children: [
                 FunctionTile(
                   title: "Notes",
-                  imagePath: notesSectionImage,
+                  imagePath: imageNotesSection,
                   onPress: () {
                     Get.to(() => NotesLevelsView());
                   },
                 ),
                 FunctionTile(
                   title: "Lab Reports",
-                  imagePath: labReportSectionImage,
+                  imagePath: imageLabReportSection,
                   onPress: () {
                     Get.to(() => LabReportsLevelsView());
                   },
                 ),
                 FunctionTile(
                   title: "Notice",
-                  imagePath: noticeSectionImage,
+                  imagePath: imageNoticeSection,
                   onPress: () {},
                 ),
                 FunctionTile(
                   title: "Syllabus",
-                  imagePath: syllabusSectionImage,
+                  imagePath: imageSyllabusSection,
                   onPress: () {},
                 ),
                 FunctionTile(
                   title: "Tools",
-                  imagePath: toolsSectionImage,
+                  imagePath: imageToolsSection,
                   onPress: () {},
                 ),
                 FunctionTile(
                   title: "Entertainment",
-                  imagePath: entertainmentSectionImage,
+                  imagePath: imageEntertainmentSection,
                   onPress: () {
                     Get.to(() => EntertainmentHomeScreen());
                   },

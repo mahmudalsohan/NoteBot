@@ -31,7 +31,7 @@ class LoginWidget extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 25),
           child: SocialSignInButton(
             text: 'Sign In with Google',
-            assetName: googleLogo,
+            assetName: iconGoogle,
             buttonColor: Colors.white,
             textColor: Colors.black87,
             onTap: () async {
