@@ -14,11 +14,11 @@ class Carousel extends StatelessWidget {
     return Obx(() => Container(
           height: 160,
           width: Get.width,
-          child: homeViewController.feed.value.items != null
+          child: noticeController.feed.value.items != null
               ? Swiper(
                   itemBuilder: (BuildContext context, int index) {
-                    final item = homeViewController.feed.value.items![index];
-                    final int gradient = index % 3;
+                    final item = noticeController.feed.value.items![index];
+                    final int idx = index % 3;
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 30),
                       child: Container(
@@ -27,8 +27,7 @@ class Carousel extends StatelessWidget {
                           gradient: LinearGradient(
                             begin: Alignment.topLeft,
                             end: Alignment.bottomLeft,
-                            colors:
-                                AppColors().carouselGradientColors[gradient],
+                            colors: AppColors().carouselGradientColors[idx],
                           ),
                           boxShadow: AppColors().carouselShadowColors,
                         ),
@@ -51,7 +50,7 @@ class Carousel extends StatelessWidget {
                       ),
                     );
                   },
-                  itemCount: homeViewController.feed.value.items!.length,
+                  itemCount: noticeController.feed.value.items!.length,
                   viewportFraction: 0.8,
                   scale: 0.9,
                   autoplay: true,

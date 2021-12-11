@@ -1,4 +1,3 @@
-import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:butex_notebot/constants/get_storage_key.dart';
 import 'package:butex_notebot/constants/themes.dart';
 import 'package:flutter/material.dart';
@@ -21,13 +20,12 @@ class ThemeController extends GetxController {
     ));
 
     _getStorage = GetStorage();
-    isDarkMode.value = _getStorage.read(GetStorageKey.IS_DARK_MODE);
+    if (GetStorage().read(GetStorageKey.IS_DARK_MODE) != null) {
+      isDarkMode.value = _getStorage.read(GetStorageKey.IS_DARK_MODE);
+    }
   }
 
-  void changeTheme(BuildContext context) {
-    final theme =
-        Get.isDarkMode ? AppThemes.lightThemeData : AppThemes.darkThemeData;
-    ThemeSwitcher.of(context)!.changeTheme(theme: theme);
+  void changeTheme() {
     if (_getStorage.read(GetStorageKey.IS_DARK_MODE)) {
       _getStorage.write(GetStorageKey.IS_DARK_MODE, false);
       isDarkMode.value = false;

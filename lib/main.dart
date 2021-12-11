@@ -1,4 +1,3 @@
-import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/constants/firebase.dart';
 import 'package:butex_notebot/constants/themes.dart';
@@ -31,23 +30,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ThemeProvider(
-      initTheme: themeController.isDarkMode.value
-          ? AppThemes.darkThemeData
-          : AppThemes.lightThemeData,
-      child: Builder(
-        builder: (context) => GetMaterialApp(
-          getPages: [
-            GetPage(name: '/', page: () => AuthView()),
-            GetPage(name: '/home', page: () => HomeView())
-          ],
-          initialRoute: '/',
-          debugShowCheckedModeBanner: false,
-          //home: AuthView(),
-          theme: ThemeProvider.of(context),
-          darkTheme: AppThemes.darkThemeData,
-          defaultTransition: Transition.rightToLeft,
-        ),
+    return Obx(
+      () => GetMaterialApp(
+        getPages: [
+          GetPage(name: '/', page: () => AuthView()),
+          GetPage(name: '/home', page: () => HomeView())
+        ],
+        initialRoute: '/',
+        debugShowCheckedModeBanner: false,
+        theme: AppThemes.lightThemeData,
+        darkTheme: AppThemes.darkThemeData,
+        themeMode: themeController.isDarkMode.value
+            ? AppThemes.darkThemeMode
+            : AppThemes.lightThemeMode,
+        home: AuthView(),
+        defaultTransition: Transition.rightToLeft,
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:butex_notebot/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
@@ -5,8 +6,6 @@ class FunctionTile extends StatelessWidget {
   final String title;
   final String imagePath;
   final Function onPress;
-
-  final Color kTenBlackColor = Colors.black12; // alpha = 0.2
 
   FunctionTile({
     Key? key,
@@ -27,10 +26,10 @@ class FunctionTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              //offset: Offset(8.0, 8.0),
-              blurRadius: 25,
-              spreadRadius: 5,
-              color: kTenBlackColor,
+              offset: Offset(8.0, 8.0),
+              blurRadius: 15,
+              spreadRadius: 0.1,
+              color: AppColors().kFunctionTileShadowColor,
             ),
           ],
         ),

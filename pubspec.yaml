@@ -36,7 +36,6 @@ dependencies:
   firebase_auth: ^3.2.0
   google_sign_in: ^5.2.1
   google_fonts: ^2.1.0
-  animated_theme_switcher: ^2.0.1
   card_swiper: ^1.0.4
   flutter_slidable: ^1.1.0
   webfeed: ^0.7.0
@@ -49,20 +48,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-#  #following adds native splash screen
-  flutter_native_splash: ^1.2.3
-  #following build dart object with json serializable
-  build_runner:
-
-#native splash screen settings
-flutter_native_splash:
-  color: "#ffffff"
-  image: assets/images/notebot.png
-  color_dark: "1a1a1a"
-  android: true
-  ios: true
-
-
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

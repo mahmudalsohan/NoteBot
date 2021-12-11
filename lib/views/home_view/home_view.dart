@@ -24,7 +24,7 @@ class HomeView extends StatelessWidget {
           children: [
             SizedBox(height: 15),
             //
-            Carousel(),
+            //Carousel(),
             //
             //
             SizedBox(height: 20),

@@ -62,13 +62,14 @@ class AppColors {
                   color: _kAmbientShadowOpacity),
             ];
 
+  var kFunctionTileShadowColor = Colors.black12;
+
   var kPrimaryTextColor = GetStorage().read(GetStorageKey.IS_DARK_MODE)
       ? Color(0xDDFFFFFF)
       : Color(0xDD000000);
   var kSecondaryTextColor = GetStorage().read(GetStorageKey.IS_DARK_MODE)
       ? Colors.white
       : Colors.black;
-  var kBlackColor = Colors.black;
 
   var kThemeIconColor = GetStorage().read(GetStorageKey.IS_DARK_MODE)
       ? Colors.yellow

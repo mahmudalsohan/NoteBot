@@ -1,6 +1,7 @@
 import 'package:butex_notebot/controllers/app_controller.dart';
 import 'package:butex_notebot/controllers/home_view_controller.dart';
 import 'package:butex_notebot/controllers/network_controller.dart';
+import 'package:butex_notebot/controllers/notice_controller.dart';
 import 'package:butex_notebot/controllers/theme_controller.dart';
 import 'package:butex_notebot/controllers/auth_controller.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -11,6 +12,7 @@ NetworkController networkController = NetworkController.instance;
 AuthController authController = AuthController.instance;
 ThemeController themeController = ThemeController.instance;
 HomeViewController homeViewController = HomeViewController.instance;
+NoticeController noticeController = NoticeController.instance;
 
 initializeControllers() {
   Get.put(AppController());
@@ -18,4 +20,5 @@ initializeControllers() {
   Get.put(AuthController());
   Get.put(ThemeController());
   Get.put(HomeViewController());
+  Get.put(NoticeController());
 }

@@ -1,6 +1,5 @@
 import 'package:butex_notebot/models/base_request_model.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:dio/dio.dart' as dio;
 import 'package:dio/dio.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:get/get.dart';

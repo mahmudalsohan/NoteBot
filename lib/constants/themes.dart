@@ -8,6 +8,9 @@ class AppThemes {
       themeData(lightColorScheme, _lightFocusColor);
   static ThemeData darkThemeData = themeData(darkColorScheme, _darkFocusColor);
 
+  static ThemeMode lightThemeMode = ThemeMode.light;
+  static ThemeMode darkThemeMode = ThemeMode.dark;
+
   static ThemeData themeData(ColorScheme colorScheme, Color focusColor) {
     return ThemeData(
       colorScheme: colorScheme,
