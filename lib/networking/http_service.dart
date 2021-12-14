@@ -1,7 +1,12 @@
 import 'package:butex_notebot/constants/controller.dart';
+import 'package:butex_notebot/models/departments.dart';
 import 'package:butex_notebot/models/lab_subject_model.dart';
+import 'package:butex_notebot/models/lab_topic_content.dart';
+import 'package:butex_notebot/models/lab_topics.dart';
+import 'package:butex_notebot/models/level_and_term.dart';
 import 'package:butex_notebot/models/notice_model.dart';
 import 'package:butex_notebot/models/subject_model.dart';
+import 'package:butex_notebot/models/syllabus_batch.dart';
 import 'package:butex_notebot/models/topic_content_model.dart';
 import 'package:butex_notebot/models/topic_model.dart';
 import 'package:dio/dio.dart';
@@ -104,12 +109,66 @@ class HttpService {
     return data;
   }
 
-  //get levels for lab reports
+  //get subjects for lab reports
   Future<List<LabSubject>> getLabSubjects(int level) async {
     List<LabSubject> data = <LabSubject>[];
     var response = await _getResponse("app/labs/$level");
 
     data = (response.data as List).map((e) => LabSubject.fromJson(e)).toList();
+
+    return data;
+  }
+
+  //get Topics for lab reports
+  Future<List<LabTopics>> getLabTopics(String route) async {
+    List<LabTopics> data = <LabTopics>[];
+    var response = await _getResponse(route);
+
+    data = (response.data as List).map((e) => LabTopics.fromJson(e)).toList();
+
+    return data;
+  }
+
+  //get subjects for lab reports
+  Future<List<LabTopicContent>> getLabTopicContent(String route) async {
+    List<LabTopicContent> data = <LabTopicContent>[];
+    var response = await _getResponse(route);
+
+    data = (response.data as List)
+        .map((e) => LabTopicContent.fromJson(e))
+        .toList();
+
+    return data;
+  }
+
+  //get Batches for Syllabus
+  Future<List<SyllabusBatch>> getSyllabusBatches(String route) async {
+    List<SyllabusBatch> data = <SyllabusBatch>[];
+    var response = await _getResponse(route);
+
+    data =
+        (response.data as List).map((e) => SyllabusBatch.fromJson(e)).toList();
+
+    return data;
+  }
+
+  //get departments for Syllabus
+  Future<List<Departments>> getDepartments(String route) async {
+    List<Departments> data = <Departments>[];
+    var response = await _getResponse(route);
+
+    data = (response.data as List).map((e) => Departments.fromJson(e)).toList();
+
+    return data;
+  }
+
+  //get syllabus for Syllabus
+  Future<List<LevelAndTerm>> getSyllabus(String route) async {
+    List<LevelAndTerm> data = <LevelAndTerm>[];
+    var response = await _getResponse(route);
+
+    data =
+        (response.data as List).map((e) => LevelAndTerm.fromJson(e)).toList();
 
     return data;
   }

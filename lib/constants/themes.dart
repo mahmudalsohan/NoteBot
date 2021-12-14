@@ -28,8 +28,8 @@ class AppThemes {
   }
 
   static const ColorScheme lightColorScheme = ColorScheme(
-    primary: Color(0xFF6200EE),
-    primaryVariant: Color(0xFF640AFF),
+    primary: Colors.lightBlueAccent,
+    primaryVariant: Colors.lightBlue,
     secondary: Color(0xFF03DAC5),
     secondaryVariant: Color(0xFF0AE1C5),
     background: Color(0xFFFAFBFB),
@@ -44,13 +44,13 @@ class AppThemes {
   );
 
   static final ColorScheme darkColorScheme = ColorScheme(
-    primary: Colors.lightBlue,
-    primaryVariant: Colors.lightBlue.shade900,
-    secondary: Colors.yellow,
-    secondaryVariant: Colors.yellow.shade900,
-    background: Color(0xff141A31),
+    primary: Color(0xFF6200EE),
+    primaryVariant: Color(0xFF640AFF),
+    secondary: Colors.blueGrey.shade900,
+    secondaryVariant: Colors.blueGrey.shade800,
+    background: Color(0xff15202B),
     surface: Color(0xff1E2746),
-    onBackground: Color(0x0DFFFFFF),
+    onBackground: Color(0xFF192734),
     // White with 0.05 opacity
     error: Colors.red,
     onError: Colors.white,

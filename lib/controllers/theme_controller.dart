@@ -15,9 +15,9 @@ class ThemeController extends GetxController {
   void onInit() {
     super.onInit();
 
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-    ));
+    /*SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.black,
+    ));*/
 
     _getStorage = GetStorage();
     if (GetStorage().read(GetStorageKey.IS_DARK_MODE) != null) {

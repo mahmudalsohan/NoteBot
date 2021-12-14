@@ -1,10 +1,12 @@
 import 'package:butex_notebot/constants/asset_path.dart';
 import 'package:butex_notebot/constants/controller.dart';
+import 'package:butex_notebot/services/open_url.dart';
 
 import 'package:butex_notebot/widgets/appBar_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:share_plus/share_plus.dart';
 
 final List<String> _images = [imageNotice0, imageNotice1, imageNotice2];
 
@@ -54,10 +56,15 @@ class NoticeView extends StatelessWidget {
                             Padding(
                               padding:
                                   const EdgeInsets.fromLTRB(10, 20, 10, 10),
-                              child: Text(
-                                item.title ?? "Error Loading Data",
-                                style: TextStyle(
-                                  fontSize: 20,
+                              child: InkWell(
+                                onTap: () {
+                                  UrlLauncher.openUrl(url: item.link);
+                                },
+                                child: Text(
+                                  item.title ?? "Error Loading Data",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                  ),
                                 ),
                               ),
                             ),
@@ -89,7 +96,9 @@ class NoticeView extends StatelessWidget {
                                       Icons.share_outlined,
                                       color: Colors.grey,
                                     ),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Share.share(item.link ?? "Error Link");
+                                    },
                                   ),
                                 ],
                               ),

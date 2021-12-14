@@ -11,58 +11,55 @@ class Carousel extends StatelessWidget {
   const Carousel({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Container(
-          height: 160,
-          width: Get.width,
-          child: noticeController.feed.value.items != null
-              ? Swiper(
-                  itemBuilder: (BuildContext context, int index) {
-                    final item = noticeController.feed.value.items![index];
-                    final int idx = index % 3;
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 30),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomLeft,
-                            colors: AppColors().carouselGradientColors[idx],
-                          ),
-                          boxShadow: AppColors().carouselShadowColors,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 10,
-                                horizontal: 5,
-                              ),
-                              child: Text(
-                                item.title ?? "",
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            ),
-                            Text(item.pubDate.toString())
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                  itemCount: noticeController.feed.value.items!.length,
-                  viewportFraction: 0.8,
-                  scale: 0.9,
-                  autoplay: true,
-                  pagination: SwiperPagination(
-                      builder: DotSwiperPaginationBuilder(
-                    activeColor: Theme.of(context).primaryColor,
-                    color: Colors.grey,
-                  )),
-                  duration: 500,
-                  curve: Curves.easeInOutQuart,
-                )
-              : Center(child: CircularProgressIndicator()),
-        ));
+    return Container(
+      height: 160,
+      width: Get.width,
+      child: Swiper(
+        itemBuilder: (BuildContext context, int index) {
+          final int idx = index % 3;
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 30),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomLeft,
+                  colors: AppColors().carouselGradientColors[idx],
+                ),
+                boxShadow: AppColors().carouselShadowColors,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: 5,
+                    ),
+                    child: Text(
+                      "New Announcement for University Day Cultural Programme",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  Text("Dec 22, 2021")
+                ],
+              ),
+            ),
+          );
+        },
+        itemCount: 5,
+        viewportFraction: 0.8,
+        scale: 0.9,
+        autoplay: true,
+        pagination: SwiperPagination(
+            builder: DotSwiperPaginationBuilder(
+          activeColor: Theme.of(context).primaryColor,
+          color: Colors.grey,
+        )),
+        duration: 500,
+        curve: Curves.easeInOutQuart,
+      ),
+    );
   }
 }

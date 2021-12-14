@@ -33,6 +33,7 @@ class NetworkController extends GetxController {
         await _connectivity.checkConnectivity();
 
     if (connectivityResult != ConnectivityResult.none) {
+      await getBaseRequest();
       isConnected.value = true;
     } else if (connectivityResult == ConnectivityResult.none) {
       isConnected.value = false;

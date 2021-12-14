@@ -20,21 +20,18 @@ class SettingsView extends StatelessWidget {
           Column(
             children: [
               ListTile(
-                title: Text("Change Theme"),
+                title: Text("Go Dark"),
                 trailing: Obx(
                   () => InkWell(
                     onTap: () {
                       themeController.changeTheme();
                     },
-                    child: themeController.isDarkMode.value
-                        ? Icon(
-                            CupertinoIcons.brightness,
-                            color: AppColors().kThemeIconColor,
-                          )
-                        : Icon(
-                            CupertinoIcons.moon_stars,
-                            color: AppColors().kThemeIconColor,
-                          ),
+                    child: Switch.adaptive(
+                      value: themeController.isDarkMode.value,
+                      onChanged: (val) {
+                        themeController.changeTheme();
+                      },
+                    ),
                   ),
                 ),
               ),

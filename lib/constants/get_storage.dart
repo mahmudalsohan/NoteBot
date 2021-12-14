@@ -7,8 +7,8 @@ initializeGetStorage() async {
   final _getStorage = GetStorage();
 
   //Theme
-  bool isDarkMode = _getStorage.read(GetStorageKey.IS_DARK_MODE) ?? false;
-  _getStorage.write(GetStorageKey.IS_DARK_MODE, isDarkMode);
+  /* bool isDarkMode = _getStorage.read(GetStorageKey.IS_DARK_MODE) ?? false;
+  _getStorage.write(GetStorageKey.IS_DARK_MODE, isDarkMode);*/
 
   //Subject Shortcuts
 }

@@ -1,6 +1,6 @@
 import 'package:butex_notebot/constants/asset_path.dart';
 import 'package:butex_notebot/constants/controller.dart';
-import 'package:butex_notebot/utils/open_url.dart';
+import 'package:butex_notebot/services/open_url.dart';
 import 'package:butex_notebot/views/settings_view/settings_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,23 +14,36 @@ final user = FirebaseAuth.instance.currentUser;
 
 final List<Widget> drawerItems = [
   DrawerHeader(
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(
-          "Hello,",
-          style: TextStyle(
-            fontSize: 18,
-            color: Colors.black,
-          ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset(
+              logoNotebot /*,
+            height: 40,
+            width: 40,*/
+              ),
         ),
-        SizedBox(height: 10),
-        Text(
-          user!.displayName ?? "Butexian",
-          style: TextStyle(
-            fontSize: 30,
-            color: Colors.black,
-          ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Hello,",
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+              ),
+            ),
+            SizedBox(height: 10),
+            Text(
+              user!.displayName ?? "Butexian",
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.black,
+              ),
+            ),
+          ],
         ),
       ],
     ),

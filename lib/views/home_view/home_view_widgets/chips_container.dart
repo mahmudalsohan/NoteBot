@@ -1,7 +1,7 @@
 import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/constants/get_storage_key.dart';
 import 'package:butex_notebot/constants/text_styles.dart';
-import 'package:butex_notebot/views/academic_views/topics_screen.dart';
+import 'package:butex_notebot/views/notes_topics_view/notes_topics_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,7 +26,7 @@ class ChipsContainer extends StatelessWidget {
                       onTap: () {
                         final String route = GetStorage().read(chipTitle);
                         Get.to(
-                          () => TopicsScreen(
+                          () => TopicsView(
                             subjectRoute: route,
                             subjectName: chipTitle,
                           ),

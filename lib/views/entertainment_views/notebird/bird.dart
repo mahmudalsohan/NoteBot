@@ -1,3 +1,4 @@
+import 'package:butex_notebot/constants/asset_path.dart';
 import 'package:flutter/material.dart';
 
 class MyBird extends StatelessWidget {
@@ -12,7 +13,7 @@ class MyBird extends StatelessWidget {
     return Container(
         alignment: Alignment(0, (2 * birdY + birdHeight) / (2 - birdHeight)),
         child: Image.asset(
-          'assets/images/notebot.png',
+          logoNoteBird,
           width: MediaQuery.of(context).size.height * birdWidth / 2,
           height: MediaQuery.of(context).size.height * 3 / 4 * birdHeight / 2,
           fit: BoxFit.fill,

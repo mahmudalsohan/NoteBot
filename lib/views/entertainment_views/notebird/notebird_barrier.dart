@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class MyBarrier extends StatelessWidget {
   final barrierWidth; // out of 2, where 2 is the width of the screen
-  final barrierHeight; // proportion of the screenheight
+  final barrierHeight; // proportion of the screen height
   final barrierX;
   final bool isThisBottomBarrier;
 
@@ -18,7 +18,7 @@ class MyBarrier extends StatelessWidget {
       alignment: Alignment((2 * barrierX + barrierWidth) / (2 - barrierWidth),
           isThisBottomBarrier ? 1 : -1),
       child: Container(
-        color: Colors.green,
+        color: Colors.brown,
         width: MediaQuery.of(context).size.width * barrierWidth / 2,
         height: MediaQuery.of(context).size.height * 3 / 4 * barrierHeight / 2,
       ),

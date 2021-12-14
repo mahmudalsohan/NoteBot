@@ -33,7 +33,7 @@ class EntertainmentHomeScreen extends StatelessWidget {
                 children: [
                   FunctionTile(
                     title: "Note Bird",
-                    imagePath: logoNotebot,
+                    imagePath: logoNoteBird,
                     onPress: () {
                       Get.to(() => NotebirdHomePage());
                     },

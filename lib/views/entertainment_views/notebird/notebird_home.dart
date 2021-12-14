@@ -1,6 +1,10 @@
 import 'dart:async';
+import 'package:butex_notebot/constants/get_storage_key.dart';
+import 'package:butex_notebot/views/entertainment_views/entertainment_home.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get_storage/get_storage.dart';
 import 'bird.dart';
 import 'notebird_barrier.dart';
 import 'notebird_popup.dart';
@@ -20,11 +24,13 @@ class _NotebirdHomePageState extends State<NotebirdHomePage> {
   double time = 0;
   double gravity = -9.8; // how strong the gravity is
   double velocity = 2.8; // how strong the jump is
-  double birdWidth = 0.1; // out of 2, 2 being the entire width of the screen
-  double birdHeight = 0.12; // out of 2, 2 being the entire height of the screen
-
+  double birdWidth = 0.17; // out of 2, 2 being the entire width of the screen
+  double birdHeight = 0.14; // out of 2, 2 being the entire height of the screen
+  int score = 0;
+  int bestScore = GetStorage().read(GetStorageKey.BS_NOTEBIRD) ?? 0;
   // game settings
   bool gameHasStarted = false;
+  bool isCounted = false;
 
   // barrier variables
   static List<double> barrierX = [2, 2 + 1.5];
@@ -50,6 +56,7 @@ class _NotebirdHomePageState extends State<NotebirdHomePage> {
       // check if bird is dead
       if (birdIsDead()) {
         timer.cancel();
+        _updateScore();
         _showDialog();
       }
 
@@ -61,6 +68,17 @@ class _NotebirdHomePageState extends State<NotebirdHomePage> {
     });
   }
 
+  void _updateScore() {
+    if (GetStorage().read(GetStorageKey.BS_NOTEBIRD) == null) {
+      GetStorage().write(GetStorageKey.BS_NOTEBIRD, 0);
+    }
+
+    if (score > GetStorage().read(GetStorageKey.BS_NOTEBIRD)) {
+      bestScore = score;
+      GetStorage().write(GetStorageKey.BS_NOTEBIRD, score);
+    }
+  }
+
   void moveMap() {
     for (int i = 0; i < barrierX.length; i++) {
       // keep barriers moving
@@ -68,9 +86,15 @@ class _NotebirdHomePageState extends State<NotebirdHomePage> {
         barrierX[i] -= 0.005;
       });
 
-      // if barrier exits the left part of the screen, keep it looping
+      if (isCounted == false && barrierX[i] < -1.5 / 2) {
+        score += 10;
+        isCounted = true;
+      }
+
+      // if barrier exits in the left part of the screen, keep it looping
       if (barrierX[i] < -1.5) {
         barrierX[i] += 3;
+        isCounted = false;
       }
     }
   }
@@ -83,6 +107,8 @@ class _NotebirdHomePageState extends State<NotebirdHomePage> {
       time = 0;
       initialPos = birdY;
       barrierX = [2, 2 + 1.5];
+      score = 0;
+      isCounted = false;
     });
   }
 
@@ -101,6 +127,23 @@ class _NotebirdHomePageState extends State<NotebirdHomePage> {
             ),
             actions: [
               GestureDetector(
+                onTap: () {
+                  resetGame();
+                  Get.back();
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: Container(
+                    padding: EdgeInsets.all(7),
+                    color: Colors.white,
+                    child: Text(
+                      'QUIT',
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ),
+                ),
+              ),
+              GestureDetector(
                 onTap: resetGame,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5),
@@ -113,7 +156,7 @@ class _NotebirdHomePageState extends State<NotebirdHomePage> {
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           );
         });
@@ -135,10 +178,10 @@ class _NotebirdHomePageState extends State<NotebirdHomePage> {
     // hits barriers
     // checks if bird is within x coordinates and y coordinates of barriers
     for (int i = 0; i < barrierX.length; i++) {
-      if (barrierX[i] <= birdWidth &&
-          barrierX[i] + barrierWidth >= -birdWidth &&
-          (birdY <= -1 + barrierHeight[i][0] ||
-              birdY + birdHeight >= 1 - barrierHeight[i][1])) {
+      if ((barrierX[i] <= birdWidth) &&
+          (barrierX[i] + barrierWidth >= -birdWidth) &&
+          ((birdY <= -1 + barrierHeight[i][0]) ||
+              (birdY + birdHeight >= 1 - barrierHeight[i][1]))) {
         return true;
       }
     }
@@ -150,123 +193,127 @@ class _NotebirdHomePageState extends State<NotebirdHomePage> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: gameHasStarted ? jump : startGame,
-      child: Scaffold(
-        body: Column(
-          children: [
-            Expanded(
-              flex: 3,
-              child: Container(
-                color: Colors.blue,
-                child: Center(
-                  child: Stack(
-                    children: [
-                      // bird
-                      MyBird(
-                        birdY: birdY,
-                        birdWidth: birdWidth,
-                        birdHeight: birdHeight,
-                      ),
+      child: SafeArea(
+        child: Scaffold(
+          body: Column(
+            children: [
+              Expanded(
+                flex: 3,
+                child: Container(
+                  color: Colors.lightBlueAccent,
+                  child: Center(
+                    child: Stack(
+                      children: [
+                        // bird
+                        MyBird(
+                          birdY: birdY,
+                          birdWidth: birdWidth,
+                          birdHeight: birdHeight,
+                        ),
 
-                      // tap to play
-                      MyCoverScreen(gameHasStarted: gameHasStarted),
+                        // tap to play
+                        MyCoverScreen(gameHasStarted: gameHasStarted),
 
-                      // Builder(
-                      //   builder: (BuildContext context) {
-                      //     for (int i = 0; i < barrierX.length; i++) {
-                      //       for (int ) {
-                      //         return MyBarrier(
-                      //         barrierX: barrierX[i],
-                      //         barrierWidth: barrierWidth,
-                      //         barrierHeight: barrierHeight[i][0],
-                      //         isThisBottomBarrier: false,
-                      //       );
-                      //       }
-                      //     }
-                      //     return Container();
-                      //   },
-                      // ),
+                        /*Builder(
+                          builder: (BuildContext context) {
+                            for (int i = 0; i < barrierX.length; i++) {
+                              for (int ) {
+                                return MyBarrier(
+                                barrierX: barrierX[i],
+                                barrierWidth: barrierWidth,
+                                barrierHeight: barrierHeight[i][0],
+                                isThisBottomBarrier: false,
+                              );
+                              }
+                            }
+                            return Container();
+                          },
+                        ),*/
 
-                      // Top barrier 0
-                      MyBarrier(
-                        barrierX: barrierX[0],
-                        barrierWidth: barrierWidth,
-                        barrierHeight: barrierHeight[0][0],
-                        isThisBottomBarrier: false,
-                      ),
+                        // Top barrier 0
+                        MyBarrier(
+                          barrierX: barrierX[0],
+                          barrierWidth: barrierWidth,
+                          barrierHeight: barrierHeight[0][0],
+                          isThisBottomBarrier: false,
+                        ),
 
-                      // Bottom barrier 0
-                      MyBarrier(
-                        barrierX: barrierX[0],
-                        barrierWidth: barrierWidth,
-                        barrierHeight: barrierHeight[0][1],
-                        isThisBottomBarrier: true,
-                      ),
+                        // Bottom barrier 0
+                        MyBarrier(
+                          barrierX: barrierX[0],
+                          barrierWidth: barrierWidth,
+                          barrierHeight: barrierHeight[0][1],
+                          isThisBottomBarrier: true,
+                        ),
 
-                      // Top barrier 1
-                      MyBarrier(
-                        barrierX: barrierX[1],
-                        barrierWidth: barrierWidth,
-                        barrierHeight: barrierHeight[1][0],
-                        isThisBottomBarrier: false,
-                      ),
+                        // Top barrier 1
+                        MyBarrier(
+                          barrierX: barrierX[1],
+                          barrierWidth: barrierWidth,
+                          barrierHeight: barrierHeight[1][0],
+                          isThisBottomBarrier: false,
+                        ),
 
-                      // Bottom barrier 1
-                      MyBarrier(
-                        barrierX: barrierX[1],
-                        barrierWidth: barrierWidth,
-                        barrierHeight: barrierHeight[1][1],
-                        isThisBottomBarrier: true,
-                      ),
-                    ],
+                        // Bottom barrier 1
+                        MyBarrier(
+                          barrierX: barrierX[1],
+                          barrierWidth: barrierWidth,
+                          barrierHeight: barrierHeight[1][1],
+                          isThisBottomBarrier: true,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            Expanded(
-              child: Container(
-                color: Colors.brown,
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            '0',
-                            style: TextStyle(color: Colors.white, fontSize: 35),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Text(
-                            'S C O R E',
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            '10',
-                            style: TextStyle(color: Colors.white, fontSize: 35),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Text(
-                            'B E S T',
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          ),
-                        ],
-                      ),
-                    ],
+
+              //Bottom portion
+              Expanded(
+                child: Container(
+                  color: Colors.brown,
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              '$score',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 35),
+                            ),
+                            SizedBox(height: 15),
+                            Text(
+                              'S C O R E',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "$bestScore",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 35),
+                            ),
+                            SizedBox(height: 15),
+                            Text(
+                              'B E S T',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

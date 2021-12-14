@@ -26,7 +26,7 @@ class AppTextStyles {
   );
 
   var kLevelsViewTitleTextStyle = GoogleFonts.montserrat(
-    fontSize: 22,
+    fontSize: 20,
     color: AppColors().kSecondaryTextColor,
   );
 

@@ -1,4 +1,4 @@
-import 'package:butex_notebot/utils/open_url.dart';
+import 'package:butex_notebot/services/open_url.dart';
 import 'package:flutter/material.dart';
 
 Widget devAvatar({

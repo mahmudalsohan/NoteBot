@@ -1,9 +1,14 @@
 import 'package:butex_notebot/constants/asset_path.dart';
+import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/constants/text_styles.dart';
-import 'package:butex_notebot/views/lab_reports_levels_view/lab_reports_levels_view.dart';
+import 'package:butex_notebot/networking/http_service.dart';
+import 'package:butex_notebot/views/lab_levels_view/lab_levels_view.dart';
 import 'package:butex_notebot/views/notes_levels_view/notes_levels_view.dart';
 import 'package:butex_notebot/views/entertainment_views/entertainment_home.dart';
 import 'package:butex_notebot/views/notice_view/notice_view.dart';
+import 'package:butex_notebot/views/syllabus_batch_view/syllabus_batch_view.dart';
+import 'package:butex_notebot/views/tools_home_view/tools_home_view.dart';
+import 'package:butex_notebot/widgets/custom_snackbar.dart';
 import 'package:butex_notebot/widgets/function_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -43,7 +48,7 @@ class DashboardSection extends StatelessWidget {
                 title: "Lab Reports",
                 imagePath: imageLabReportSection,
                 onPress: () {
-                  Get.to(() => LabReportsLevelsView());
+                  Get.to(() => LabLevelsView());
                 },
               ),
               FunctionTile(
@@ -56,12 +61,20 @@ class DashboardSection extends StatelessWidget {
               FunctionTile(
                 title: "Syllabus",
                 imagePath: imageSyllabusSection,
-                onPress: () {},
+                onPress: () async {
+                  await networkController.checkConnectivity();
+                  if (networkController.isConnected.value)
+                    Get.to(() => SyllabusBatchView());
+                  else
+                    customSnackBar(context, message: "No Network !");
+                },
               ),
               FunctionTile(
                 title: "Tools",
                 imagePath: imageToolsSection,
-                onPress: () {},
+                onPress: () {
+                  Get.to(() => ToolsHomeView());
+                },
               ),
               FunctionTile(
                 title: "Entertainment",

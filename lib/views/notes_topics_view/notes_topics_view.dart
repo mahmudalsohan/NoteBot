@@ -1,16 +1,19 @@
+import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/models/topic_model.dart';
 import 'package:butex_notebot/networking/http_service.dart';
-import 'package:butex_notebot/views/academic_views/topic_content_screen.dart';
-import 'package:butex_notebot/utils/open_url.dart';
+import 'package:butex_notebot/services/open_url.dart';
+import 'package:butex_notebot/views/notes_topic_content_view/topic_content_view.dart';
+import 'package:butex_notebot/widgets/custom_snackbar.dart';
 import 'package:butex_notebot/widgets/reusable_list_tile.dart';
+import 'package:butex_notebot/widgets/skeleton_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 
-class TopicsScreen extends StatelessWidget {
+class TopicsView extends StatelessWidget {
   final String? subjectRoute;
   final String? subjectName;
-  const TopicsScreen({
+  const TopicsView({
     Key? key,
     required this.subjectName,
     required this.subjectRoute,
@@ -33,7 +36,7 @@ class TopicsScreen extends StatelessWidget {
             builder: (context, topics) {
               if (topics.hasData) {
                 var topicList = topics.data;
-                return ListView.builder(
+                return ListView.separated(
                   physics: BouncingScrollPhysics(),
                   itemCount: topicList!.length,
                   itemBuilder: (context, index) {
@@ -44,22 +47,29 @@ class TopicsScreen extends StatelessWidget {
                         trailer: topicData.url == null
                             ? Icon(Icons.arrow_forward_ios_sharp)
                             : Icon(Icons.launch),
-                        onTap: () {
-                          if (topicData.url == null) {
-                            Get.to(TopicContentScreen(
-                              topicName: topicData.topic,
-                              topicRoute: topicData.route,
-                            ));
+                        onTap: () async {
+                          await networkController.checkConnectivity();
+                          if (networkController.isConnected.value) {
+                            if (topicData.url == null) {
+                              Get.to(() => TopicContentView(
+                                    topicName: topicData.topic,
+                                    topicRoute: topicData.route,
+                                  ));
+                            } else {
+                              UrlLauncher.openUrl(url: topicData.url);
+                            }
                           } else {
-                            UrlLauncher.openUrl(url: topicData.url);
+                            customSnackBar(context, message: "No Internet !");
                           }
                         });
                   },
+                  separatorBuilder: (BuildContext context, int index) =>
+                      Divider(
+                    color: Colors.grey,
+                  ),
                 );
               } else {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
+                return SkeletonLoading();
               }
             },
           ),

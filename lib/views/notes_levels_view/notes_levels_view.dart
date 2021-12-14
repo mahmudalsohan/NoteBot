@@ -1,6 +1,8 @@
+import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/constants/text_styles.dart';
 import 'package:butex_notebot/views/notes_subjects_view/notes_subjects_view.dart';
 import 'package:butex_notebot/widgets/appBar_widget.dart';
+import 'package:butex_notebot/widgets/custom_snackbar.dart';
 import 'package:butex_notebot/widgets/level_selection_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -28,26 +30,43 @@ class NotesLevelsView extends StatelessWidget {
             SizedBox(height: 50),
             levelSelectionTile(
               title: "Level 1",
-              onTap: () {
-                Get.to(() => NotesSubjectsView(level: 1));
+              onTap: () async {
+                await networkController.checkConnectivity();
+                if (networkController.isConnected.value)
+                  Get.to(() => NotesSubjectsView(level: 1));
+                else
+                  customSnackBar(context, message: "No Network !");
               },
             ),
             levelSelectionTile(
               title: "Level 2",
-              onTap: () {
-                Get.to(() => NotesSubjectsView(level: 2));
+              onTap: () async {
+                await networkController.checkConnectivity();
+                if (networkController.isConnected.value) {
+                  Get.to(() => NotesSubjectsView(level: 2));
+                } else {
+                  customSnackBar(context, message: "No Network !");
+                }
               },
             ),
             levelSelectionTile(
               title: "Level 3",
-              onTap: () {
-                Get.to(() => NotesSubjectsView(level: 3));
+              onTap: () async {
+                await networkController.checkConnectivity();
+                if (networkController.isConnected.value)
+                  Get.to(() => NotesSubjectsView(level: 3));
+                else
+                  customSnackBar(context, message: "No Network !");
               },
             ),
             levelSelectionTile(
               title: "Level 4",
-              onTap: () {
-                Get.to(() => NotesSubjectsView(level: 4));
+              onTap: () async {
+                await networkController.checkConnectivity();
+                if (networkController.isConnected.value)
+                  Get.to(() => NotesSubjectsView(level: 4));
+                else
+                  customSnackBar(context, message: "No Network !");
               },
             ),
           ],
