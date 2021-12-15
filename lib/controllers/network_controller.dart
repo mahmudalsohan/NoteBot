@@ -16,6 +16,7 @@ class NetworkController extends GetxController {
   final RxBool isApiLive = false.obs;
   final RxString BASE_URL = "".obs;
   final RxList<InMemoryOf> memorialList = <InMemoryOf>[].obs;
+  final RxList<SponsoredContent> sponsorList = <SponsoredContent>[].obs;
 
   @override
   void onInit() async {
@@ -49,5 +50,9 @@ class NetworkController extends GetxController {
     BASE_URL.value = baseRequest.apiInfo.primary.liveApiUrl;
     isApiLive.value = baseRequest.apiInfo.isApiLive;
     memorialList.value = baseRequest.inMemoryOf;
+    sponsorList.value = baseRequest.sponsoredContent;
+    //
+    print(sponsorList[0].title);
+    print(sponsorList.length);
   }
 }

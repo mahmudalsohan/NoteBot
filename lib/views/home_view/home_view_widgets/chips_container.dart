@@ -1,3 +1,4 @@
+import 'package:butex_notebot/constants/colors.dart';
 import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/constants/get_storage_key.dart';
 import 'package:butex_notebot/constants/text_styles.dart';
@@ -41,12 +42,20 @@ class ChipsContainer extends StatelessWidget {
                           borderRadius: BorderRadius.circular(5),
                           boxShadow: [
                             BoxShadow(
+                              offset: Offset(6.0, 8.0),
+                              blurRadius: 2,
+                              spreadRadius: 0.001,
+                              color: AppColors().kFunctionTileShadowColor,
+                            ),
+                          ],
+                          /*boxShadow: [
+                            BoxShadow(
                               //offset: Offset(8.0, 8.0),
                               blurRadius: 15,
                               spreadRadius: 5,
                               color: Colors.black12,
                             ),
-                          ],
+                          ],*/
                         ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(

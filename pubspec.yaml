@@ -39,7 +39,7 @@ dependencies:
   card_swiper: ^1.0.4
   flutter_slidable: ^1.1.0
   webfeed: ^0.7.0
-  http: ^0.13.4
+  introduction_screen: ^2.1.0
   flutter_local_notifications: ^9.1.4
   firebase_messaging: ^11.1.0
   flutter_config: ^2.0.0

@@ -1,7 +1,4 @@
 import 'package:butex_notebot/constants/get_storage_key.dart';
-import 'package:butex_notebot/constants/themes.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -22,6 +19,8 @@ class ThemeController extends GetxController {
     _getStorage = GetStorage();
     if (GetStorage().read(GetStorageKey.IS_DARK_MODE) != null) {
       isDarkMode.value = _getStorage.read(GetStorageKey.IS_DARK_MODE);
+    } else {
+      _getStorage.write(GetStorageKey.IS_DARK_MODE, isDarkMode.value);
     }
   }
 

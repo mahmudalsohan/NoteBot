@@ -19,7 +19,7 @@ class HomeView extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        //physics: BouncingScrollPhysics(),
         child: Column(
           children: [
             SizedBox(height: 15),

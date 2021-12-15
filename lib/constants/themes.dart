@@ -28,7 +28,7 @@ class AppThemes {
   }
 
   static const ColorScheme lightColorScheme = ColorScheme(
-    primary: Colors.lightBlueAccent,
+    primary: Color(0xff1972e7),
     primaryVariant: Colors.lightBlue,
     secondary: Color(0xFF03DAC5),
     secondaryVariant: Color(0xFF0AE1C5),

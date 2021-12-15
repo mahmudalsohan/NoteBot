@@ -13,20 +13,26 @@ class BaseRequest {
   BaseRequest({
     required this.apiInfo,
     required this.inMemoryOf,
+    required this.sponsoredContent,
   });
 
   ApiInfo apiInfo;
   List<InMemoryOf> inMemoryOf;
+  List<SponsoredContent> sponsoredContent;
 
   factory BaseRequest.fromJson(Map<String, dynamic> json) => BaseRequest(
         apiInfo: ApiInfo.fromJson(json["apiInfo"]),
         inMemoryOf: List<InMemoryOf>.from(
             json["inMemoryOf"].map((x) => InMemoryOf.fromJson(x))),
+        sponsoredContent: List<SponsoredContent>.from(
+            json["sponsoredContent"].map((x) => SponsoredContent.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "apiInfo": apiInfo.toJson(),
         "inMemoryOf": List<dynamic>.from(inMemoryOf.map((x) => x.toJson())),
+        "sponsoredContent":
+            List<dynamic>.from(sponsoredContent.map((x) => x.toJson())),
       };
 }
 
@@ -99,5 +105,42 @@ class InMemoryOf {
         "name": name,
         "about": about,
         "diedIn": diedIn,
+      };
+}
+
+class SponsoredContent {
+  SponsoredContent({
+    required this.title,
+    required this.description,
+    required this.url,
+    required this.imgUrl,
+    required this.type,
+    required this.accentColor,
+  });
+
+  String title;
+  String description;
+  dynamic url;
+  String imgUrl;
+  String type;
+  List<String> accentColor;
+
+  factory SponsoredContent.fromJson(Map<String, dynamic> json) =>
+      SponsoredContent(
+        title: json["title"],
+        description: json["description"],
+        url: json["url"],
+        imgUrl: json["imgUrl"],
+        type: json["type"],
+        accentColor: List<String>.from(json["accentColor"].map((x) => x)),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "title": title,
+        "description": description,
+        "url": url,
+        "imgUrl": imgUrl,
+        "type": type,
+        "accentColor": List<dynamic>.from(accentColor.map((x) => x)),
       };
 }

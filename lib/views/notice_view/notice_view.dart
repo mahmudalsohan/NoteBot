@@ -20,7 +20,7 @@ class NoticeView extends StatelessWidget {
         () => Container(
           child: noticeController.feed.value.items != null
               ? ListView.builder(
-                  physics: BouncingScrollPhysics(),
+                  //physics: BouncingScrollPhysics(),
                   itemCount: noticeController.feed.value.items?.length,
                   itemBuilder: (BuildContext context, int index) {
                     final item = noticeController.feed.value.items![index];
@@ -32,7 +32,7 @@ class NoticeView extends StatelessWidget {
                       child: Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.background,
                             boxShadow: [
                               BoxShadow(
                                 offset: Offset(5.0, 12.0),
