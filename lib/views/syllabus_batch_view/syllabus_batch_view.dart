@@ -1,3 +1,4 @@
+import 'package:butex_notebot/constants/asset_path.dart';
 import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/constants/text_styles.dart';
 import 'package:butex_notebot/models/syllabus_batch.dart';
@@ -24,44 +25,59 @@ class SyllabusBatchView extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              "📝 Choose Your Batch for Syllabus -",
-              style: AppTextStyles().kLevelsViewTitleTextStyle,
-            ),
-            SizedBox(height: 50),
-            FutureBuilder<List<SyllabusBatch>>(
-                future: HttpService().getSyllabusBatches("app/syllabus"),
-                builder: (context, batches) {
-                  if (batches.hasData) {
-                    var batchList = batches.data;
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      physics: BouncingScrollPhysics(),
-                      itemCount: batchList!.length,
-                      itemBuilder: (context, index) {
-                        var batchData = batchList[index];
-                        return levelSelectionTile(
-                          title: "Batch ${batchData.batch}",
-                          onTap: () async {
-                            await networkController.checkConnectivity();
-                            if (networkController.isConnected.value)
-                              Get.to(() => SyllabusDeptView(
-                                    route: batchData.route,
-                                  ));
-                            else
-                              customSnackBar(context, message: "No Network !");
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "📝 Choose Your Batch for Syllabus -",
+                  style: AppTextStyles().kLevelsViewTitleTextStyle,
+                ),
+                SizedBox(height: 50),
+                FutureBuilder<List<SyllabusBatch>>(
+                    future: HttpService().getSyllabusBatches("app/syllabus"),
+                    builder: (context, batches) {
+                      if (batches.hasData) {
+                        var batchList = batches.data;
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          physics: BouncingScrollPhysics(),
+                          itemCount: batchList!.length,
+                          itemBuilder: (context, index) {
+                            var batchData = batchList[index];
+                            return LevelSelectionTile(
+                              title: "Batch ${batchData.batch}",
+                              onTap: () async {
+                                await networkController.checkConnectivity();
+                                if (networkController.isConnected.value)
+                                  Get.to(() => SyllabusDeptView(
+                                        route: batchData.route,
+                                      ));
+                                else
+                                  customSnackBar(
+                                    context,
+                                    message: "No Network !",
+                                    bg: Color(0xffaf2031),
+                                  );
+                              },
+                            );
                           },
                         );
-                      },
-                    );
-                  } else {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                }),
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    }),
+              ],
+            ),
+            Image(
+              height: 200,
+              width: 200,
+              image: AssetImage(imageSyllabusSection),
+            ),
           ],
         ),
       ),

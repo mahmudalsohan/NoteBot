@@ -44,7 +44,7 @@ class AppThemes {
   );
 
   static final ColorScheme darkColorScheme = ColorScheme(
-    primary: Color(0xFF6200EE),
+    primary: Color(0xff1972e7),
     primaryVariant: Color(0xFF640AFF),
     secondary: Colors.blueGrey.shade900,
     secondaryVariant: Colors.blueGrey.shade800,

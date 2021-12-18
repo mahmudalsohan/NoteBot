@@ -1,4 +1,5 @@
 import 'package:butex_notebot/constants/colors.dart';
+import 'package:butex_notebot/constants/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
@@ -22,7 +23,9 @@ class FunctionTile extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.background,
+          color: themeController.isDarkMode.value
+              ? Color(0xff1a2d3d)
+              : Theme.of(context).colorScheme.background,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(

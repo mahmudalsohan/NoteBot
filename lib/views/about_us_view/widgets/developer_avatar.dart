@@ -1,7 +1,8 @@
 import 'package:butex_notebot/services/open_url.dart';
 import 'package:flutter/material.dart';
 
-Widget devAvatar({
+Widget devAvatar(
+  context, {
   required String image,
   required String name,
   required String dept,
@@ -20,7 +21,7 @@ Widget devAvatar({
         },
         child: Text(
           name,
-          style: TextStyle(color: Colors.blue),
+          style: TextStyle(color: Theme.of(context).colorScheme.primary),
         ),
       ),
       SizedBox(height: 5),

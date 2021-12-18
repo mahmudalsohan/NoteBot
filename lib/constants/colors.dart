@@ -2,11 +2,11 @@ import 'package:butex_notebot/constants/controller.dart';
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const Color _kKeyUmbraOpacity = Color(0x33000000);
+  /*static const Color _kKeyUmbraOpacity = Color(0x33000000);
   static const Color _kKeyPenumbraOpacity = Color(0x24000000);
-  static const Color _kAmbientShadowOpacity = Color(0x1F000000);
+  static const Color _kAmbientShadowOpacity = Color(0x1F000000);*/
 
-  List carouselGradientColors = [
+  /*List carouselGradientColors = [
     [
       Color(0xffffe287),
       Color(0xffffc103),
@@ -23,8 +23,8 @@ class AppColors {
       Color(0xff8037fa),
     ],
   ];
-
-  final List<BoxShadow> carouselShadowColors = themeController.isDarkMode.value
+*/
+  /*final List<BoxShadow> carouselShadowColors = themeController.isDarkMode.value
       ? [
           BoxShadow(
               offset: Offset(0.0, 2.0),
@@ -58,7 +58,7 @@ class AppColors {
               blurRadius: 3.0,
               spreadRadius: 0.0,
               color: _kAmbientShadowOpacity),
-        ];
+        ];*/
 
   var kFunctionTileShadowColor = Colors.black12;
 

@@ -15,19 +15,12 @@ final user = FirebaseAuth.instance.currentUser;
 final List<Widget> drawerItems = [
   DrawerHeader(
     child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset(
-              logoNotebot /*,
-            height: 40,
-            width: 40,*/
-              ),
-        ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(height: 30),
             Text(
               "Hello,",
               style: TextStyle(
@@ -45,6 +38,7 @@ final List<Widget> drawerItems = [
             ),
           ],
         ),
+        Image.asset(logoNotebot, height: 100, width: 100),
       ],
     ),
   ),
@@ -52,7 +46,7 @@ final List<Widget> drawerItems = [
     onTap: () {
       UrlLauncher.openUrl(url: "https://notebot.netlify.app/#/");
     },
-    leading: Icon(Icons.web),
+    leading: Icon(Icons.language_outlined),
     title: 'Notebot Web',
   ),
   drawerListTile(
@@ -86,7 +80,7 @@ final List<Widget> drawerItems = [
     onTap: () {
       UrlLauncher.openUrl(url: "https://forms.gle/xRgr7HhS9Zycsvqn6");
     },
-    leading: Icon(Icons.book),
+    leading: Icon(Icons.book_outlined),
     title: 'Submit Notes',
   ),
   drawerListTile(
@@ -100,7 +94,7 @@ final List<Widget> drawerItems = [
     onTap: () {
       authController.logout();
     },
-    leading: Icon(Icons.close),
+    leading: Icon(Icons.logout_outlined),
     title: 'Log Out',
   ),
 ];

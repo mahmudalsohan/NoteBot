@@ -30,7 +30,7 @@ class SlidableListTile extends StatelessWidget {
               _validatePress(context);
             },
             backgroundColor: Theme.of(context).colorScheme.background,
-            foregroundColor: Colors.black,
+            //foregroundColor: Colors.black,
             icon: Icons.push_pin,
             label: 'Pin',
           ),
@@ -57,22 +57,30 @@ class SlidableListTile extends StatelessWidget {
           GetStorage().write(title, route);
           homeViewController.chipTitles.add(title);
           homeViewController.updateChipsStorage();
+          customSnackBar(
+            context,
+            message: "Pinned successfully 😀",
+            bg: Color(0xff0f9d58),
+          );
         } else {
           customSnackBar(
             context,
             message: "Already Pinned !!!",
+            bg: Color(0xffaf2031), //0f9d58
           );
         }
       } else {
         customSnackBar(
           context,
           message: "You Can Pin Only 8 Subjects !",
+          bg: Color(0xffaf2031),
         );
       }
     } else {
       customSnackBar(
         context,
         message: "Only Subjects Can be Pinned !",
+        bg: Color(0xffaf2031),
       );
     }
   }

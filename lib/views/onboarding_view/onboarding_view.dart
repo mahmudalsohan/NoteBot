@@ -1,72 +1,92 @@
-import 'package:butex_notebot/constants/asset_path.dart';
-import 'package:butex_notebot/views/auth_view/auth_view.dart';
-import 'package:butex_notebot/views/home_view/home_view.dart';
+import 'package:butex_notebot/controllers/on_boarding_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
-import 'package:introduction_screen/introduction_screen.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 class OnBoardingView extends StatelessWidget {
-  const OnBoardingView({Key? key}) : super(key: key);
+  final _controller = OnBoardingController();
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: IntroductionScreen(
-        pages: [
-          PageViewModel(
-            title: 'A reader lives a thousand lives',
-            body: 'The man who never reads lives only one.',
-            image: Image.asset(imageOnboard1),
-            decoration: getPageDecoration(),
-          ),
-          PageViewModel(
-            title: 'Featured Books',
-            body: 'Available right at your fingerprints',
-            image: Image.asset(imageOnboard2),
-            decoration: getPageDecoration(),
-          ),
-          PageViewModel(
-            title: 'Simple UI',
-            body: 'For enhanced reading experience',
-            image: Image.asset(imageOnboard1),
-            decoration: getPageDecoration(),
-          ),
-          PageViewModel(
-            title: 'Today a reader, tomorrow a leader',
-            body: 'Start your journey',
-            footer: ElevatedButton(
-              child: Text("Launch"),
-              onPressed: () {
-                Get.offAll(() => HomeView());
-              },
+    return Scaffold(
+      body: SafeArea(
+        child: Stack(
+          children: [
+            PageView.builder(
+                controller: _controller.pageController,
+                onPageChanged: _controller.selectedPageIndex,
+                itemCount: _controller.onboardingPages.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                            _controller.onboardingPages[index].imageAsset),
+                        SizedBox(height: 32),
+                        Text(
+                          _controller.onboardingPages[index].title,
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.w500),
+                        ),
+                        SizedBox(height: 32),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 64.0),
+                          child: Text(
+                            _controller.onboardingPages[index].description,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+
+            //Dots Indicator
+            Positioned(
+              bottom: 20,
+              left: 20,
+              child: Row(
+                children: List.generate(
+                  _controller.onboardingPages.length,
+                  (index) => Obx(() {
+                    return Container(
+                      margin: const EdgeInsets.all(4),
+                      width: 12,
+                      height: 12,
+                      decoration: BoxDecoration(
+                        color: _controller.selectedPageIndex.value == index
+                            ? Colors.red
+                            : Colors.grey,
+                        shape: BoxShape.circle,
+                      ),
+                    );
+                  }),
+                ),
+              ),
             ),
-            image: Image.asset(imageOnboard1),
-            decoration: getPageDecoration(),
-          ),
-        ],
-        done: Text('Read', style: TextStyle(fontWeight: FontWeight.w600)),
-        onDone: () {
-          Get.offAll(() => HomeView());
-        },
-        next: Icon(Icons.arrow_forward),
-        dotsDecorator: getDotDecoration(),
-        onChange: (index) => print('Page $index selected'),
-        globalBackgroundColor: Colors.white,
-        skipFlex: 0,
-        nextFlex: 0,
-        // isProgressTap: false,
-        // isProgress: false,
-        // showNextButton: false,
-        // freeze: true,
-        // animationDuration: 1000,
+
+            //Next or Start Button
+            Positioned(
+              right: 20,
+              bottom: 20,
+              child: FloatingActionButton(
+                elevation: 0,
+                onPressed: _controller.forwardAction,
+                child: Obx(() {
+                  return Text(_controller.isLastPage ? 'Start' : 'Next');
+                }),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  DotsDecorator getDotDecoration() => DotsDecorator(
+  /*DotsDecorator getDotDecoration() => DotsDecorator(
         color: Color(0xFFBDBDBD),
-        //activeColor: Colors.orange,
+        activeColor: Colors.blueGrey,
         size: Size(10, 10),
         activeSize: Size(22, 10),
         activeShape: RoundedRectangleBorder(
@@ -80,5 +100,5 @@ class OnBoardingView extends StatelessWidget {
         descriptionPadding: EdgeInsets.all(16).copyWith(bottom: 0),
         imagePadding: EdgeInsets.all(24),
         pageColor: Colors.white,
-      );
+      );*/
 }

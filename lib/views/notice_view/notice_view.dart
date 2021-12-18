@@ -29,37 +29,39 @@ class NoticeView extends StatelessWidget {
                     return Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 20, horizontal: 20),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Theme.of(context).colorScheme.background,
-                            boxShadow: [
-                              BoxShadow(
-                                offset: Offset(5.0, 12.0),
-                                blurRadius: 5,
-                                spreadRadius: 0,
-                                color: Colors.black12,
+                      child: InkWell(
+                        onTap: () {
+                          UrlLauncher.openUrl(url: item.link);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: themeController.isDarkMode.value
+                                  ? Color(0xff1a2d3d)
+                                  : Theme.of(context).colorScheme.background,
+                              boxShadow: [
+                                BoxShadow(
+                                  offset: Offset(5.0, 12.0),
+                                  blurRadius: 5,
+                                  spreadRadius: 0,
+                                  color: Colors.black12,
+                                ),
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(15),
+                                  topLeft: Radius.circular(15),
+                                ),
+                                child: Image.asset(
+                                  _images[index % 3],
+                                ),
                               ),
-                            ]),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(15),
-                                topLeft: Radius.circular(15),
-                              ),
-                              child: Image.asset(
-                                _images[index % 3],
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(10, 20, 10, 10),
-                              child: InkWell(
-                                onTap: () {
-                                  UrlLauncher.openUrl(url: item.link);
-                                },
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(10, 20, 10, 10),
                                 child: Text(
                                   item.title ?? "Error Loading Data",
                                   style: TextStyle(
@@ -67,43 +69,43 @@ class NoticeView extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.calendar_today_outlined,
-                                        color: Colors.grey,
-                                        size: 18,
-                                      ),
-                                      SizedBox(width: 5),
-                                      Text(
-                                        _date,
-                                        style: TextStyle(
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.calendar_today_outlined,
                                           color: Colors.grey,
-                                          fontSize: 14,
+                                          size: 18,
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  IconButton(
-                                    icon: Icon(
-                                      Icons.share_outlined,
-                                      color: Colors.grey,
+                                        SizedBox(width: 5),
+                                        Text(
+                                          _date,
+                                          style: TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    onPressed: () {
-                                      Share.share(item.link ?? "Error Link");
-                                    },
-                                  ),
-                                ],
+                                    IconButton(
+                                      icon: Icon(
+                                        Icons.share_outlined,
+                                        color: Colors.grey,
+                                      ),
+                                      onPressed: () {
+                                        Share.share(item.link ?? "Error Link");
+                                      },
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     );

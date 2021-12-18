@@ -14,11 +14,15 @@ class BaseRequest {
     required this.apiInfo,
     required this.inMemoryOf,
     required this.sponsoredContent,
+    required this.communities,
+    required this.tools,
   });
 
   ApiInfo apiInfo;
   List<InMemoryOf> inMemoryOf;
   List<SponsoredContent> sponsoredContent;
+  List<Community> communities;
+  List<Tool> tools;
 
   factory BaseRequest.fromJson(Map<String, dynamic> json) => BaseRequest(
         apiInfo: ApiInfo.fromJson(json["apiInfo"]),
@@ -26,6 +30,9 @@ class BaseRequest {
             json["inMemoryOf"].map((x) => InMemoryOf.fromJson(x))),
         sponsoredContent: List<SponsoredContent>.from(
             json["sponsoredContent"].map((x) => SponsoredContent.fromJson(x))),
+        communities: List<Community>.from(
+            json["communities"].map((x) => Community.fromJson(x))),
+        tools: List<Tool>.from(json["tools"].map((x) => Tool.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -33,6 +40,8 @@ class BaseRequest {
         "inMemoryOf": List<dynamic>.from(inMemoryOf.map((x) => x.toJson())),
         "sponsoredContent":
             List<dynamic>.from(sponsoredContent.map((x) => x.toJson())),
+        "communities": List<dynamic>.from(communities.map((x) => x.toJson())),
+        "tools": List<dynamic>.from(tools.map((x) => x.toJson())),
       };
 }
 
@@ -84,6 +93,38 @@ class Ary {
       };
 }
 
+class Community {
+  Community({
+    required this.title,
+    required this.description,
+    required this.url,
+    required this.imgUrl,
+    required this.category,
+  });
+
+  String title;
+  String description;
+  String url;
+  String imgUrl;
+  List<String> category;
+
+  factory Community.fromJson(Map<String, dynamic> json) => Community(
+        title: json["title"],
+        description: json["description"],
+        url: json["url"],
+        imgUrl: json["imgUrl"],
+        category: List<String>.from(json["category"].map((x) => x)),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "title": title,
+        "description": description,
+        "url": url,
+        "imgUrl": imgUrl,
+        "category": List<dynamic>.from(category.map((x) => x)),
+      };
+}
+
 class InMemoryOf {
   InMemoryOf({
     required this.name,
@@ -112,7 +153,7 @@ class SponsoredContent {
   SponsoredContent({
     required this.title,
     required this.description,
-    required this.url,
+    this.url,
     required this.imgUrl,
     required this.type,
     required this.accentColor,
@@ -142,5 +183,25 @@ class SponsoredContent {
         "imgUrl": imgUrl,
         "type": type,
         "accentColor": List<dynamic>.from(accentColor.map((x) => x)),
+      };
+}
+
+class Tool {
+  Tool({
+    required this.title,
+    required this.url,
+  });
+
+  String title;
+  String url;
+
+  factory Tool.fromJson(Map<String, dynamic> json) => Tool(
+        title: json["title"],
+        url: json["url"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "title": title,
+        "url": url,
       };
 }

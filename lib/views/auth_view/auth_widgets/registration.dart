@@ -1,75 +1,76 @@
 import 'package:butex_notebot/constants/asset_path.dart';
 import 'package:butex_notebot/constants/controller.dart';
+import 'package:butex_notebot/models/user_model.dart';
+import 'package:butex_notebot/networking/http_service.dart';
 import 'package:butex_notebot/views/auth_view/auth_widgets/social_signin_button.dart';
+import 'package:butex_notebot/views/home_view/home_view.dart';
 import 'package:butex_notebot/widgets/custom_snackbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 
-class RegistrationWidget extends StatelessWidget {
-  const RegistrationWidget({Key? key}) : super(key: key);
+class RegistrationView extends StatelessWidget {
+  const RegistrationView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "Welcome to ",
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        SizedBox(height: 10),
-        Text(
-          "BUTEX NOTEBOT",
-          style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        SizedBox(height: 50),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width / 1.2,
-              margin: EdgeInsets.only(top: 30),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(25),
-                color: Colors.grey.withOpacity(.3),
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: Image.asset(
+                      logoNotebot,
+                      width: 200,
+                    ),
+                  ),
+                  SizedBox(height: 50),
+                  Text(
+                    "Welcome to ",
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "BUTEX NoteBOT",
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                child: TextField(
-                  controller: null,
-                  decoration: InputDecoration(
-                      icon: Icon(Icons.person),
-                      fillColor: Colors.transparent,
-                      border: InputBorder.none,
-                      hintText: "Student ID"),
-                ),
+              SocialSignInButton(
+                text: 'Continue with Google',
+                assetName: iconGoogle,
+                buttonColor: Colors.white,
+                textColor: Colors.black87,
+                onTap: () async {
+                  await networkController.checkConnectivity();
+                  if (networkController.isConnected.value) {
+                    authController.googleAuthentication();
+                  } else {
+                    customSnackBar(
+                      context,
+                      message: "No Network !!!",
+                      bg: Color(0xffaf2031),
+                    );
+                  }
+                },
               ),
-            ),
-          ],
-        ),
-        Padding(
-          padding: const EdgeInsets.all(25),
-          child: SocialSignInButton(
-            text: 'Sign Up with Google',
-            assetName: iconGoogle,
-            buttonColor: Colors.white,
-            textColor: Colors.black87,
-            onTap: () async {
-              await networkController.checkConnectivity();
-              if (networkController.isConnected.value) {
-                authController.googleLogin();
-              } else {
-                customSnackBar(context, message: "No Network !!!");
-              }
-            },
+            ],
           ),
-        )
-      ],
+        ),
+      ),
     );
   }
 }

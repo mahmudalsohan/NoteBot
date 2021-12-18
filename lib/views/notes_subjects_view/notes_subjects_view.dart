@@ -53,7 +53,11 @@ class NotesSubjectsView extends StatelessWidget {
                             UrlLauncher.openUrl(url: subjectData.url);
                           }
                         } else {
-                          customSnackBar(context, message: "No Network !");
+                          customSnackBar(
+                            context,
+                            message: "No Network !",
+                            bg: Color(0xffaf2031),
+                          );
                         }
                       });
                 },

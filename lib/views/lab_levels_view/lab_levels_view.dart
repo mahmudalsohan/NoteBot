@@ -1,3 +1,4 @@
+import 'package:butex_notebot/constants/asset_path.dart';
 import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/constants/text_styles.dart';
 import 'package:butex_notebot/views/lab_subjects_view/lab_subjects_view.dart';
@@ -21,43 +22,63 @@ class LabLevelsView extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              "📒 Choose Level for Lab Reports -",
-              style: AppTextStyles().kLevelsViewTitleTextStyle,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "📒 Choose Level for Lab Reports -",
+                  style: AppTextStyles().kLevelsViewTitleTextStyle,
+                ),
+                SizedBox(height: 50),
+                LevelSelectionTile(
+                  title: "Level 1",
+                  onTap: () async {
+                    await networkController.checkConnectivity();
+                    if (networkController.isConnected.value)
+                      Get.to(() => LabSubjectsView(level: 1));
+                    else
+                      customSnackBar(context,
+                          bg: Color(0xffaf2031), message: "No Network !");
+                  },
+                ),
+                LevelSelectionTile(
+                  title: "Level 2",
+                  onTap: () async {
+                    await networkController.checkConnectivity();
+                    if (networkController.isConnected.value) {
+                      Get.to(() => LabSubjectsView(level: 2));
+                    } else {
+                      customSnackBar(
+                        context,
+                        message: "No Network !",
+                        bg: Color(0xffaf2031),
+                      );
+                    }
+                  },
+                ),
+                LevelSelectionTile(
+                  title: "Level 3",
+                  onTap: () async {
+                    await networkController.checkConnectivity();
+                    if (networkController.isConnected.value)
+                      Get.to(() => LabSubjectsView(level: 3));
+                    else
+                      customSnackBar(
+                        context,
+                        message: "No Network !",
+                        bg: Color(0xffaf2031),
+                      );
+                  },
+                ),
+              ],
             ),
-            SizedBox(height: 50),
-            levelSelectionTile(
-              title: "Level 1",
-              onTap: () async {
-                await networkController.checkConnectivity();
-                if (networkController.isConnected.value)
-                  Get.to(() => LabSubjectsView(level: 1));
-                else
-                  customSnackBar(context, message: "No Network !");
-              },
-            ),
-            levelSelectionTile(
-              title: "Level 2",
-              onTap: () async {
-                await networkController.checkConnectivity();
-                if (networkController.isConnected.value) {
-                  Get.to(() => LabSubjectsView(level: 2));
-                } else {
-                  customSnackBar(context, message: "No Network !");
-                }
-              },
-            ),
-            levelSelectionTile(
-              title: "Level 3",
-              onTap: () async {
-                await networkController.checkConnectivity();
-                if (networkController.isConnected.value)
-                  Get.to(() => LabSubjectsView(level: 3));
-                else
-                  customSnackBar(context, message: "No Network !");
-              },
+            Image(
+              height: 200,
+              width: 200,
+              image: AssetImage(imageLabReportSection),
             ),
           ],
         ),

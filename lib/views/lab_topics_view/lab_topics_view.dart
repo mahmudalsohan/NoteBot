@@ -4,6 +4,7 @@ import 'package:butex_notebot/networking/http_service.dart';
 import 'package:butex_notebot/services/open_url.dart';
 import 'package:butex_notebot/views/lab_topic_content_view/lab_topic_content_view.dart';
 import 'package:butex_notebot/views/notes_topic_content_view/topic_content_view.dart';
+import 'package:butex_notebot/widgets/content_list_tile.dart';
 import 'package:butex_notebot/widgets/custom_snackbar.dart';
 import 'package:butex_notebot/widgets/reusable_list_tile.dart';
 import 'package:butex_notebot/widgets/skeleton_loading.dart';
@@ -56,7 +57,11 @@ class LabTopicsView extends StatelessWidget {
                             UrlLauncher.openUrl(url: topicData.url);
                           }
                         } else {
-                          customSnackBar(context, message: "No Internet !");
+                          customSnackBar(
+                            context,
+                            message: "No Internet !",
+                            bg: Color(0xffaf2031),
+                          );
                         }
                       },
                       trailer: topicData.route == null

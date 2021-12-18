@@ -9,6 +9,7 @@ import 'package:butex_notebot/models/subject_model.dart';
 import 'package:butex_notebot/models/syllabus_batch.dart';
 import 'package:butex_notebot/models/topic_content_model.dart';
 import 'package:butex_notebot/models/topic_model.dart';
+import 'package:butex_notebot/models/user_model.dart';
 import 'package:dio/dio.dart';
 
 class HttpService {
@@ -37,6 +38,7 @@ class HttpService {
         onError: (DioError e, handler) {
           print("onError: ${e.response!.statusCode}");
           print("onError: ${e.message}");
+
           return handler.next(e);
         },
       ),
@@ -171,5 +173,33 @@ class HttpService {
         (response.data as List).map((e) => LevelAndTerm.fromJson(e)).toList();
 
     return data;
+  }
+
+  //create user
+  Future<UserModel?> sendUserData({
+    required String? dept,
+    required String? id,
+    required String? batch,
+    required String? email,
+  }) async {
+    final String postUrl = "https://api.triptex.me/user/new";
+    var response = await Dio().post(
+      postUrl,
+      data: {
+        "email": email,
+        "uni_id": id,
+        "batch": batch,
+        "dept": dept,
+      },
+      queryParameters: {
+        "adminKey": "noteAnalTripto6969",
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return UserModel.fromJson(response.data);
+    } else {
+      return null;
+    }
   }
 }

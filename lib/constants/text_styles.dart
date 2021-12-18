@@ -33,7 +33,6 @@ class AppTextStyles {
 
   var kSelectLevelButtonTextStyle = GoogleFonts.montserrat(
     fontSize: 25,
-    color: Colors.white,
   );
 
   var kCarouselTitleTextStyle = GoogleFonts.montserrat(
@@ -44,5 +43,9 @@ class AppTextStyles {
   var kCarouselDescriptionTextStyle = GoogleFonts.montserrat(
     fontSize: 12,
     color: Colors.white,
+  );
+
+  var kAboutViewDescriptionTextStyle = GoogleFonts.montserrat(
+    fontSize: 14,
   );
 }

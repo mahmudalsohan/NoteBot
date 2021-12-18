@@ -2,13 +2,14 @@ import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/models/topic_content_model.dart';
 import 'package:butex_notebot/networking/http_service.dart';
 import 'package:butex_notebot/services/open_url.dart';
+import 'package:butex_notebot/widgets/content_list_tile.dart';
 import 'package:butex_notebot/widgets/custom_snackbar.dart';
 import 'package:butex_notebot/widgets/reusable_list_tile.dart';
 import 'package:butex_notebot/widgets/skeleton_loading.dart';
 import 'package:flutter/material.dart';
 
-class TopicContentView extends StatelessWidget {
-  const TopicContentView({
+class NotesTopicContentView extends StatelessWidget {
+  const NotesTopicContentView({
     Key? key,
     required this.topicName,
     required this.topicRoute,
@@ -41,7 +42,7 @@ class TopicContentView extends StatelessWidget {
                   itemCount: topicContentList!.length,
                   itemBuilder: (context, index) {
                     var topicContentData = topicContentList[index];
-                    return reusableListTile(
+                    return contentListTile(
                       context: context,
                       title: topicContentData.title,
                       onTap: () async {
@@ -49,7 +50,11 @@ class TopicContentView extends StatelessWidget {
                         if (networkController.isConnected.value) {
                           UrlLauncher.openUrl(url: topicContentData.url);
                         } else {
-                          customSnackBar(context, message: "No Network !");
+                          customSnackBar(
+                            context,
+                            message: "No Network !",
+                            bg: Color(0xffaf2031),
+                          );
                         }
                       },
                       trailer: Icon(Icons.launch),

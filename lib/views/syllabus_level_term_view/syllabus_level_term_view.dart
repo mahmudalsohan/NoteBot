@@ -5,6 +5,7 @@ import 'package:butex_notebot/services/open_url.dart';
 import 'package:butex_notebot/widgets/appBar_widget.dart';
 import 'package:butex_notebot/widgets/custom_snackbar.dart';
 import 'package:butex_notebot/widgets/reusable_list_tile.dart';
+import 'package:butex_notebot/widgets/skeleton_loading.dart';
 import 'package:flutter/material.dart';
 
 class SyllabusLevelTermView extends StatelessWidget {
@@ -52,9 +53,7 @@ class SyllabusLevelTermView extends StatelessWidget {
                         Divider(color: Colors.grey),
                   );
                 } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return SkeletonLoading();
                 }
               }),
         ),

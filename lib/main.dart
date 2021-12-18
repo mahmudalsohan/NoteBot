@@ -3,6 +3,7 @@ import 'package:butex_notebot/constants/firebase.dart';
 import 'package:butex_notebot/constants/themes.dart';
 import 'package:butex_notebot/views/auth_view/auth_view.dart';
 import 'package:butex_notebot/views/home_view/home_view.dart';
+import 'package:butex_notebot/views/onboarding_view/onboarding_view.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
         themeMode: themeController.isDarkMode.value
             ? AppThemes.darkThemeMode
             : AppThemes.lightThemeMode,
-        home: AuthView(),
+        home: appController.firstTime.value ? OnBoardingView() : AuthView(),
         defaultTransition: Transition.rightToLeft,
       ),
     );

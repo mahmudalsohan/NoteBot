@@ -6,6 +6,7 @@ import 'package:butex_notebot/widgets/appBar_widget.dart';
 import 'package:butex_notebot/widgets/custom_snackbar.dart';
 import 'package:butex_notebot/widgets/level_selection_tile.dart';
 import 'package:butex_notebot/widgets/reusable_list_tile.dart';
+import 'package:butex_notebot/widgets/skeleton_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
@@ -53,9 +54,7 @@ class SyllabusDeptView extends StatelessWidget {
                         Divider(color: Colors.grey),
                   );
                 } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return SkeletonLoading();
                 }
               }),
         ),

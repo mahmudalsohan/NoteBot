@@ -38,7 +38,9 @@ class ChipsContainer extends StatelessWidget {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.background,
+                          color: themeController.isDarkMode.value
+                              ? Color(0xff1a2d3d)
+                              : Theme.of(context).colorScheme.background,
                           borderRadius: BorderRadius.circular(5),
                           boxShadow: [
                             BoxShadow(
@@ -74,7 +76,7 @@ class ChipsContainer extends StatelessWidget {
                 .toList()
             : [
                 Text(
-                  "You have no Pinned Subjects",
+                  "You have no pinned subjects 😢",
                   style: TextStyle(color: Colors.grey),
                 ),
               ],

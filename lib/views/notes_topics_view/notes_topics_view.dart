@@ -2,6 +2,7 @@ import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/models/topic_model.dart';
 import 'package:butex_notebot/networking/http_service.dart';
 import 'package:butex_notebot/services/open_url.dart';
+import 'package:butex_notebot/views/home_view/home_view.dart';
 import 'package:butex_notebot/views/notes_topic_content_view/topic_content_view.dart';
 import 'package:butex_notebot/widgets/custom_snackbar.dart';
 import 'package:butex_notebot/widgets/reusable_list_tile.dart';
@@ -24,6 +25,14 @@ class TopicsView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(subjectName ?? ""),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Get.offAll(HomeView());
+            },
+            icon: Icon(Icons.home),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -51,7 +60,7 @@ class TopicsView extends StatelessWidget {
                           await networkController.checkConnectivity();
                           if (networkController.isConnected.value) {
                             if (topicData.url == null) {
-                              Get.to(() => TopicContentView(
+                              Get.to(() => NotesTopicContentView(
                                     topicName: topicData.topic,
                                     topicRoute: topicData.route,
                                   ));
@@ -59,7 +68,11 @@ class TopicsView extends StatelessWidget {
                               UrlLauncher.openUrl(url: topicData.url);
                             }
                           } else {
-                            customSnackBar(context, message: "No Internet !");
+                            customSnackBar(
+                              context,
+                              message: "No Internet !",
+                              bg: Color(0xffaf2031),
+                            );
                           }
                         });
                   },

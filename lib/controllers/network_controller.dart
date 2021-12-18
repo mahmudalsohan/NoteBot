@@ -25,7 +25,7 @@ class NetworkController extends GetxController {
     await checkConnectivity();
 
     if (isConnected.value) {
-      await getBaseRequest();
+      await _getBaseRequest();
     }
   }
 
@@ -34,14 +34,14 @@ class NetworkController extends GetxController {
         await _connectivity.checkConnectivity();
 
     if (connectivityResult != ConnectivityResult.none) {
-      await getBaseRequest();
+      await _getBaseRequest();
       isConnected.value = true;
     } else if (connectivityResult == ConnectivityResult.none) {
       isConnected.value = false;
     }
   }
 
-  getBaseRequest() async {
+  _getBaseRequest() async {
     BaseRequest baseRequest;
     var response = await Dio().get(_primaryUrl);
     baseRequest = BaseRequest.fromJson(response.data);
@@ -51,8 +51,5 @@ class NetworkController extends GetxController {
     isApiLive.value = baseRequest.apiInfo.isApiLive;
     memorialList.value = baseRequest.inMemoryOf;
     sponsorList.value = baseRequest.sponsoredContent;
-    //
-    print(sponsorList[0].title);
-    print(sponsorList.length);
   }
 }
