@@ -19,6 +19,6 @@ initializeControllers() {
   Get.put(NetworkController());
   Get.put(AuthController());
   Get.put(ThemeController());
-  //Get.put(HomeViewController());
+  Get.put(HomeViewController());
   Get.put(NoticeController());
 }

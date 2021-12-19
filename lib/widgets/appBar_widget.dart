@@ -23,7 +23,10 @@ PreferredSizeWidget customAppBar(
             if (networkController.isConnected.value) {
               Get.to(() => AboutUsView());
             } else {
-              customSnackBar(context, message: "No Network !!!");
+              customSnackBar(
+                context,
+                message: "No Network !!!",
+              );
             }
           },
           icon: Icon(

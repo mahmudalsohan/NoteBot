@@ -14,6 +14,12 @@ class LabSubjectsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future<List<LabSubject>> _labSubjectList =
+        HttpService().getLabSubjects(level);
+    _getSubjectList() async {
+      _labSubjectList = HttpService().getLabSubjects(level);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Level $level"),
@@ -25,34 +31,62 @@ class LabSubjectsView extends StatelessWidget {
         ),
         child: Container(
           child: FutureBuilder<List<LabSubject>>(
-            future: HttpService().getLabSubjects(level),
-            builder: (context, subjects) {
-              if (subjects.hasData) {
-                var subjectList = subjects.data;
-                return ListView.separated(
-                  physics: BouncingScrollPhysics(),
-                  itemCount: subjectList!.length,
-                  itemBuilder: (context, index) {
-                    var subjectData = subjectList[index];
-                    return reusableListTile(
-                      context: context,
-                      title: subjectData.subName,
-                      onTap: () async {
-                        await networkController.checkConnectivity();
-                        if (networkController.isConnected.value) {
-                          Get.to(
-                            () => LabTopicsView(
-                              subName: subjectData.subName,
-                              route: subjectData.route,
-                            ),
-                          );
-                        }
-                      },
-                      trailer: Icon(Icons.arrow_forward_ios_sharp),
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int index) =>
-                      Divider(color: Colors.grey),
+            future: _labSubjectList,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                var subjectList = snapshot.data;
+                return RefreshIndicator(
+                  onRefresh: _getSubjectList,
+                  child: ListView.separated(
+                    physics: BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
+                    itemCount: subjectList!.length,
+                    itemBuilder: (context, index) {
+                      var subjectData = subjectList[index];
+                      return reusableListTile(
+                        context: context,
+                        title: subjectData.subName,
+                        onTap: () async {
+                          await networkController.checkConnectivity();
+                          if (networkController.isConnected.value) {
+                            Get.to(
+                              () => LabTopicsView(
+                                subName: subjectData.subName,
+                                route: subjectData.route,
+                              ),
+                            );
+                          }
+                        },
+                        trailer: Icon(Icons.arrow_forward_ios_sharp),
+                      );
+                    },
+                    separatorBuilder: (BuildContext context, int index) =>
+                        Divider(color: Colors.grey),
+                  ),
+                );
+              } else if (snapshot.hasError) {
+                return RefreshIndicator(
+                  onRefresh: _getSubjectList,
+                  child: SingleChildScrollView(
+                    physics: ClampingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
+                    child: Container(
+                      height: Get.height,
+                      width: Get.width,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.error,
+                            color: Colors.grey,
+                            size: 50,
+                          ),
+                          Text("Not Available Yet"),
+                        ],
+                      ),
+                    ),
+                  ),
                 );
               } else {
                 return SkeletonLoading();

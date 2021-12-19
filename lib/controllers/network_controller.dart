@@ -30,6 +30,7 @@ class NetworkController extends GetxController {
   }
 
   checkConnectivity() async {
+    print("called");
     ConnectivityResult connectivityResult =
         await _connectivity.checkConnectivity();
 

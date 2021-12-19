@@ -4,7 +4,6 @@ import 'package:butex_notebot/views/home_view/home_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/num_extensions.dart';
-import 'auth_widgets/auth_view_builder.dart';
 import 'auth_widgets/registration.dart';
 
 class AuthView extends StatelessWidget {

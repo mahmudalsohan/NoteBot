@@ -1,10 +1,5 @@
-import 'package:butex_notebot/constants/asset_path.dart';
-import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/views/auth_view/auth_widgets/auth_details_view.dart';
-import 'package:butex_notebot/views/auth_view/auth_widgets/social_signin_button.dart';
-import 'package:butex_notebot/widgets/custom_snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -14,6 +9,7 @@ class AuthController extends GetxController {
   final googleSignIn = GoogleSignIn();
   GoogleSignInAccount? _user;
   GoogleSignInAccount get user => _user!;
+  final RxBool isLoading = false.obs;
   //final RxBool isNewUser = false.obs;
 
   //
@@ -143,4 +139,13 @@ class AuthController extends GetxController {
       }
     }
   }
+
+  //
+  List<String> universities = [
+    "BUTEX",
+    "BUTEX Affiliate Colleges",
+    "Others",
+  ].obs;
+
+  RxString dropdownValue = "BUTEX".obs;
 }

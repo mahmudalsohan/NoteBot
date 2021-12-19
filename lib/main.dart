@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/home', page: () => HomeView())
         ],
         initialRoute: '/',
+        title: "NoteBOT",
         debugShowCheckedModeBanner: false,
         theme: AppThemes.lightThemeData,
         darkTheme: AppThemes.darkThemeData,

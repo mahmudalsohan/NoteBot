@@ -17,6 +17,12 @@ class NotesSubjectsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future<List<Subject>> _notesSubjectList =
+        HttpService().getSubjects(level: level);
+    _getNotesSubjectList() async {
+      _notesSubjectList = HttpService().getSubjects(level: level);
+    }
+
     return Scaffold(
       appBar: customAppBar(
         context: context,
@@ -24,43 +30,47 @@ class NotesSubjectsView extends StatelessWidget {
       ),
       body: Container(
         child: FutureBuilder<List<Subject>>(
-          future: HttpService().getSubjects(level: level),
+          future: _notesSubjectList,
           builder: (BuildContext context, subjects) {
             if (subjects.hasData) {
               var subjectList = subjects.data;
-              return ListView.separated(
-                physics: BouncingScrollPhysics(),
-                itemCount: subjectList!.length,
-                separatorBuilder: (BuildContext context, int index) =>
-                    Divider(color: Colors.grey),
-                itemBuilder: (context, index) {
-                  var subjectData = subjectList[index];
-                  return SlidableListTile(
-                      route: subjectData.route,
-                      title: subjectData.subName,
-                      trailer: subjectData.url == null
-                          ? Icon(Icons.arrow_forward_ios_sharp)
-                          : Icon(Icons.launch),
-                      onTap: () async {
-                        await networkController.checkConnectivity();
-                        if (networkController.isConnected.value) {
-                          if (subjectData.url == null) {
-                            Get.to(() => TopicsView(
-                                  subjectRoute: subjectData.route,
-                                  subjectName: subjectData.subName,
-                                ));
+              return RefreshIndicator(
+                onRefresh: _getNotesSubjectList,
+                child: ListView.separated(
+                  physics: BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics()),
+                  itemCount: subjectList!.length,
+                  separatorBuilder: (BuildContext context, int index) =>
+                      Divider(color: Colors.grey),
+                  itemBuilder: (context, index) {
+                    var subjectData = subjectList[index];
+                    return SlidableListTile(
+                        route: subjectData.route,
+                        title: subjectData.subName,
+                        trailer: subjectData.url == null
+                            ? Icon(Icons.arrow_forward_ios_sharp)
+                            : Icon(Icons.launch),
+                        onTap: () async {
+                          await networkController.checkConnectivity();
+                          if (networkController.isConnected.value) {
+                            if (subjectData.url == null) {
+                              Get.to(() => TopicsView(
+                                    subjectRoute: subjectData.route,
+                                    subjectName: subjectData.subName,
+                                  ));
+                            } else {
+                              UrlLauncher.openUrl(url: subjectData.url);
+                            }
                           } else {
-                            UrlLauncher.openUrl(url: subjectData.url);
+                            customSnackBar(
+                              context,
+                              message: "No Network !",
+                              bg: Color(0xffaf2031),
+                            );
                           }
-                        } else {
-                          customSnackBar(
-                            context,
-                            message: "No Network !",
-                            bg: Color(0xffaf2031),
-                          );
-                        }
-                      });
-                },
+                        });
+                  },
+                ),
               );
             } else {
               return SkeletonLoading();

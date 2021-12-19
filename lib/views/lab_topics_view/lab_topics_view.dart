@@ -23,6 +23,11 @@ class LabTopicsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future<List<LabTopics>> _labTopics = HttpService().getLabTopics(route);
+    _getLabTopics() async {
+      _labTopics = HttpService().getLabTopics(route);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text("$subName"),
@@ -34,44 +39,49 @@ class LabTopicsView extends StatelessWidget {
         ),
         child: Container(
           child: FutureBuilder<List<LabTopics>>(
-            future: HttpService().getLabTopics(route),
+            future: _labTopics,
             builder: (context, topics) {
               if (topics.hasData) {
                 var topicList = topics.data;
-                return ListView.separated(
-                  physics: BouncingScrollPhysics(),
-                  itemCount: topicList!.length,
-                  itemBuilder: (context, index) {
-                    var topicData = topicList[index];
-                    return reusableListTile(
-                      context: context,
-                      title: topicData.topic,
-                      onTap: () async {
-                        await networkController.checkConnectivity();
-                        if (networkController.isConnected.value) {
-                          if (topicData.url == null) {
-                            Get.to(() => LabTopicContentView(
-                                route: topicData.route,
-                                topicName: topicData.topic));
+                return RefreshIndicator(
+                  onRefresh: _getLabTopics,
+                  child: ListView.separated(
+                    physics: BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics(),
+                    ),
+                    itemCount: topicList!.length,
+                    itemBuilder: (context, index) {
+                      var topicData = topicList[index];
+                      return reusableListTile(
+                        context: context,
+                        title: topicData.topic,
+                        onTap: () async {
+                          await networkController.checkConnectivity();
+                          if (networkController.isConnected.value) {
+                            if (topicData.url == null) {
+                              Get.to(() => LabTopicContentView(
+                                  route: topicData.route,
+                                  topicName: topicData.topic));
+                            } else {
+                              UrlLauncher.openUrl(url: topicData.url);
+                            }
                           } else {
-                            UrlLauncher.openUrl(url: topicData.url);
+                            customSnackBar(
+                              context,
+                              message: "No Internet !",
+                              bg: Color(0xffaf2031),
+                            );
                           }
-                        } else {
-                          customSnackBar(
-                            context,
-                            message: "No Internet !",
-                            bg: Color(0xffaf2031),
-                          );
-                        }
-                      },
-                      trailer: topicData.route == null
-                          ? Icon(Icons.launch)
-                          : Icon(Icons.arrow_forward_ios_sharp),
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int index) =>
-                      Divider(
-                    color: Colors.grey,
+                        },
+                        trailer: topicData.route == null
+                            ? Icon(Icons.launch)
+                            : Icon(Icons.arrow_forward_ios_sharp),
+                      );
+                    },
+                    separatorBuilder: (BuildContext context, int index) =>
+                        Divider(
+                      color: Colors.grey,
+                    ),
                   ),
                 );
               } else {

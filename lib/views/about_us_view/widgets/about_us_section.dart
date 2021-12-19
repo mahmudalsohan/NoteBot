@@ -54,7 +54,7 @@ class AboutUsSection extends StatelessWidget {
                 context,
                 image: imageTripto,
                 name: "Afshin Nahian Tripto",
-                dept: "IPE-43",
+                dept: "IPE-44",
                 link: "https://www.facebook.com/Tripto.Afsin",
               ),
               devAvatar(

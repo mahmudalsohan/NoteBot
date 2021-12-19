@@ -20,8 +20,12 @@ class NotesTopicContentView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(topicRoute);
-    print(topicName);
+    Future<List<TopicContent>> _notesTopicContentList =
+        HttpService().getTopicContent(topicRoute!);
+    _getNotesTopicContentList() async {
+      _notesTopicContentList = HttpService().getTopicContent(topicRoute!);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(topicName),
@@ -33,33 +37,38 @@ class NotesTopicContentView extends StatelessWidget {
         ),
         child: Container(
           child: FutureBuilder<List<TopicContent>>(
-            future: HttpService().getTopicContent(topicRoute!),
+            future: _notesTopicContentList,
             builder: (context, topicContent) {
               if (topicContent.hasData) {
                 var topicContentList = topicContent.data;
-                return ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  itemCount: topicContentList!.length,
-                  itemBuilder: (context, index) {
-                    var topicContentData = topicContentList[index];
-                    return contentListTile(
-                      context: context,
-                      title: topicContentData.title,
-                      onTap: () async {
-                        await networkController.checkConnectivity();
-                        if (networkController.isConnected.value) {
-                          UrlLauncher.openUrl(url: topicContentData.url);
-                        } else {
-                          customSnackBar(
-                            context,
-                            message: "No Network !",
-                            bg: Color(0xffaf2031),
-                          );
-                        }
-                      },
-                      trailer: Icon(Icons.launch),
-                    );
-                  },
+                return RefreshIndicator(
+                  onRefresh: _getNotesTopicContentList,
+                  child: ListView.builder(
+                    physics: BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics(),
+                    ),
+                    itemCount: topicContentList!.length,
+                    itemBuilder: (context, index) {
+                      var topicContentData = topicContentList[index];
+                      return contentListTile(
+                        context: context,
+                        title: topicContentData.title,
+                        onTap: () async {
+                          await networkController.checkConnectivity();
+                          if (networkController.isConnected.value) {
+                            UrlLauncher.openUrl(url: topicContentData.url);
+                          } else {
+                            customSnackBar(
+                              context,
+                              message: "No Network !",
+                              bg: Color(0xffaf2031),
+                            );
+                          }
+                        },
+                        trailer: Icon(Icons.launch),
+                      );
+                    },
+                  ),
                 );
               } else {
                 return SkeletonLoading();

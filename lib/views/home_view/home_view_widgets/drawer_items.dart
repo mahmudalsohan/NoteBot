@@ -1,9 +1,9 @@
 import 'package:butex_notebot/constants/asset_path.dart';
 import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/services/open_url.dart';
+import 'package:butex_notebot/views/communities_section.dart';
 import 'package:butex_notebot/views/settings_view/settings_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
@@ -25,7 +25,6 @@ final List<Widget> drawerItems = [
               "Hello,",
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.black,
               ),
             ),
             SizedBox(height: 10),
@@ -33,7 +32,6 @@ final List<Widget> drawerItems = [
               user!.displayName ?? "Butexian",
               style: TextStyle(
                 fontSize: 20,
-                color: Colors.black,
               ),
             ),
           ],
@@ -61,7 +59,9 @@ final List<Widget> drawerItems = [
     title: 'Notebot Messenger',
   ),
   drawerListTile(
-    onTap: () {},
+    onTap: () {
+      Get.to(() => CommunitiesHomeView());
+    },
     leading: Icon(Icons.people_alt_sharp),
     title: 'Communities',
   ),

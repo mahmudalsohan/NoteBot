@@ -1,4 +1,3 @@
-import 'package:butex_notebot/views/auth_view/auth_widgets/auth_dialog.dart';
 import 'package:butex_notebot/views/onboarding_view/onboarding_view.dart';
 import 'package:butex_notebot/widgets/appBar_widget.dart';
 import 'package:butex_notebot/widgets/carousel_loading.dart';

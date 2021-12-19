@@ -1,5 +1,5 @@
+import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/controllers/home_view_controller.dart';
-import 'package:butex_notebot/views/auth_view/auth_widgets/auth_dialog.dart';
 import 'package:butex_notebot/views/home_view/home_view_widgets/dashboard_section.dart';
 import 'package:butex_notebot/views/home_view/home_view_widgets/pin_section.dart';
 import 'package:butex_notebot/widgets/appBar_widget.dart';
@@ -13,8 +13,6 @@ class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Get.put(HomeViewController());
-    //Future.delayed(Duration.zero, () => authDialog(context));
     return Scaffold(
       appBar: customAppBar(context: context, title: "Notebot"),
       drawer: Drawer(
@@ -24,27 +22,33 @@ class HomeView extends StatelessWidget {
           children: drawerItems,
         ),
       ),
-      body: SingleChildScrollView(
-        //physics: BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            SizedBox(height: 15),
-            //
-            Carousel(),
-            //
-            //
-            SizedBox(height: 20),
-            //
-            //Shortcut Chips Container
-            PinSection(),
-            //
-            //
-            SizedBox(height: 40),
-            //
-            //
-            //Grid Container
-            DashboardSection(),
-          ],
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await networkController.checkConnectivity();
+        },
+        child: SingleChildScrollView(
+          physics:
+              BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+          child: Column(
+            children: [
+              SizedBox(height: 15),
+              //
+              Carousel(),
+              //
+              //
+              SizedBox(height: 20),
+              //
+              //Shortcut Chips Container
+              PinSection(),
+              //
+              //
+              SizedBox(height: 40),
+              //
+              //
+              //Grid Container
+              DashboardSection(),
+            ],
+          ),
         ),
       ),
     );

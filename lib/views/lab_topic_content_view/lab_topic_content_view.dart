@@ -7,6 +7,8 @@ import 'package:butex_notebot/widgets/custom_snackbar.dart';
 import 'package:butex_notebot/widgets/reusable_list_tile.dart';
 import 'package:butex_notebot/widgets/skeleton_loading.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 
 class LabTopicContentView extends StatelessWidget {
   final String topicName;
@@ -19,6 +21,12 @@ class LabTopicContentView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future<List<LabTopicContent>> _labTopicContent =
+        HttpService().getLabTopicContent(route!);
+    _getLabTopicContent() async {
+      _labTopicContent = HttpService().getLabTopicContent(route!);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text("$topicName"),
@@ -30,36 +38,60 @@ class LabTopicContentView extends StatelessWidget {
         ),
         child: Container(
           child: FutureBuilder<List<LabTopicContent>>(
-            future: HttpService().getLabTopicContent(route!),
-            builder: (context, topicContents) {
-              if (topicContents.hasData) {
-                var topicContentList = topicContents.data;
-                return ListView.separated(
-                  physics: BouncingScrollPhysics(),
-                  itemCount: topicContentList!.length,
-                  itemBuilder: (context, index) {
-                    var topicContentData = topicContentList[index];
-                    return contentListTile(
-                      context: context,
-                      title: topicContentData.title,
-                      onTap: () async {
-                        await networkController.checkConnectivity();
-                        if (networkController.isConnected.value) {
-                          UrlLauncher.openUrl(url: topicContentData.url);
-                        } else {
-                          customSnackBar(
-                            context,
-                            message: "No Internet !",
-                            bg: Color(0xffaf2031),
-                          );
-                        }
-                      },
-                      trailer: Icon(Icons.launch),
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int index) =>
-                      Divider(
-                    color: Colors.grey,
+            future: _labTopicContent,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                var topicContentList = snapshot.data;
+                return RefreshIndicator(
+                  onRefresh: _getLabTopicContent,
+                  child: ListView.builder(
+                    physics: BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
+                    itemCount: topicContentList!.length,
+                    itemBuilder: (context, index) {
+                      var topicContentData = topicContentList[index];
+                      return contentListTile(
+                        context: context,
+                        title: topicContentData.title,
+                        onTap: () async {
+                          await networkController.checkConnectivity();
+                          if (networkController.isConnected.value) {
+                            UrlLauncher.openUrl(url: topicContentData.url);
+                          } else if (snapshot.hasError) {
+                            return RefreshIndicator(
+                              onRefresh: _getLabTopicContent,
+                              child: SingleChildScrollView(
+                                physics: ClampingScrollPhysics(
+                                    parent: AlwaysScrollableScrollPhysics()),
+                                child: Container(
+                                  height: Get.height,
+                                  width: Get.width,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.error,
+                                        color: Colors.grey,
+                                        size: 50,
+                                      ),
+                                      Text("Not Available Yet"),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          } else {
+                            customSnackBar(
+                              context,
+                              message: "No Internet !",
+                              bg: Color(0xffaf2031),
+                            );
+                          }
+                        },
+                        trailer: Icon(Icons.launch),
+                      );
+                    },
                   ),
                 );
               } else {

@@ -1,6 +1,5 @@
 import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/constants/get_storage_key.dart';
-import 'package:butex_notebot/views/auth_view/auth_widgets/auth_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -22,13 +21,6 @@ class HomeViewController extends GetxController {
 
     //Get the saved shortcut chips from storage
     getShortcutChips();
-
-    //show Auth Dialog if ID is not given yet
-    /*if (authController.isNewUser.value) {
-      WidgetsBinding.instance?.addPostFrameCallback((_) async {
-        await authDialog(Get.context);
-      });
-    }*/
   }
 
   getShortcutChips() {

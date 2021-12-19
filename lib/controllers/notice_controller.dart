@@ -28,6 +28,7 @@ class NoticeController extends GetxController {
   }
 
   load() {
+    print("Called");
     updateTitle(loadingFeedMsg);
     loadFeed().then((res) {
       if (res == null || res.toString().isEmpty) {

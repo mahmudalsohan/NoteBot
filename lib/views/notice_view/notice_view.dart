@@ -14,102 +14,111 @@ class NoticeView extends StatelessWidget {
   const NoticeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    _getFeed() async {
+      noticeController.load();
+    }
+
     return Scaffold(
       appBar: customAppBar(context: context, title: "Butex Notices"),
       body: Obx(
         () => Container(
           child: noticeController.feed.value.items != null
-              ? ListView.builder(
-                  //physics: BouncingScrollPhysics(),
-                  itemCount: noticeController.feed.value.items?.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final item = noticeController.feed.value.items![index];
-                    final String _date =
-                        "${_monthName(item.pubDate?.month)} ${item.pubDate?.day}, ${item.pubDate?.year}";
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 20),
-                      child: InkWell(
-                        onTap: () {
-                          UrlLauncher.openUrl(url: item.link);
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: themeController.isDarkMode.value
-                                  ? Color(0xff1a2d3d)
-                                  : Theme.of(context).colorScheme.background,
-                              boxShadow: [
-                                BoxShadow(
-                                  offset: Offset(5.0, 12.0),
-                                  blurRadius: 5,
-                                  spreadRadius: 0,
-                                  color: Colors.black12,
-                                ),
-                              ]),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(15),
-                                  topLeft: Radius.circular(15),
-                                ),
-                                child: Image.asset(
-                                  _images[index % 3],
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(10, 20, 10, 10),
-                                child: Text(
-                                  item.title ?? "Error Loading Data",
-                                  style: TextStyle(
-                                    fontSize: 20,
+              ? RefreshIndicator(
+                  onRefresh: _getFeed,
+                  child: ListView.builder(
+                    physics: BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
+                    itemCount: noticeController.feed.value.items?.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final item = noticeController.feed.value.items![index];
+                      final String _date =
+                          "${_monthName(item.pubDate?.month)} ${item.pubDate?.day}, ${item.pubDate?.year}";
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 20, horizontal: 20),
+                        child: InkWell(
+                          onTap: () {
+                            UrlLauncher.openUrl(url: item.link);
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: themeController.isDarkMode.value
+                                    ? Color(0xff1a2d3d)
+                                    : Theme.of(context).colorScheme.background,
+                                boxShadow: [
+                                  BoxShadow(
+                                    offset: Offset(5.0, 12.0),
+                                    blurRadius: 5,
+                                    spreadRadius: 0,
+                                    color: Colors.black12,
+                                  ),
+                                ]),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(15),
+                                    topLeft: Radius.circular(15),
+                                  ),
+                                  child: Image.asset(
+                                    _images[index % 3],
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.calendar_today_outlined,
-                                          color: Colors.grey,
-                                          size: 18,
-                                        ),
-                                        SizedBox(width: 5),
-                                        Text(
-                                          _date,
-                                          style: TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                      ],
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 20, 10, 10),
+                                  child: Text(
+                                    item.title ?? "Error Loading Data",
+                                    style: TextStyle(
+                                      fontSize: 20,
                                     ),
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.share_outlined,
-                                        color: Colors.grey,
-                                      ),
-                                      onPressed: () {
-                                        Share.share(item.link ?? "Error Link");
-                                      },
-                                    ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 10),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.calendar_today_outlined,
+                                            color: Colors.grey,
+                                            size: 18,
+                                          ),
+                                          SizedBox(width: 5),
+                                          Text(
+                                            _date,
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      IconButton(
+                                        icon: Icon(
+                                          Icons.share_outlined,
+                                          color: Colors.grey,
+                                        ),
+                                        onPressed: () {
+                                          Share.share(
+                                              item.link ?? "Error Link");
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 )
               : Center(child: CircularProgressIndicator()),
         ),

@@ -22,6 +22,12 @@ class TopicsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future<List<Topic>> _notesTopicList =
+        HttpService().getTopics(subjectRoute: subjectRoute!);
+    _getNotesTopicList() async {
+      _notesTopicList = HttpService().getTopics(subjectRoute: subjectRoute!);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(subjectName ?? ""),
@@ -41,44 +47,48 @@ class TopicsView extends StatelessWidget {
         ),
         child: Container(
           child: FutureBuilder<List<Topic>>(
-            future: HttpService().getTopics(subjectRoute: subjectRoute!),
+            future: _notesTopicList,
             builder: (context, topics) {
               if (topics.hasData) {
                 var topicList = topics.data;
-                return ListView.separated(
-                  physics: BouncingScrollPhysics(),
-                  itemCount: topicList!.length,
-                  itemBuilder: (context, index) {
-                    var topicData = topicList[index];
-                    return reusableListTile(
-                        context: context,
-                        title: topicData.topic,
-                        trailer: topicData.url == null
-                            ? Icon(Icons.arrow_forward_ios_sharp)
-                            : Icon(Icons.launch),
-                        onTap: () async {
-                          await networkController.checkConnectivity();
-                          if (networkController.isConnected.value) {
-                            if (topicData.url == null) {
-                              Get.to(() => NotesTopicContentView(
-                                    topicName: topicData.topic,
-                                    topicRoute: topicData.route,
-                                  ));
+                return RefreshIndicator(
+                  onRefresh: _getNotesTopicList,
+                  child: ListView.separated(
+                    physics: BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
+                    itemCount: topicList!.length,
+                    itemBuilder: (context, index) {
+                      var topicData = topicList[index];
+                      return reusableListTile(
+                          context: context,
+                          title: topicData.topic,
+                          trailer: topicData.url == null
+                              ? Icon(Icons.arrow_forward_ios_sharp)
+                              : Icon(Icons.launch),
+                          onTap: () async {
+                            await networkController.checkConnectivity();
+                            if (networkController.isConnected.value) {
+                              if (topicData.url == null) {
+                                Get.to(() => NotesTopicContentView(
+                                      topicName: topicData.topic,
+                                      topicRoute: topicData.route,
+                                    ));
+                              } else {
+                                UrlLauncher.openUrl(url: topicData.url);
+                              }
                             } else {
-                              UrlLauncher.openUrl(url: topicData.url);
+                              customSnackBar(
+                                context,
+                                message: "No Internet !",
+                                bg: Color(0xffaf2031),
+                              );
                             }
-                          } else {
-                            customSnackBar(
-                              context,
-                              message: "No Internet !",
-                              bg: Color(0xffaf2031),
-                            );
-                          }
-                        });
-                  },
-                  separatorBuilder: (BuildContext context, int index) =>
-                      Divider(
-                    color: Colors.grey,
+                          });
+                    },
+                    separatorBuilder: (BuildContext context, int index) =>
+                        Divider(
+                      color: Colors.grey,
+                    ),
                   ),
                 );
               } else {
