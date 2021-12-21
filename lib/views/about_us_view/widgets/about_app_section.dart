@@ -1,12 +1,13 @@
 import 'package:butex_notebot/constants/asset_path.dart';
+import 'package:butex_notebot/constants/controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 import 'about_banner.dart';
 
 class AboutAppSection extends StatelessWidget {
-  final String apiStatus;
-  const AboutAppSection({Key? key, required this.apiStatus}) : super(key: key);
+  const AboutAppSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +29,14 @@ class AboutAppSection extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("App Version : 1.0.1"),
+                  Text("App Version : ${appController.appVersion.value}"),
                   SizedBox(height: 10),
-                  Text("API Status :  $apiStatus"),
+                  Obx(() {
+                    final String apiStatus = networkController.isApiLive.value
+                        ? "🟢 Okay"
+                        : "🔴 Under Maintenance";
+                    return Text("API Status : $apiStatus");
+                  }),
                 ],
               )
             ],

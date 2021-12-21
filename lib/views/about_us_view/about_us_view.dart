@@ -10,35 +10,42 @@ class AboutUsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String apiStatus =
-        networkController.isApiLive.value ? "🟢 Okay" : "🔴 Under Maintenance";
+    refresh() async {
+      await networkController.checkConnectivity();
+    }
+
     return Scaffold(
       appBar: AppBar(
         elevation: 5,
         title: Text("About Us"),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          //crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 20),
-            //About App Container
-            AboutAppSection(apiStatus: apiStatus),
-            SizedBox(height: 20),
-            //
-            //About Us Section
-            AboutUsSection(),
-            SizedBox(height: 40),
-            //
-            //Memorial Section
-            MemorialSection(),
-            //SizedBox(height: 20),
-            Image.asset(
-              logoHawkersBlack,
-              height: 20,
-            ),
-            SizedBox(height: 10),
-          ],
+      body: RefreshIndicator(
+        onRefresh: refresh,
+        child: SingleChildScrollView(
+          physics:
+              ClampingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+          child: Column(
+            //crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 20),
+              //About App Container
+              AboutAppSection(),
+              SizedBox(height: 20),
+              //
+              //About Us Section
+              AboutUsSection(),
+              SizedBox(height: 40),
+              //
+              //Memorial Section
+              MemorialSection(),
+              //SizedBox(height: 20),
+              Image.asset(
+                logoHawkersBlack,
+                height: 20,
+              ),
+              SizedBox(height: 10),
+            ],
+          ),
         ),
       ),
     );

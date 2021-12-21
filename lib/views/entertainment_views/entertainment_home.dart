@@ -1,8 +1,6 @@
 import 'package:butex_notebot/constants/asset_path.dart';
 import 'package:butex_notebot/widgets/appBar_widget.dart';
 import 'package:butex_notebot/widgets/function_tile_widget.dart';
-import 'package:butex_notebot/widgets/top_Container_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -18,27 +16,30 @@ class EntertainmentHomeScreen extends StatelessWidget {
       appBar: customAppBar(context: context, title: "Entertainment"),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
-        child: Column(
+        child: Stack(
           children: [
-            TopContainer(
-              imagePath: imageEntertainmentSection,
-              title: "Entertainment",
+            GridView.count(
+              crossAxisCount: 2,
+              padding: const EdgeInsets.all(20),
+              crossAxisSpacing: 20,
+              mainAxisSpacing: 20,
+              children: [
+                FunctionTile(
+                  title: "Note Bird",
+                  imagePath: logoNoteBird,
+                  onPress: () {
+                    Get.to(() => NotebirdHomePage());
+                  },
+                ),
+              ],
             ),
-            Expanded(
-              child: GridView.count(
-                crossAxisCount: 2,
-                padding: const EdgeInsets.all(20),
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20,
-                children: [
-                  FunctionTile(
-                    title: "Note Bird",
-                    imagePath: logoNoteBird,
-                    onPress: () {
-                      Get.to(() => NotebirdHomePage());
-                    },
-                  ),
-                ],
+            Positioned(
+              bottom: 10,
+              right: 20,
+              child: Image.asset(
+                imageEntertainmentSection,
+                height: 150,
+                width: 150,
               ),
             ),
           ],

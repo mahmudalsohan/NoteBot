@@ -7,6 +7,7 @@ import 'package:get_storage/get_storage.dart';
 class AppController extends GetxController {
   static AppController instance = Get.find();
   final RxBool firstTime = false.obs;
+  final RxString appVersion = "beta 1.0.3".obs;
 
   @override
   void onInit() {

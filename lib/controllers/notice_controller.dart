@@ -1,7 +1,7 @@
+import 'package:dio/dio.dart' as DIO;
 import 'package:flutter_config/flutter_config.dart';
 import 'package:get/get.dart';
 import 'package:webfeed/domain/rss_feed.dart';
-import 'package:http/http.dart' as http;
 
 class NoticeController extends GetxController {
   static NoticeController instance = Get.find();
@@ -28,7 +28,7 @@ class NoticeController extends GetxController {
   }
 
   load() {
-    print("Called");
+    print("Load Called");
     updateTitle(loadingFeedMsg);
     loadFeed().then((res) {
       if (res == null || res.toString().isEmpty) {
@@ -42,11 +42,12 @@ class NoticeController extends GetxController {
 
   Future<RssFeed?> loadFeed() async {
     try {
-      final client = http.Client();
-      final response = await client.get(Uri.parse(feedUrl));
+      DIO.Response response = await DIO.Dio().get(feedUrl);
 
-      return RssFeed.parse(response.body);
-    } catch (e) {}
+      return RssFeed.parse(response.data);
+    } catch (e) {
+      print(e.toString());
+    }
 
     return null;
   }

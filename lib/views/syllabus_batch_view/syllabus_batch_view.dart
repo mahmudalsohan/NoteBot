@@ -20,7 +20,7 @@ class SyllabusBatchView extends StatelessWidget {
     return Scaffold(
       appBar: customAppBar(
         context: context,
-        title: "Select Level",
+        title: "Select Batch",
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -31,9 +31,12 @@ class SyllabusBatchView extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "📝 Choose Your Batch for Syllabus -",
-                  style: AppTextStyles().kLevelsViewTitleTextStyle,
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 5),
+                  child: Text(
+                    "📝 Choose Your Batch for Syllabus -",
+                    style: AppTextStyles().kLevelsViewTitleTextStyle,
+                  ),
                 ),
                 SizedBox(height: 50),
                 FutureBuilder<List<SyllabusBatch>>(
@@ -43,7 +46,6 @@ class SyllabusBatchView extends StatelessWidget {
                         var batchList = batches.data;
                         return ListView.builder(
                           shrinkWrap: true,
-                          physics: BouncingScrollPhysics(),
                           itemCount: batchList!.length,
                           itemBuilder: (context, index) {
                             var batchData = batchList[index];

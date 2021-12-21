@@ -1,4 +1,10 @@
-import 'package:butex_notebot/views/auth_view/auth_widgets/auth_details_view.dart';
+import 'package:butex_notebot/constants/controller.dart';
+import 'package:butex_notebot/models/user_model.dart';
+import 'package:butex_notebot/networking/http_service.dart';
+import 'package:butex_notebot/views/auth_view/auth_view.dart';
+import 'package:butex_notebot/views/auth_view/auth_widgets/auth_institute_selection_view.dart';
+import 'package:butex_notebot/views/auth_view/auth_widgets/auth_user_data.dart';
+import 'package:butex_notebot/views/home_view/home_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -10,14 +16,19 @@ class AuthController extends GetxController {
   GoogleSignInAccount? _user;
   GoogleSignInAccount get user => _user!;
   final RxBool isLoading = false.obs;
+  final RxBool noId = false.obs;
   //final RxBool isNewUser = false.obs;
 
   //
 
   Future googleAuthentication() async {
+    authController.isLoading.value = true;
     try {
       final googleUser = await googleSignIn.signIn();
-      if (googleUser == null) return;
+      if (googleUser == null) {
+        authController.isLoading.value = false;
+        return;
+      }
       _user = googleUser;
 
       final googleAuth = await googleUser.authentication;
@@ -32,19 +43,30 @@ class AuthController extends GetxController {
 
       if (userCredential.additionalUserInfo!.isNewUser) {
         print("New User");
-        Get.to(() => AuthDetailsView());
+        authController.isLoading.value = false;
+        Get.to(() => AuthInstituteSelectionView());
       }
 
       //
 
     } catch (e) {
+      authController.isLoading.value = false;
       print(e.toString());
     }
   }
 
   Future logout() async {
-    await googleSignIn.disconnect();
-    FirebaseAuth.instance.signOut();
+    isLoading.value = true;
+    try {
+      await googleSignIn.disconnect();
+      FirebaseAuth.instance.signOut();
+      Get.offAll(() => AuthView());
+    } on Exception catch (e) {
+      print(e.toString()
+      );
+    }
+    isLoading.value = false;
+
   }
 
 //
@@ -53,34 +75,33 @@ class AuthController extends GetxController {
   final RxString dept = "null".obs;
   final RxBool idIsValid = true.obs;
 
-  bool checkValidID(String idControllerText) {
-    if (idControllerText.contains('.') ||
-        idControllerText.contains(',') ||
-        idControllerText.contains(' ') ||
-        idControllerText.contains('-') ||
-        idControllerText.isEmpty ||
-        idControllerText.startsWith('0')) {
+  bool _checkIdValidity(String idText) {
+    if (idText.contains('.') ||
+        idText.contains(',') ||
+        idText.contains(' ') ||
+        idText.contains('-') ||
+        idText.isEmpty ||
+        idText.startsWith('0')) {
       print("Invalid");
-      idIsValid.value = false;
       return false;
     } else {
-      if (idControllerText.length == 10 || idControllerText.length == 9) {
+      if (idText.length == 10 || idText.length == 9) {
         int year;
         int deptSerial;
         int id;
         List parts;
 
         parts = [
-          idControllerText.substring(0, 4), //year of admission
-          idControllerText.substring(5, 6), //department serial number
-          idControllerText.substring(0), //departmental student id
+          idText.substring(0, 4), //year of admission
+          idText.substring(5, 6), //department serial number
+          idText.substring(0), //departmental student id
         ];
 
-        if (idControllerText.length == 10) {
+        if (idText.length == 10) {
           parts = [
-            idControllerText.substring(0, 4),
-            idControllerText.substring(5, 7),
-            idControllerText.substring(0),
+            idText.substring(0, 4),
+            idText.substring(5, 7),
+            idText.substring(0),
           ];
         }
 
@@ -130,11 +151,10 @@ class AuthController extends GetxController {
         }
 
         print("Invalid");
-        idIsValid.value = false;
         return false;
       } else {
         print("Invalid");
-        idIsValid.value = false;
+
         return false;
       }
     }
@@ -148,4 +168,86 @@ class AuthController extends GetxController {
   ].obs;
 
   RxString dropdownValue = "BUTEX".obs;
+
+  redirectFromInstitute() async {
+    isLoading.value = true;
+    final String? email = FirebaseAuth.instance.currentUser!.email;
+    UserModel? userModel;
+
+    if (dropdownValue.value == "BUTEX") {
+      Get.to(() => AuthUserData());
+      isLoading.value = false;
+    } else if (dropdownValue.value == "BUTEX Affiliate Colleges") {
+      userModel = await HttpService().sendUserData(
+        dept: "BUTEX Affiliate",
+        id: uni_id.value,
+        batch: batch.value,
+        email: email,
+      );
+
+      Get.offAll(() => HomeView());
+      isLoading.value = false;
+      print(userModel!.status);
+    } else {
+      userModel = await HttpService().sendUserData(
+        dept: authController.dept.value,
+        id: authController.uni_id.value,
+        batch: authController.batch.value,
+        email: email,
+      );
+
+      Get.offAll(() => HomeView());
+      isLoading.value = false;
+      print(userModel!.status);
+    }
+  }
+
+  redirectButexian(String id) async {
+    isLoading.value = true;
+    final String? email = FirebaseAuth.instance.currentUser!.email;
+    UserModel? userModel;
+
+    //butexian has no id
+    if (noId.value) {
+      userModel = await HttpService().sendUserData(
+        dept: dept.value,
+        id: uni_id.value,
+        batch: batch.value,
+        email: email,
+      );
+      Get.offAll(() => HomeView());
+      isLoading.value = false;
+    }
+    //
+    //
+    //butexian has an id
+    else {
+      //
+      //
+      //if given id is valid
+      if (_checkIdValidity(id)) {
+        //
+        userModel = await HttpService().sendUserData(
+          dept: dept.value,
+          id: uni_id.value,
+          batch: batch.value,
+          email: email,
+        );
+        Get.offAll(() => HomeView());
+        isLoading.value = false;
+      }
+      //
+      //
+      //if id is not valid
+      else {
+        isLoading.value = false;
+        idIsValid.value = false;
+      }
+    }
+
+    /* print(userModel!.status);
+    print(userModel.user.email);
+    print(userModel.user.dept);
+    print(userModel.user.uniId);*/
+  }
 }

@@ -28,49 +28,30 @@ class LabLevelsView extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "📒 Choose Level for Lab Reports -",
-                  style: AppTextStyles().kLevelsViewTitleTextStyle,
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 5),
+                  child: Text(
+                    "📒 Choose Level for Lab Reports -",
+                    style: AppTextStyles().kLevelsViewTitleTextStyle,
+                  ),
                 ),
                 SizedBox(height: 50),
                 LevelSelectionTile(
                   title: "Level 1",
-                  onTap: () async {
-                    await networkController.checkConnectivity();
-                    if (networkController.isConnected.value)
-                      Get.to(() => LabSubjectsView(level: 1));
-                    else
-                      customSnackBar(context,
-                          bg: Color(0xffaf2031), message: "No Network !");
+                  onTap: () {
+                    Get.to(() => LabSubjectsView(level: 1));
                   },
                 ),
                 LevelSelectionTile(
                   title: "Level 2",
-                  onTap: () async {
-                    await networkController.checkConnectivity();
-                    if (networkController.isConnected.value) {
-                      Get.to(() => LabSubjectsView(level: 2));
-                    } else {
-                      customSnackBar(
-                        context,
-                        message: "No Network !",
-                        bg: Color(0xffaf2031),
-                      );
-                    }
+                  onTap: () {
+                    Get.to(() => LabSubjectsView(level: 2));
                   },
                 ),
                 LevelSelectionTile(
                   title: "Level 3",
-                  onTap: () async {
-                    await networkController.checkConnectivity();
-                    if (networkController.isConnected.value)
-                      Get.to(() => LabSubjectsView(level: 3));
-                    else
-                      customSnackBar(
-                        context,
-                        message: "No Network !",
-                        bg: Color(0xffaf2031),
-                      );
+                  onTap: () {
+                    Get.to(() => LabSubjectsView(level: 3));
                   },
                 ),
               ],

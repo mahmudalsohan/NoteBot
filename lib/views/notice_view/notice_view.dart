@@ -3,6 +3,7 @@ import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/services/open_url.dart';
 
 import 'package:butex_notebot/widgets/appBar_widget.dart';
+import 'package:butex_notebot/widgets/notice_card.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
@@ -26,8 +27,6 @@ class NoticeView extends StatelessWidget {
               ? RefreshIndicator(
                   onRefresh: _getFeed,
                   child: ListView.builder(
-                    physics: BouncingScrollPhysics(
-                        parent: AlwaysScrollableScrollPhysics()),
                     itemCount: noticeController.feed.value.items?.length,
                     itemBuilder: (BuildContext context, int index) {
                       final item = noticeController.feed.value.items![index];
@@ -36,85 +35,17 @@ class NoticeView extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 20, horizontal: 20),
-                        child: InkWell(
+                        child: NoticeCard(
                           onTap: () {
-                            UrlLauncher.openUrl(url: item.link);
+                            UrlLauncher.openUrl(
+                              url: item.link,
+                              context: context,
+                            );
                           },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                color: themeController.isDarkMode.value
-                                    ? Color(0xff1a2d3d)
-                                    : Theme.of(context).colorScheme.background,
-                                boxShadow: [
-                                  BoxShadow(
-                                    offset: Offset(5.0, 12.0),
-                                    blurRadius: 5,
-                                    spreadRadius: 0,
-                                    color: Colors.black12,
-                                  ),
-                                ]),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(15),
-                                    topLeft: Radius.circular(15),
-                                  ),
-                                  child: Image.asset(
-                                    _images[index % 3],
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(10, 20, 10, 10),
-                                  child: Text(
-                                    item.title ?? "Error Loading Data",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 10),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Icon(
-                                            Icons.calendar_today_outlined,
-                                            color: Colors.grey,
-                                            size: 18,
-                                          ),
-                                          SizedBox(width: 5),
-                                          Text(
-                                            _date,
-                                            style: TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      IconButton(
-                                        icon: Icon(
-                                          Icons.share_outlined,
-                                          color: Colors.grey,
-                                        ),
-                                        onPressed: () {
-                                          Share.share(
-                                              item.link ?? "Error Link");
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          title: item.title,
+                          image: _images[index % 3],
+                          shareLink: item.link,
+                          date: _date,
                         ),
                       );
                     },

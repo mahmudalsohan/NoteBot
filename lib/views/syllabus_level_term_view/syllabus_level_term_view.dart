@@ -2,37 +2,55 @@ import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/models/level_and_term.dart';
 import 'package:butex_notebot/networking/http_service.dart';
 import 'package:butex_notebot/services/open_url.dart';
+import 'package:butex_notebot/views/home_view/home_view.dart';
 import 'package:butex_notebot/widgets/appBar_widget.dart';
 import 'package:butex_notebot/widgets/custom_snackbar.dart';
+import 'package:butex_notebot/widgets/error_screen.dart';
 import 'package:butex_notebot/widgets/reusable_list_tile.dart';
 import 'package:butex_notebot/widgets/skeleton_loading.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 
 class SyllabusLevelTermView extends StatelessWidget {
   final String dept;
   final String route;
-  const SyllabusLevelTermView(
-      {Key? key, required this.dept, required this.route})
-      : super(key: key);
+  const SyllabusLevelTermView({
+    Key? key,
+    required this.dept,
+    required this.route,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    //
+    Future<List<LevelAndTerm>> _syllabus = HttpService().getSyllabus(route);
+    //
+    _getSyllabus() async {
+      _syllabus = HttpService().getSyllabus(route);
+    }
+
     return Scaffold(
-      appBar: customAppBar(
-        context: context,
-        title: "$dept",
+      appBar: AppBar(
+        title: Text("Select Term"),
+        actions: [
+          IconButton(
+              onPressed: () => Get.offAll(() => HomeView()),
+              icon: Icon(Icons.home))
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: Container(
           child: FutureBuilder<List<LevelAndTerm>>(
-              future: HttpService().getSyllabus(route),
-              builder: (context, terms) {
-                if (terms.hasData) {
-                  var termsList = terms.data;
-                  return ListView.separated(
+            future: _syllabus,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                var termsList = snapshot.data;
+                return RefreshIndicator(
+                  onRefresh: _getSyllabus,
+                  child: ListView.separated(
                     shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
                     itemCount: termsList!.length,
                     itemBuilder: (context, index) {
                       var termsData = termsList[index];
@@ -42,7 +60,10 @@ class SyllabusLevelTermView extends StatelessWidget {
                         onTap: () async {
                           await networkController.checkConnectivity();
                           if (networkController.isConnected.value)
-                            UrlLauncher.openUrl(url: termsData.url);
+                            UrlLauncher.openUrl(
+                              url: termsData.url,
+                              context: context,
+                            );
                           else
                             customSnackBar(context, message: "No Network !");
                         },
@@ -51,11 +72,27 @@ class SyllabusLevelTermView extends StatelessWidget {
                     },
                     separatorBuilder: (BuildContext context, int index) =>
                         Divider(color: Colors.grey),
-                  );
-                } else {
-                  return SkeletonLoading();
-                }
-              }),
+                  ),
+                );
+              } else if (snapshot.hasError) {
+                return RefreshIndicator(
+                  onRefresh: _getSyllabus,
+                  child: SingleChildScrollView(
+                    physics: ClampingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
+                    child: ErrorScreen(
+                      errMsg: "Not Available",
+                    ),
+                  ),
+                );
+              } else {
+                return RefreshIndicator(
+                  onRefresh: _getSyllabus,
+                  child: SkeletonLoading(),
+                );
+              }
+            },
+          ),
         ),
       ),
     );

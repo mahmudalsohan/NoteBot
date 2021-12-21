@@ -33,7 +33,10 @@ class Carousel extends StatelessWidget {
                     child: InkWell(
                       onTap: () {
                         if (ad.url != false) {
-                          UrlLauncher.openUrl(url: ad.url);
+                          UrlLauncher.openUrl(
+                            url: ad.url,
+                            context: context,
+                          );
                         }
                       },
                       child: Container(

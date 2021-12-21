@@ -2,7 +2,7 @@ import 'package:butex_notebot/constants/asset_path.dart';
 import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/constants/text_styles.dart';
 import 'package:butex_notebot/networking/http_service.dart';
-import 'package:butex_notebot/views/auth_view/auth_widgets/auth_details_view.dart';
+import 'package:butex_notebot/views/auth_view/auth_widgets/auth_institute_selection_view.dart';
 import 'package:butex_notebot/views/lab_levels_view/lab_levels_view.dart';
 import 'package:butex_notebot/views/notes_levels_view/notes_levels_view.dart';
 import 'package:butex_notebot/views/entertainment_views/entertainment_home.dart';
@@ -64,27 +64,15 @@ class DashboardSection extends StatelessWidget {
               FunctionTile(
                 title: "Syllabus",
                 imagePath: imageSyllabusSection,
-                onPress: () async {
-                  await networkController.checkConnectivity();
-                  if (networkController.isConnected.value)
-                    Get.to(() => SyllabusBatchView());
-                  else
-                    customSnackBar(
-                      context,
-                      message: "No Network !",
-                      bg: Color(0xffaf2031),
-                    );
+                onPress: () {
+                  Get.to(() => SyllabusBatchView());
                 },
               ),
               FunctionTile(
                 title: "Tools",
                 imagePath: imageToolsSection,
                 onPress: () {
-                  customSnackBar(
-                    context,
-                    message: "Not Available Yet !",
-                    bg: Color(0xffaf2031),
-                  );
+                  Get.to(() => ToolsHomeView());
                 },
               ),
               FunctionTile(

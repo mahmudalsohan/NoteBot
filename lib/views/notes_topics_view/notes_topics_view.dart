@@ -3,8 +3,9 @@ import 'package:butex_notebot/models/topic_model.dart';
 import 'package:butex_notebot/networking/http_service.dart';
 import 'package:butex_notebot/services/open_url.dart';
 import 'package:butex_notebot/views/home_view/home_view.dart';
-import 'package:butex_notebot/views/notes_topic_content_view/topic_content_view.dart';
+import 'package:butex_notebot/views/notes_topic_content_view/notes_topic_content_view.dart';
 import 'package:butex_notebot/widgets/custom_snackbar.dart';
+import 'package:butex_notebot/widgets/error_screen.dart';
 import 'package:butex_notebot/widgets/reusable_list_tile.dart';
 import 'package:butex_notebot/widgets/skeleton_loading.dart';
 import 'package:flutter/material.dart';
@@ -22,19 +23,22 @@ class TopicsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
     Future<List<Topic>> _notesTopicList =
         HttpService().getTopics(subjectRoute: subjectRoute!);
+
+    //
     _getNotesTopicList() async {
       _notesTopicList = HttpService().getTopics(subjectRoute: subjectRoute!);
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(subjectName ?? ""),
+        title: Text("$subjectName"),
         actions: [
           IconButton(
             onPressed: () {
-              Get.offAll(HomeView());
+              Get.offAll(() => HomeView());
             },
             icon: Icon(Icons.home),
           ),
@@ -43,19 +47,16 @@ class TopicsView extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 15,
-          vertical: 10,
         ),
         child: Container(
           child: FutureBuilder<List<Topic>>(
             future: _notesTopicList,
-            builder: (context, topics) {
-              if (topics.hasData) {
-                var topicList = topics.data;
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                var topicList = snapshot.data;
                 return RefreshIndicator(
                   onRefresh: _getNotesTopicList,
                   child: ListView.separated(
-                    physics: BouncingScrollPhysics(
-                        parent: AlwaysScrollableScrollPhysics()),
                     itemCount: topicList!.length,
                     itemBuilder: (context, index) {
                       var topicData = topicList[index];
@@ -74,7 +75,10 @@ class TopicsView extends StatelessWidget {
                                       topicRoute: topicData.route,
                                     ));
                               } else {
-                                UrlLauncher.openUrl(url: topicData.url);
+                                UrlLauncher.openUrl(
+                                  url: topicData.url,
+                                  context: context,
+                                );
                               }
                             } else {
                               customSnackBar(
@@ -91,8 +95,22 @@ class TopicsView extends StatelessWidget {
                     ),
                   ),
                 );
+              } else if (snapshot.hasError) {
+                return RefreshIndicator(
+                  onRefresh: _getNotesTopicList,
+                  child: SingleChildScrollView(
+                    physics: ClampingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
+                    child: ErrorScreen(
+                      errMsg: "Not Available",
+                    ),
+                  ),
+                );
               } else {
-                return SkeletonLoading();
+                return RefreshIndicator(
+                  onRefresh: _getNotesTopicList,
+                  child: SkeletonLoading(),
+                );
               }
             },
           ),

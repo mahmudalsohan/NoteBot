@@ -17,7 +17,10 @@ Widget devAvatar(
       SizedBox(height: 10),
       InkWell(
         onTap: () {
-          UrlLauncher.openUrl(url: link);
+          UrlLauncher.openUrl(
+            url: link,
+            context: context,
+          );
         },
         child: Text(
           name,

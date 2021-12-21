@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 class NetworkController extends GetxController {
   static NetworkController instance = Get.find();
 
-  late final Connectivity _connectivity;
+  final Connectivity _connectivity = Connectivity();
 
   static final String _primaryUrl = FlutterConfig.get('PRIMARY_URL');
 
@@ -17,32 +17,33 @@ class NetworkController extends GetxController {
   final RxString BASE_URL = "".obs;
   final RxList<InMemoryOf> memorialList = <InMemoryOf>[].obs;
   final RxList<SponsoredContent> sponsorList = <SponsoredContent>[].obs;
+  final RxList<Tool> toolList = <Tool>[].obs;
+  final RxList<Community> communityList = <Community>[].obs;
 
   @override
   void onInit() async {
     super.onInit();
-    _connectivity = Connectivity();
     await checkConnectivity();
 
     if (isConnected.value) {
-      await _getBaseRequest();
+      await getBaseRequest();
     }
   }
 
   checkConnectivity() async {
-    print("called");
+    print("Check Connectivity Called");
     ConnectivityResult connectivityResult =
         await _connectivity.checkConnectivity();
 
     if (connectivityResult != ConnectivityResult.none) {
-      await _getBaseRequest();
+      await getBaseRequest();
       isConnected.value = true;
     } else if (connectivityResult == ConnectivityResult.none) {
       isConnected.value = false;
     }
   }
 
-  _getBaseRequest() async {
+  getBaseRequest() async {
     BaseRequest baseRequest;
     var response = await Dio().get(_primaryUrl);
     baseRequest = BaseRequest.fromJson(response.data);
@@ -52,5 +53,7 @@ class NetworkController extends GetxController {
     isApiLive.value = baseRequest.apiInfo.isApiLive;
     memorialList.value = baseRequest.inMemoryOf;
     sponsorList.value = baseRequest.sponsoredContent;
+    toolList.value = baseRequest.tools;
+    communityList.value = baseRequest.communities;
   }
 }

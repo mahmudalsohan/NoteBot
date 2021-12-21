@@ -2,10 +2,12 @@ import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/models/lab_topics.dart';
 import 'package:butex_notebot/networking/http_service.dart';
 import 'package:butex_notebot/services/open_url.dart';
+import 'package:butex_notebot/views/home_view/home_view.dart';
 import 'package:butex_notebot/views/lab_topic_content_view/lab_topic_content_view.dart';
-import 'package:butex_notebot/views/notes_topic_content_view/topic_content_view.dart';
+import 'package:butex_notebot/views/notes_topic_content_view/notes_topic_content_view.dart';
 import 'package:butex_notebot/widgets/content_list_tile.dart';
 import 'package:butex_notebot/widgets/custom_snackbar.dart';
+import 'package:butex_notebot/widgets/error_screen.dart';
 import 'package:butex_notebot/widgets/reusable_list_tile.dart';
 import 'package:butex_notebot/widgets/skeleton_loading.dart';
 import 'package:flutter/material.dart';
@@ -31,24 +33,23 @@ class LabTopicsView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("$subName"),
+        actions: [
+          IconButton(
+              onPressed: () => Get.offAll(() => HomeView()),
+              icon: Icon(Icons.home))
+        ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 15,
-          vertical: 10,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Container(
           child: FutureBuilder<List<LabTopics>>(
             future: _labTopics,
-            builder: (context, topics) {
-              if (topics.hasData) {
-                var topicList = topics.data;
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                var topicList = snapshot.data;
                 return RefreshIndicator(
                   onRefresh: _getLabTopics,
                   child: ListView.separated(
-                    physics: BouncingScrollPhysics(
-                      parent: AlwaysScrollableScrollPhysics(),
-                    ),
                     itemCount: topicList!.length,
                     itemBuilder: (context, index) {
                       var topicData = topicList[index];
@@ -63,7 +64,10 @@ class LabTopicsView extends StatelessWidget {
                                   route: topicData.route,
                                   topicName: topicData.topic));
                             } else {
-                              UrlLauncher.openUrl(url: topicData.url);
+                              UrlLauncher.openUrl(
+                                url: topicData.url,
+                                context: context,
+                              );
                             }
                           } else {
                             customSnackBar(
@@ -84,8 +88,22 @@ class LabTopicsView extends StatelessWidget {
                     ),
                   ),
                 );
+              } else if (snapshot.hasError) {
+                return RefreshIndicator(
+                  onRefresh: _getLabTopics,
+                  child: SingleChildScrollView(
+                    physics: ClampingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
+                    child: ErrorScreen(
+                      errMsg: "Not Available",
+                    ),
+                  ),
+                );
               } else {
-                return SkeletonLoading();
+                return RefreshIndicator(
+                  onRefresh: _getLabTopics,
+                  child: SkeletonLoading(),
+                );
               }
             },
           ),

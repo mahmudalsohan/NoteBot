@@ -39,58 +39,25 @@ class NotesLevelsView extends StatelessWidget {
                 LevelSelectionTile(
                   title: "Level 1",
                   onTap: () async {
-                    await networkController.checkConnectivity();
-                    if (networkController.isConnected.value)
-                      Get.to(() => NotesSubjectsView(level: 1));
-                    else
-                      customSnackBar(
-                        context,
-                        message: "No Network !",
-                        bg: Color(0xffaf2031),
-                      );
+                    Get.to(() => NotesSubjectsView(level: 1));
                   },
                 ),
                 LevelSelectionTile(
                   title: "Level 2",
-                  onTap: () async {
-                    await networkController.checkConnectivity();
-                    if (networkController.isConnected.value) {
-                      Get.to(() => NotesSubjectsView(level: 2));
-                    } else {
-                      customSnackBar(
-                        context,
-                        message: "No Network !",
-                        bg: Color(0xffaf2031),
-                      );
-                    }
+                  onTap: () {
+                    Get.to(() => NotesSubjectsView(level: 2));
                   },
                 ),
                 LevelSelectionTile(
                   title: "Level 3",
-                  onTap: () async {
-                    await networkController.checkConnectivity();
-                    if (networkController.isConnected.value)
-                      Get.to(() => NotesSubjectsView(level: 3));
-                    else
-                      customSnackBar(
-                        context,
-                        message: "No Network !",
-                        bg: Color(0xffaf2031),
-                      );
+                  onTap: () {
+                    Get.to(() => NotesSubjectsView(level: 3));
                   },
                 ),
                 LevelSelectionTile(
                   title: "Level 4",
-                  onTap: () async {
-                    await networkController.checkConnectivity();
-                    if (networkController.isConnected.value)
-                      Get.to(() => NotesSubjectsView(level: 4));
-                    else
-                      customSnackBar(
-                        context,
-                        message: "No Network !",
-                        bg: Color(0xffaf2031),
-                      );
+                  onTap: () {
+                    Get.to(() => NotesSubjectsView(level: 4));
                   },
                 ),
               ],

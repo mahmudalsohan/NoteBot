@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:skeleton_text/skeleton_text.dart';
 
 class SkeletonLoading extends StatelessWidget {
-  const SkeletonLoading({Key? key}) : super(key: key);
+  SkeletonLoading({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

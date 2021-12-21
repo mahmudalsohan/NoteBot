@@ -1,6 +1,7 @@
 import 'package:butex_notebot/constants/controller.dart';
-import 'package:butex_notebot/views/auth_view/auth_widgets/auth_details_view.dart';
+import 'package:butex_notebot/views/auth_view/auth_widgets/auth_institute_selection_view.dart';
 import 'package:butex_notebot/views/home_view/home_view.dart';
+import 'package:butex_notebot/widgets/error_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/num_extensions.dart';
@@ -11,19 +12,20 @@ class AuthView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: StreamBuilder(
+    return Scaffold(
+      body: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());
             } else if (snapshot.hasData) {
+              authController.isLoading.value = false;
               return HomeView();
             } else if (snapshot.hasError) {
-              return Center(
-                child: Text("Something went wrong. Try again."),
-              );
+              authController.isLoading.value = false;
+              return ErrorScreen(errMsg: "Error! Please Try Again");
             } else {
+              authController.isLoading.value = false;
               return RegistrationView();
             }
           }),

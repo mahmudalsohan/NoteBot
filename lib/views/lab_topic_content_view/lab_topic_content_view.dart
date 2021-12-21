@@ -2,8 +2,10 @@ import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/models/lab_topic_content.dart';
 import 'package:butex_notebot/networking/http_service.dart';
 import 'package:butex_notebot/services/open_url.dart';
+import 'package:butex_notebot/views/home_view/home_view.dart';
 import 'package:butex_notebot/widgets/content_list_tile.dart';
 import 'package:butex_notebot/widgets/custom_snackbar.dart';
+import 'package:butex_notebot/widgets/error_screen.dart';
 import 'package:butex_notebot/widgets/reusable_list_tile.dart';
 import 'package:butex_notebot/widgets/skeleton_loading.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +23,11 @@ class LabTopicContentView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
     Future<List<LabTopicContent>> _labTopicContent =
         HttpService().getLabTopicContent(route!);
+    //
+    //
     _getLabTopicContent() async {
       _labTopicContent = HttpService().getLabTopicContent(route!);
     }
@@ -30,6 +35,11 @@ class LabTopicContentView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("$topicName"),
+        actions: [
+          IconButton(
+              onPressed: () => Get.offAll(() => HomeView()),
+              icon: Icon(Icons.home))
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -56,30 +66,9 @@ class LabTopicContentView extends StatelessWidget {
                         onTap: () async {
                           await networkController.checkConnectivity();
                           if (networkController.isConnected.value) {
-                            UrlLauncher.openUrl(url: topicContentData.url);
-                          } else if (snapshot.hasError) {
-                            return RefreshIndicator(
-                              onRefresh: _getLabTopicContent,
-                              child: SingleChildScrollView(
-                                physics: ClampingScrollPhysics(
-                                    parent: AlwaysScrollableScrollPhysics()),
-                                child: Container(
-                                  height: Get.height,
-                                  width: Get.width,
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.error,
-                                        color: Colors.grey,
-                                        size: 50,
-                                      ),
-                                      Text("Not Available Yet"),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                            UrlLauncher.openUrl(
+                              url: topicContentData.url,
+                              context: context,
                             );
                           } else {
                             customSnackBar(
@@ -94,8 +83,22 @@ class LabTopicContentView extends StatelessWidget {
                     },
                   ),
                 );
+              } else if (snapshot.hasError) {
+                return RefreshIndicator(
+                  onRefresh: _getLabTopicContent,
+                  child: SingleChildScrollView(
+                    physics: ClampingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
+                    child: ErrorScreen(
+                      errMsg: "Not Available",
+                    ),
+                  ),
+                );
               } else {
-                return SkeletonLoading();
+                return RefreshIndicator(
+                  onRefresh: _getLabTopicContent,
+                  child: SkeletonLoading(),
+                );
               }
             },
           ),

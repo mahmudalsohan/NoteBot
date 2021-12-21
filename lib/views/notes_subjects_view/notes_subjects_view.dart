@@ -2,9 +2,11 @@ import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/models/subject_model.dart';
 import 'package:butex_notebot/networking/http_service.dart';
 import 'package:butex_notebot/services/open_url.dart';
+import 'package:butex_notebot/views/home_view/home_view.dart';
 import 'package:butex_notebot/views/notes_topics_view/notes_topics_view.dart';
 import 'package:butex_notebot/widgets/appBar_widget.dart';
 import 'package:butex_notebot/widgets/custom_snackbar.dart';
+import 'package:butex_notebot/widgets/error_screen.dart';
 import 'package:butex_notebot/widgets/skeleton_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -17,28 +19,32 @@ class NotesSubjectsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
     Future<List<Subject>> _notesSubjectList =
         HttpService().getSubjects(level: level);
+    //
     _getNotesSubjectList() async {
       _notesSubjectList = HttpService().getSubjects(level: level);
     }
 
     return Scaffold(
-      appBar: customAppBar(
-        context: context,
-        title: "Level: $level",
+      appBar: AppBar(
+        title: Text("Level $level"),
+        actions: [
+          IconButton(
+              onPressed: () => Get.offAll(() => HomeView()),
+              icon: Icon(Icons.home))
+        ],
       ),
       body: Container(
         child: FutureBuilder<List<Subject>>(
           future: _notesSubjectList,
-          builder: (BuildContext context, subjects) {
-            if (subjects.hasData) {
-              var subjectList = subjects.data;
+          builder: (BuildContext context, snapshot) {
+            if (snapshot.hasData) {
+              var subjectList = snapshot.data;
               return RefreshIndicator(
                 onRefresh: _getNotesSubjectList,
                 child: ListView.separated(
-                  physics: BouncingScrollPhysics(
-                      parent: AlwaysScrollableScrollPhysics()),
                   itemCount: subjectList!.length,
                   separatorBuilder: (BuildContext context, int index) =>
                       Divider(color: Colors.grey),
@@ -59,7 +65,10 @@ class NotesSubjectsView extends StatelessWidget {
                                     subjectName: subjectData.subName,
                                   ));
                             } else {
-                              UrlLauncher.openUrl(url: subjectData.url);
+                              UrlLauncher.openUrl(
+                                url: subjectData.url,
+                                context: context,
+                              );
                             }
                           } else {
                             customSnackBar(
@@ -72,8 +81,27 @@ class NotesSubjectsView extends StatelessWidget {
                   },
                 ),
               );
+            }
+            //
+            //
+            else if (snapshot.hasError) {
+              return RefreshIndicator(
+                onRefresh: _getNotesSubjectList,
+                child: SingleChildScrollView(
+                  physics: ClampingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics()),
+                  child: ErrorScreen(
+                    errMsg: "Not Available",
+                  ),
+                ),
+              );
+              //
+              //
             } else {
-              return SkeletonLoading();
+              return RefreshIndicator(
+                onRefresh: _getNotesSubjectList,
+                child: SkeletonLoading(),
+              );
             }
           },
         ),
