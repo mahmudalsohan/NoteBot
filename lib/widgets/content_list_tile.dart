@@ -1,3 +1,4 @@
+import 'package:butex_notebot/constants/controller.dart';
 import 'package:flutter/material.dart';
 
 Widget contentListTile({
@@ -8,12 +9,13 @@ Widget contentListTile({
   Widget? leading,
   required Function onTap,
 }) {
-  return InkWell(
-    onTap: () {
-      onTap();
-    },
+  return Padding(
+    padding: const EdgeInsets.only(top: 10),
     child: Card(
       elevation: 2,
+      color: themeController.isDarkMode.value
+          ? Color(0xff1a2d3d)
+          : Theme.of(context).colorScheme.background,
       child: ListTile(
         onTap: () => onTap(),
         trailing: trailer,
@@ -22,7 +24,6 @@ Widget contentListTile({
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Text(
               title,
-              //textAlign: TextAlign.left,
               style: TextStyle(fontSize: 20),
             ),
           ),

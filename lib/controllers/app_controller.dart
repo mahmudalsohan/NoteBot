@@ -1,17 +1,23 @@
+import 'dart:developer';
+
 import 'package:butex_notebot/constants/get_storage_key.dart';
 import 'package:butex_notebot/services/local_notification_service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'dart:io' show Platform;
 
 class AppController extends GetxController {
   static AppController instance = Get.find();
   final RxBool firstTime = false.obs;
   final RxString appVersion = "beta 1.0.3".obs;
+  final RxString osVersion = "".obs;
 
   @override
   void onInit() {
     super.onInit();
+    osVersion.value = Platform.operatingSystemVersion;
+
     if (GetStorage().read(GetStorageKey.FIRST_TIME) == null) {
       firstTime.value = true;
     } else {

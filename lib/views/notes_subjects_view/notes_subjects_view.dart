@@ -56,25 +56,16 @@ class NotesSubjectsView extends StatelessWidget {
                         trailer: subjectData.url == null
                             ? Icon(Icons.arrow_forward_ios_sharp)
                             : Icon(Icons.launch),
-                        onTap: () async {
-                          await networkController.checkConnectivity();
-                          if (networkController.isConnected.value) {
-                            if (subjectData.url == null) {
-                              Get.to(() => TopicsView(
-                                    subjectRoute: subjectData.route,
-                                    subjectName: subjectData.subName,
-                                  ));
-                            } else {
-                              UrlLauncher.openUrl(
-                                url: subjectData.url,
-                                context: context,
-                              );
-                            }
+                        onTap: () {
+                          if (subjectData.url == null) {
+                            Get.to(() => TopicsView(
+                                  subjectRoute: subjectData.route,
+                                  subjectName: subjectData.subName,
+                                ));
                           } else {
-                            customSnackBar(
-                              context,
-                              message: "No Network !",
-                              bg: Color(0xffaf2031),
+                            UrlLauncher.openUrl(
+                              url: subjectData.url,
+                              context: context,
                             );
                           }
                         });

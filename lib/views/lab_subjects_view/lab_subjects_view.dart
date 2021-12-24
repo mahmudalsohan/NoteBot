@@ -45,7 +45,7 @@ class LabSubjectsView extends StatelessWidget {
                 var subjectList = snapshot.data;
                 return RefreshIndicator(
                   onRefresh: _getSubjectList,
-                  child: ListView.separated(
+                  child: ListView.builder(
                     itemCount: subjectList!.length,
                     itemBuilder: (context, index) {
                       var subjectData = subjectList[index];
@@ -66,8 +66,6 @@ class LabSubjectsView extends StatelessWidget {
                         trailer: Icon(Icons.arrow_forward_ios_sharp),
                       );
                     },
-                    separatorBuilder: (BuildContext context, int index) =>
-                        Divider(color: Colors.grey),
                   ),
                 );
               } else if (snapshot.hasError) {

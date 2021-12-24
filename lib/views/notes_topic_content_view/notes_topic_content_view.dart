@@ -64,20 +64,12 @@ class NotesTopicContentView extends StatelessWidget {
                       return contentListTile(
                         context: context,
                         title: topicContentData.title,
-                        onTap: () async {
-                          await networkController.checkConnectivity();
-                          if (networkController.isConnected.value) {
-                            UrlLauncher.openUrl(
-                              url: topicContentData.url,
-                              context: context,
-                            );
-                          } else {
-                            customSnackBar(
-                              context,
-                              message: "No Network !",
-                              bg: Color(0xffaf2031),
-                            );
-                          }
+                        onTap: () {
+                          UrlLauncher.openUrl(
+                            url: topicContentData.url,
+                            context: context,
+                            webView: true,
+                          );
                         },
                         trailer: Icon(Icons.launch),
                       );

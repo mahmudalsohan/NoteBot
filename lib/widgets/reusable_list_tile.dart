@@ -9,14 +9,19 @@ Widget reusableListTile({
   Widget? leading,
   required Function onTap,
 }) {
-  return ListTile(
-    onTap: () => onTap(),
-    trailing: trailer,
-    title: Center(
-      child: Text(
-        title,
-        style: TextStyle(fontSize: 25),
+  return Column(
+    children: [
+      ListTile(
+        onTap: () => onTap(),
+        trailing: trailer,
+        title: Center(
+          child: Text(
+            title,
+            style: TextStyle(fontSize: 25),
+          ),
+        ),
       ),
-    ),
+      Divider(color: Colors.white),
+    ],
   );
 }

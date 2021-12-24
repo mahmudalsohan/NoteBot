@@ -1,4 +1,5 @@
 import 'package:butex_notebot/models/base_request_model.dart';
+import 'package:butex_notebot/networking/http_service.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_config/flutter_config.dart';
@@ -32,14 +33,18 @@ class NetworkController extends GetxController {
 
   checkConnectivity() async {
     print("Check Connectivity Called");
-    ConnectivityResult connectivityResult =
-        await _connectivity.checkConnectivity();
+    try {
+      ConnectivityResult connectivityResult =
+          await _connectivity.checkConnectivity();
 
-    if (connectivityResult != ConnectivityResult.none) {
-      await getBaseRequest();
-      isConnected.value = true;
-    } else if (connectivityResult == ConnectivityResult.none) {
-      isConnected.value = false;
+      if (connectivityResult != ConnectivityResult.none) {
+        await getBaseRequest();
+        isConnected.value = true;
+      } else if (connectivityResult == ConnectivityResult.none) {
+        isConnected.value = false;
+      }
+    } on Exception catch (e) {
+      await HttpService().logErr(e.toString());
     }
   }
 

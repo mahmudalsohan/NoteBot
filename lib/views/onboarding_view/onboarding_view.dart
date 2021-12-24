@@ -8,6 +8,7 @@ class OnBoardingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Stack(
           children: [
@@ -26,7 +27,10 @@ class OnBoardingView extends StatelessWidget {
                         Text(
                           _controller.onboardingPages[index].title,
                           style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.w500),
+                            color: Colors.black,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                         SizedBox(height: 32),
                         Padding(
@@ -34,7 +38,8 @@ class OnBoardingView extends StatelessWidget {
                           child: Text(
                             _controller.onboardingPages[index].description,
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 18),
+                            style:
+                                TextStyle(fontSize: 18, color: Colors.black54),
                           ),
                         ),
                       ],
@@ -56,7 +61,7 @@ class OnBoardingView extends StatelessWidget {
                       height: 12,
                       decoration: BoxDecoration(
                         color: _controller.selectedPageIndex.value == index
-                            ? Colors.red
+                            ? Theme.of(context).colorScheme.primary
                             : Colors.grey,
                         shape: BoxShape.circle,
                       ),
@@ -71,10 +76,14 @@ class OnBoardingView extends StatelessWidget {
               right: 20,
               bottom: 20,
               child: FloatingActionButton(
+                backgroundColor: Theme.of(context).colorScheme.primary,
                 elevation: 0,
                 onPressed: _controller.forwardAction,
                 child: Obx(() {
-                  return Text(_controller.isLastPage ? 'Start' : 'Next');
+                  return Text(
+                    _controller.isLastPage ? 'Start' : 'Next',
+                    style: TextStyle(color: Colors.white),
+                  );
                 }),
               ),
             ),
@@ -83,22 +92,4 @@ class OnBoardingView extends StatelessWidget {
       ),
     );
   }
-
-  /*DotsDecorator getDotDecoration() => DotsDecorator(
-        color: Color(0xFFBDBDBD),
-        activeColor: Colors.blueGrey,
-        size: Size(10, 10),
-        activeSize: Size(22, 10),
-        activeShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
-      );
-
-  PageDecoration getPageDecoration() => PageDecoration(
-        titleTextStyle: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-        bodyTextStyle: TextStyle(fontSize: 20),
-        descriptionPadding: EdgeInsets.all(16).copyWith(bottom: 0),
-        imagePadding: EdgeInsets.all(24),
-        pageColor: Colors.white,
-      );*/
 }

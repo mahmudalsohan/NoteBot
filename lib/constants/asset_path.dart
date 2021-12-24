@@ -19,8 +19,8 @@ final String imageSohan = _getImagePath("sohan.jpg");
 final String imageNotice0 = _getImagePath("butex_memorial.jpeg");
 final String imageNotice1 = _getImagePath("butex_gate.jpeg");
 final String imageNotice2 = _getImagePath("butex_field.jpeg");
-final String imageOnboard1 = _getImagePath("vector1.jpg");
-final String imageOnboard2 = _getImagePath("vector2.jpg");
+final String imageOnboard1 = _getImagePath("vector1.png");
+final String imageOnboard2 = _getImagePath("vector2.png");
 final String imageOnboard3 = _getImagePath("notebotXbutex.png");
 
 //Icons

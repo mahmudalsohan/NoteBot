@@ -49,7 +49,7 @@ class AppThemes {
     secondary: Colors.blueGrey.shade900,
     secondaryVariant: Colors.blueGrey.shade800,
     background: Color(0xff15202B),
-    surface: Color(0xff1E2746),
+    surface: Color(0xff1a2d3d),
     onBackground: Color(0xFF192734),
     // White with 0.05 opacity
     error: Colors.red,

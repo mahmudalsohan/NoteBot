@@ -18,15 +18,15 @@ class OnBoardingController extends GetxController {
       GetStorage().write(GetStorageKey.FIRST_TIME, false);
       Get.to(() => AuthView());
     } else
-      pageController.nextPage(duration: 300.milliseconds, curve: Curves.ease);
+      pageController.nextPage(duration: 500.milliseconds, curve: Curves.ease);
   }
 
   List<OnboardingInfo> onboardingPages = [
-    OnboardingInfo(imageOnboard1, 'GO Easy !',
-        'Using Your Favourite NoteBOT is Easier Than Ever Before.'),
+    OnboardingInfo(imageOnboard1, 'Go Easy !',
+        'Using your favourite NoteBOT is easier than ever '),
     OnboardingInfo(imageOnboard2, 'Packed With Features !',
-        'Checks Notes, Lab Reports, Syllabus, Notice and much more, All in One Place'),
+        'Checks Notes, Lab Reports, Syllabus, Notice and much more, All in one place'),
     OnboardingInfo(imageOnboard3, 'Our BUTEX, Our NoteBOT',
-        'ONE Institute, ONE App, Thousands of Awesome Peoples Like You...')
+        'ONE Institute, ONE App and Thousands of awesome people like you...')
   ];
 }

@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/constants/get_storage_key.dart';
+import 'package:butex_notebot/models/notebird_game_model.dart';
+import 'package:butex_notebot/networking/http_service.dart';
 import 'package:butex_notebot/views/entertainment_views/entertainment_home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -9,14 +12,14 @@ import 'bird.dart';
 import 'notebird_barrier.dart';
 import 'notebird_popup.dart';
 
-class NotebirdHomePage extends StatefulWidget {
-  const NotebirdHomePage({Key? key}) : super(key: key);
+class NotebirdPlayScreen extends StatefulWidget {
+  const NotebirdPlayScreen({Key? key}) : super(key: key);
 
   @override
-  _NotebirdHomePageState createState() => _NotebirdHomePageState();
+  _NotebirdPlayScreenState createState() => _NotebirdPlayScreenState();
 }
 
-class _NotebirdHomePageState extends State<NotebirdHomePage> {
+class _NotebirdPlayScreenState extends State<NotebirdPlayScreen> {
   // bird variables
   static double birdY = 0;
   double initialPos = birdY;
@@ -68,12 +71,18 @@ class _NotebirdHomePageState extends State<NotebirdHomePage> {
     });
   }
 
-  void _updateScore() {
+  void _updateScore() async {
     if (GetStorage().read(GetStorageKey.BS_NOTEBIRD) == null) {
       GetStorage().write(GetStorageKey.BS_NOTEBIRD, 0);
     }
 
     if (score > GetStorage().read(GetStorageKey.BS_NOTEBIRD)) {
+      await networkController.checkConnectivity();
+      if (networkController.isConnected.value) {
+        NoteBirdModel? noteBirdModel = await HttpService().postHighScore(score);
+        print(noteBirdModel?.status);
+      }
+
       bestScore = score;
       GetStorage().write(GetStorageKey.BS_NOTEBIRD, score);
     }

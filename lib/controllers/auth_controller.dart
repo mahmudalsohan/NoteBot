@@ -51,6 +51,7 @@ class AuthController extends GetxController {
 
     } catch (e) {
       authController.isLoading.value = false;
+      await HttpService().logErr(e.toString());
       print(e.toString());
     }
   }
@@ -62,11 +63,9 @@ class AuthController extends GetxController {
       FirebaseAuth.instance.signOut();
       Get.offAll(() => AuthView());
     } on Exception catch (e) {
-      print(e.toString()
-      );
+      print(e.toString());
     }
     isLoading.value = false;
-
   }
 
 //
@@ -235,6 +234,11 @@ class AuthController extends GetxController {
         );
         Get.offAll(() => HomeView());
         isLoading.value = false;
+
+        print(userModel!.status);
+        print(userModel.user.email);
+        print(userModel.user.dept);
+        print(userModel.user.uniId);
       }
       //
       //

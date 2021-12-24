@@ -4,6 +4,7 @@ import 'package:butex_notebot/networking/http_service.dart';
 import 'package:butex_notebot/services/open_url.dart';
 import 'package:butex_notebot/views/home_view/home_view.dart';
 import 'package:butex_notebot/views/notes_topic_content_view/notes_topic_content_view.dart';
+import 'package:butex_notebot/widgets/content_list_tile.dart';
 import 'package:butex_notebot/widgets/custom_snackbar.dart';
 import 'package:butex_notebot/widgets/error_screen.dart';
 import 'package:butex_notebot/widgets/reusable_list_tile.dart';
@@ -56,43 +57,52 @@ class TopicsView extends StatelessWidget {
                 var topicList = snapshot.data;
                 return RefreshIndicator(
                   onRefresh: _getNotesTopicList,
-                  child: ListView.separated(
+                  child: ListView.builder(
                     itemCount: topicList!.length,
                     itemBuilder: (context, index) {
                       var topicData = topicList[index];
-                      return reusableListTile(
-                          context: context,
-                          title: topicData.topic,
-                          trailer: topicData.url == null
-                              ? Icon(Icons.arrow_forward_ios_sharp)
-                              : Icon(Icons.launch),
-                          onTap: () async {
-                            await networkController.checkConnectivity();
-                            if (networkController.isConnected.value) {
-                              if (topicData.url == null) {
-                                Get.to(() => NotesTopicContentView(
-                                      topicName: topicData.topic,
-                                      topicRoute: topicData.route,
-                                    ));
-                              } else {
-                                UrlLauncher.openUrl(
-                                  url: topicData.url,
-                                  context: context,
-                                );
-                              }
-                            } else {
-                              customSnackBar(
-                                context,
-                                message: "No Internet !",
-                                bg: Color(0xffaf2031),
-                              );
-                            }
-                          });
+                      bool priority = topicData.topic.length > 15 == true;
+                      return priority
+                          ? contentListTile(
+                              title: topicData.topic,
+                              context: context,
+                              trailer: topicData.url == null
+                                  ? Icon(Icons.arrow_forward_ios_sharp)
+                                  : Icon(Icons.launch),
+                              onTap: () {
+                                if (topicData.url == null) {
+                                  Get.to(() => NotesTopicContentView(
+                                        topicName: topicData.topic,
+                                        topicRoute: topicData.route,
+                                      ));
+                                } else {
+                                  UrlLauncher.openUrl(
+                                    url: topicData.url,
+                                    context: context,
+                                  );
+                                }
+                              },
+                            )
+                          : reusableListTile(
+                              context: context,
+                              title: topicData.topic,
+                              trailer: topicData.url == null
+                                  ? Icon(Icons.arrow_forward_ios_sharp)
+                                  : Icon(Icons.launch),
+                              onTap: () {
+                                if (topicData.url == null) {
+                                  Get.to(() => NotesTopicContentView(
+                                        topicName: topicData.topic,
+                                        topicRoute: topicData.route,
+                                      ));
+                                } else {
+                                  UrlLauncher.openUrl(
+                                    url: topicData.url,
+                                    context: context,
+                                  );
+                                }
+                              });
                     },
-                    separatorBuilder: (BuildContext context, int index) =>
-                        Divider(
-                      color: Colors.grey,
-                    ),
                   ),
                 );
               } else if (snapshot.hasError) {

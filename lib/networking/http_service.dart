@@ -4,6 +4,9 @@ import 'package:butex_notebot/models/lab_subject_model.dart';
 import 'package:butex_notebot/models/lab_topic_content.dart';
 import 'package:butex_notebot/models/lab_topics.dart';
 import 'package:butex_notebot/models/level_and_term.dart';
+import 'package:butex_notebot/models/log_error_model.dart';
+import 'package:butex_notebot/models/notebird_game_model.dart';
+import 'package:butex_notebot/models/notebird_hof.dart';
 import 'package:butex_notebot/models/notice_model.dart';
 import 'package:butex_notebot/models/subject_model.dart';
 import 'package:butex_notebot/models/syllabus_batch.dart';
@@ -11,7 +14,9 @@ import 'package:butex_notebot/models/topic_content_model.dart';
 import 'package:butex_notebot/models/topic_model.dart';
 import 'package:butex_notebot/models/user_model.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_config/flutter_config.dart';
 
 class HttpService {
   late Dio _dio;
@@ -36,7 +41,8 @@ class HttpService {
           print("onResponse: ${response.data}");
           return handler.next(response);
         },
-        onError: (DioError e, handler) {
+        onError: (DioError e, handler) async {
+          await logErr(e.message);
           print("onError: ${e.response!.statusCode}");
           print("onError: ${e.message}");
 
@@ -53,6 +59,7 @@ class HttpService {
     try {
       response = await _dio.get(endPoint);
     } on DioError catch (e) {
+      await logErr(e.message);
       throw Exception(e.message);
     }
     return response;
@@ -183,7 +190,7 @@ class HttpService {
     required String? batch,
     required String? email,
   }) async {
-    final String postUrl = "https://api.triptex.me/user/new";
+    final String postUrl = FlutterConfig.get('SEND_USER_DATA_URL');
     var response = await Dio().post(
       postUrl,
       data: {
@@ -193,7 +200,7 @@ class HttpService {
         "dept": dept,
       },
       queryParameters: {
-        "adminKey": "noteAnalTripto6969",
+        "adminKey": FlutterConfig.get('ADMIN_KEY'),
       },
     );
 
@@ -202,5 +209,68 @@ class HttpService {
     } else {
       return null;
     }
+  }
+
+  Future<LogErrorModel?> logErr(String err) async {
+    final String postUrl = FlutterConfig.get('LOG_ERR_URL');
+    String date =
+        "${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}";
+    String? email = FirebaseAuth.instance.currentUser!.email;
+    String os = appController.osVersion.value;
+
+    var res = await Dio().post(
+      postUrl,
+      data: {
+        "date": date,
+        "email": "$email",
+        "os": os,
+        "log": err,
+      },
+      queryParameters: {
+        "adminKey": FlutterConfig.get('ADMIN_KEY'),
+      },
+    );
+    if (res.statusCode == 200) {
+      return LogErrorModel.fromJson(res.data);
+    } else {
+      return null;
+    }
+  }
+
+  Future<NoteBirdModel?> postHighScore(int highScore) async {
+    final String postUrl = FlutterConfig.get('GAME_SCORE_URL');
+
+    String dateTime =
+        "${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year} : ${DateTime.now().hour}-${DateTime.now().minute}-${DateTime.now().second}";
+    String? email = FirebaseAuth.instance.currentUser!.email;
+    String? name = FirebaseAuth.instance.currentUser!.displayName;
+
+    var response = await Dio().post(
+      postUrl,
+      data: {
+        "date": dateTime,
+        "score": highScore,
+        "email": "$email",
+        "user_name": "$name",
+      },
+      queryParameters: {
+        "adminKey": FlutterConfig.get('ADMIN_KEY'),
+      },
+    );
+    if (response.statusCode == 200) {
+      return NoteBirdModel.fromJson(response.data);
+    } else {
+      return null;
+    }
+  }
+
+  //get Hall of Fame
+  Future<NoteBirdHof> getHOF() async {
+    NoteBirdHof noteBirdHof;
+    var response = await Dio().get("https://api.triptex.me/games/notebird");
+
+    noteBirdHof = NoteBirdHof.fromJson(response.data);
+
+    return noteBirdHof;
   }
 }

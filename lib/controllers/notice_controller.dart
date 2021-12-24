@@ -1,3 +1,5 @@
+import 'package:butex_notebot/models/log_error_model.dart';
+import 'package:butex_notebot/networking/http_service.dart';
 import 'package:dio/dio.dart' as DIO;
 import 'package:flutter_config/flutter_config.dart';
 import 'package:get/get.dart';
@@ -46,6 +48,14 @@ class NoticeController extends GetxController {
 
       return RssFeed.parse(response.data);
     } catch (e) {
+      LogErrorModel? error = await HttpService().logErr(e.toString());
+
+      print(error?.errorInfo.date);
+      print(error?.errorInfo.email);
+      print(error?.errorInfo.os);
+      print(error?.errorInfo.log);
+      print(error?.status);
+
       print(e.toString());
     }
 

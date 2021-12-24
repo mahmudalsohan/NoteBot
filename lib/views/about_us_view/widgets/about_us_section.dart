@@ -27,18 +27,18 @@ class AboutUsSection extends StatelessWidget {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(right: 10),
+                  padding: const EdgeInsets.only(right: 40),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "HAWKERS Is A Group of Individuals Who Are Passionate "
-                        "About Impactful Software Development ",
+                        "HAWKERS is a group of individuals who are passionate "
+                        "about impactful Software Development ",
                         style: AppTextStyles().kAboutViewDescriptionTextStyle,
                       ),
                       SizedBox(height: 10),
                       Text(
-                        "We Make Products That Count ",
+                        "We make products that count ",
                         style: AppTextStyles().kAboutViewDescriptionTextStyle,
                       ),
                     ],

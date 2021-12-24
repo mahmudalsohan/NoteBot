@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-import 'notebird/notebird_home.dart';
+import 'notebird/notebird_home_screen.dart';
 
 class EntertainmentHomeScreen extends StatelessWidget {
   const EntertainmentHomeScreen({Key? key}) : super(key: key);
@@ -28,7 +28,7 @@ class EntertainmentHomeScreen extends StatelessWidget {
                   title: "Note Bird",
                   imagePath: logoNoteBird,
                   onPress: () {
-                    Get.to(() => NotebirdHomePage());
+                    Get.to(() => NotebirdHomeScreen());
                   },
                 ),
               ],

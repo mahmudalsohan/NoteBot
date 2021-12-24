@@ -49,7 +49,7 @@ class LabTopicsView extends StatelessWidget {
                 var topicList = snapshot.data;
                 return RefreshIndicator(
                   onRefresh: _getLabTopics,
-                  child: ListView.separated(
+                  child: ListView.builder(
                     itemCount: topicList!.length,
                     itemBuilder: (context, index) {
                       var topicData = topicList[index];
@@ -82,10 +82,6 @@ class LabTopicsView extends StatelessWidget {
                             : Icon(Icons.arrow_forward_ios_sharp),
                       );
                     },
-                    separatorBuilder: (BuildContext context, int index) =>
-                        Divider(
-                      color: Colors.grey,
-                    ),
                   ),
                 );
               } else if (snapshot.hasError) {

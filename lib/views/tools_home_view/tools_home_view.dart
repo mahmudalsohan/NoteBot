@@ -2,7 +2,7 @@ import 'package:butex_notebot/constants/asset_path.dart';
 import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/services/open_url.dart';
 import 'package:butex_notebot/views/auth_view/auth_widgets/top_container.dart';
-import 'package:butex_notebot/views/entertainment_views/notebird/notebird_home.dart';
+import 'package:butex_notebot/views/entertainment_views/notebird/notebird_play.dart';
 import 'package:butex_notebot/views/onboarding_view/onboarding_view.dart';
 import 'package:butex_notebot/widgets/appBar_widget.dart';
 import 'package:butex_notebot/widgets/carousel_loading.dart';

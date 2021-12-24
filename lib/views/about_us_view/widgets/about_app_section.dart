@@ -34,7 +34,7 @@ class AboutAppSection extends StatelessWidget {
                   Obx(() {
                     final String apiStatus = networkController.isApiLive.value
                         ? "🟢 Okay"
-                        : "🔴 Under Maintenance";
+                        : "🔴 Network Error";
                     return Text("API Status : $apiStatus");
                   }),
                 ],

@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:butex_notebot/constants/get_storage_key.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -20,6 +23,8 @@ class ThemeController extends GetxController {
     if (GetStorage().read(GetStorageKey.IS_DARK_MODE) != null) {
       isDarkMode.value = _getStorage.read(GetStorageKey.IS_DARK_MODE);
     } else {
+      var brightness = SchedulerBinding.instance!.window.platformBrightness;
+      isDarkMode.value = brightness == Brightness.dark;
       _getStorage.write(GetStorageKey.IS_DARK_MODE, isDarkMode.value);
     }
   }
