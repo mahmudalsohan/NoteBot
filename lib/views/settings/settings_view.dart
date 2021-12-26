@@ -18,15 +18,18 @@ class SettingsView extends StatelessWidget {
             children: [
               ListTile(
                 title: Text("Theme"),
-                trailing: Obx(
-                  () => Switch.adaptive(
-                    activeColor: Theme.of(context).colorScheme.primary,
-                    value: themeController.isDarkMode.value,
-                    onChanged: (val) {
-                      themeController.changeTheme();
-                    },
-                  ),
-                ),
+                trailing: Obx(() => DropdownButton(
+                      value: themeController.isDarkMode.value,
+                      items: themeController.darkModeState.map((bool state) {
+                        return DropdownMenuItem(
+                          value: state,
+                          child: Text(state ? "Dark" : "Light"),
+                        );
+                      }).toList(),
+                      onChanged: (newState) {
+                        themeController.changeTheme();
+                      },
+                    )),
               ),
               Divider(),
               ListTile(
@@ -36,11 +39,7 @@ class SettingsView extends StatelessWidget {
                     activeColor: Theme.of(context).colorScheme.primary,
                     value: appController.inAppWebView.value,
                     onChanged: (val) {
-                      print(
-                          "before: ${GetStorage().read(GetStorageKey.IN_APP_WEB_VIEW)}");
                       appController.switchInAppWebView();
-                      print(
-                          "after: ${GetStorage().read(GetStorageKey.IN_APP_WEB_VIEW)}");
                     },
                   ),
                 ),

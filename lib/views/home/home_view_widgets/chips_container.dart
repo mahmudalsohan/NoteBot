@@ -77,7 +77,7 @@ class ChipsContainer extends StatelessWidget {
             : [
                 Center(
                   child: Text(
-                    "No Pinned Subject☹\n\nSwipe Right to Pin any Subject here\nTap and Hold to remove",
+                    "No pinned subjects ☹\n\nSwipe right to pin any subject here\nTap and hold to remove",
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.grey),
                   ),

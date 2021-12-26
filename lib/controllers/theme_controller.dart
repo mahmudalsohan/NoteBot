@@ -11,6 +11,8 @@ class ThemeController extends GetxController {
   late final GetStorage _getStorage;
   final RxBool isDarkMode = false.obs;
 
+  final List<bool> darkModeState = [true, false];
+
   @override
   void onInit() {
     super.onInit();
@@ -20,6 +22,8 @@ class ThemeController extends GetxController {
     ));*/
 
     _getStorage = GetStorage();
+    //
+    //
     if (GetStorage().read(GetStorageKey.IS_DARK_MODE) != null) {
       isDarkMode.value = _getStorage.read(GetStorageKey.IS_DARK_MODE);
     } else {

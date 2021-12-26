@@ -75,7 +75,7 @@ class JokesHomeView extends GetView<JokesController> {
                       child: SocialSignInButton(
                         iconVisible: false,
                         text: controller.isLoading.value
-                            ? CupertinoActivityIndicator()
+                            ? Center(child: CupertinoActivityIndicator())
                             : Text("Once More !"),
                         buttonColor: Theme.of(context).colorScheme.primary,
                         onTap: () {

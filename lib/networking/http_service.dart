@@ -202,6 +202,7 @@ class HttpService {
         "uni_id": id,
         "batch": batch,
         "dept": dept,
+        "role": "user",
       },
       queryParameters: {
         "adminKey": FlutterConfig.get('ADMIN_KEY'),

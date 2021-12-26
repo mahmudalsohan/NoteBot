@@ -21,7 +21,7 @@ class RoutineView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Routine"),
+        title: Text("Latest Routines"),
       ),
       body: Obx(
         () => Container(
@@ -33,21 +33,62 @@ class RoutineView extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       final routine = networkController.routineList[index];
                       return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: contentListTile(
-                            title: routine.title,
-                            context: context,
-                            onTap: () {
-                              UrlLauncher.openUrl(
-                                url: routine.url,
-                                context: context,
-                              );
-                            },
-                            subtitle: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text(
-                                  "Date: ${routine.date}\n\nType: ${routine.type}"),
-                            )),
+                        padding:
+                            const EdgeInsets.only(left: 10, right: 10, top: 10),
+                        child: Card(
+                            elevation: 2,
+                            color: themeController.isDarkMode.value
+                                ? Color(0xff1a2d3d)
+                                : Theme.of(context).colorScheme.background,
+                            child: Stack(children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 20, bottom: 20, left: 10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "${routine.title}",
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                    SizedBox(height: 10),
+                                    Text("Date: ${routine.date}"),
+                                  ],
+                                ),
+                              ),
+                              Positioned(
+                                right: 8,
+                                bottom: 8,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background,
+                                    borderRadius: BorderRadius.circular(5),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        offset: Offset(2.0, 2.0),
+                                        blurRadius: 2,
+                                        spreadRadius: 0.001,
+                                        color: AppColors()
+                                            .kFunctionTileShadowColor,
+                                      ),
+                                    ],
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                      vertical: 5,
+                                    ),
+                                    child: Text(
+                                      routine.type,
+                                      style: AppTextStyles()
+                                          .kShortcutChipTextStyle,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ])),
                       );
                     },
                   ),

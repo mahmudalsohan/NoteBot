@@ -34,18 +34,21 @@ class User {
     required this.uniId,
     required this.batch,
     required this.dept,
+    required this.role,
   });
 
   String email;
   String uniId;
   String batch;
   String dept;
+  String role;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         email: json["email"],
         uniId: json["uni_id"],
         batch: json["batch"],
         dept: json["dept"],
+        role: json["role"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -53,5 +56,6 @@ class User {
         "uni_id": uniId,
         "batch": batch,
         "dept": dept,
+        "role": role,
       };
 }
