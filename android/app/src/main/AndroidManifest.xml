@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.butex_notebot">
+    package="com.hawkers.notebot">
    <application
         android:label="NoteBOT"
         android:icon="@mipmap/ic_launcher">

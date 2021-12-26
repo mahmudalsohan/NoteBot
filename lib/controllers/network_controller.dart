@@ -20,6 +20,9 @@ class NetworkController extends GetxController {
   final RxList<SponsoredContent> sponsorList = <SponsoredContent>[].obs;
   final RxList<Tool> toolList = <Tool>[].obs;
   final RxList<Community> communityList = <Community>[].obs;
+  final RxList<Routine> routineList = <Routine>[].obs;
+  final RxList<Result> resultList = <Result>[].obs;
+  final RxString apiAppVersion = "".obs;
 
   @override
   void onInit() async {
@@ -60,5 +63,9 @@ class NetworkController extends GetxController {
     sponsorList.value = baseRequest.sponsoredContent;
     toolList.value = baseRequest.tools;
     communityList.value = baseRequest.communities;
+    routineList.value = baseRequest.routines;
+    resultList.value = baseRequest.results;
+    apiAppVersion.value = baseRequest.appVersion;
+    print(apiAppVersion.value);
   }
 }

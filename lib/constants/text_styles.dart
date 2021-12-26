@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -12,8 +11,11 @@ class AppTextStyles {
   );
 
   var kFunctionTileTextStyle = GoogleFonts.montserrat(
+    color: AppColors().kPrimaryTextColor,
     fontSize: 15,
-    color: AppColors().kSecondaryTextColor,
+  );
+  var kAppBarTitleTextStyle = GoogleFonts.montserrat(
+    color: Colors.white,
   );
 
   var kHomeViewTitleTextStyle = GoogleFonts.montserrat(

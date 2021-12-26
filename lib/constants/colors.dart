@@ -69,4 +69,7 @@ class AppColors {
 
   var kThemeIconColor =
       themeController.isDarkMode.value ? Colors.yellow : Colors.black;
+
+  var kCarouselShimmerBGColor =
+      themeController.isDarkMode.value ? Color(0xff1a2d3d) : Colors.grey[200];
 }

@@ -7,20 +7,13 @@ import 'package:url_launcher/url_launcher.dart';
 class UrlLauncher {
   static Future openUrl({
     required String? url,
-    bool webView = false,
     required BuildContext context,
   }) =>
-      _launchUrl(url!, webView, context);
+      _launchUrl(url!, context);
 
-  static Future _launchUrl(
-      String url, bool webView, BuildContext context) async {
+  static Future _launchUrl(String url, BuildContext context) async {
     if (await canLaunch(url)) {
-      await launch(
-        url,
-        forceWebView: webView,
-        enableJavaScript: webView,
-        forceSafariVC: webView,
-      );
+      await launch(url);
     } else {
       customSnackBar(context,
           message: "Can not Launch !", bg: Color(0xffaf2031));

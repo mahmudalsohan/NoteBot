@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "393120085405",
-    "project_id": "notebot-c67bb",
-    "storage_bucket": "notebot-c67bb.appspot.com"
+    "project_number": "391989473198",
+    "project_id": "notebot-f1652",
+    "storage_bucket": "notebot-f1652.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:393120085405:android:f07228b16a25b6cd6d2b74",
+        "mobilesdk_app_id": "1:391989473198:android:3bb63358005328d264623f",
         "android_client_info": {
-          "package_name": "com.example.butex_notebot"
+          "package_name": "com.hawkers.notebot"
         }
       },
       "oauth_client": [
         {
-          "client_id": "393120085405-hm97kh8uemjmfudsag5n1okf6330lcek.apps.googleusercontent.com",
+          "client_id": "391989473198-r7v612ro80fbgs1v5lumha7trdo26atl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.butex_notebot",
+            "package_name": "com.hawkers.notebot",
             "certificate_hash": "6e798345520b0debf1cde4bc464555c7cc7c140e"
           }
         },
         {
-          "client_id": "393120085405-lt4u1d50oi16qm4sfnurvgd4186cg0l6.apps.googleusercontent.com",
+          "client_id": "391989473198-sc4pltv5plq6eej8s487m7ccl2di40an.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDPGjAuHmpWNctHxpJcVaFj2WFk7OARfLM"
+          "current_key": "AIzaSyDhyqRhUrGQtb4xEBb4FNWe0z-YhR9nITA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "393120085405-lt4u1d50oi16qm4sfnurvgd4186cg0l6.apps.googleusercontent.com",
+              "client_id": "391989473198-sc4pltv5plq6eej8s487m7ccl2di40an.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

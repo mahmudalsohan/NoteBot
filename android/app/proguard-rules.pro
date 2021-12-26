@@ -1,1 +1,1 @@
--keep class com.example.butex_notebot.BuildConfig { *; }
+-keep class com.hawkers.notebot.BuildConfig { *; }

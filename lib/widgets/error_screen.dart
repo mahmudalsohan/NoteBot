@@ -1,3 +1,4 @@
+import 'package:butex_notebot/constants/asset_path.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
@@ -14,10 +15,10 @@ class ErrorScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.error,
-            color: Colors.grey,
-            size: 50,
+          Image(
+            image: AssetImage(iconWarning),
+            height: 150,
+            width: 150,
           ),
           Text(errMsg),
         ],

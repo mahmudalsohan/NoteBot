@@ -1,18 +1,19 @@
 import 'package:butex_notebot/constants/colors.dart';
 import 'package:butex_notebot/constants/controller.dart';
+import 'package:butex_notebot/constants/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 class FunctionTile extends StatelessWidget {
   final String title;
-  final String imagePath;
+  final ImageProvider image;
   final Function onPress;
 
   FunctionTile({
     Key? key,
     required this.onPress,
     required this.title,
-    required this.imagePath,
+    required this.image,
   }) : super(key: key);
 
   @override
@@ -42,16 +43,18 @@ class FunctionTile extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Image(
-                  image: AssetImage(imagePath),
+                  image: image,
                   fit: BoxFit.contain,
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.only(
+                bottom: 10,
+              ),
               child: Text(
                 title,
-                //style: AppTextStyles().kFunctionTileTextStyle,
+                style: AppTextStyles().kFunctionTileTextStyle,
               ),
             ),
           ],

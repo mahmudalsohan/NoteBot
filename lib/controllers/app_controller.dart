@@ -7,16 +7,22 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'dart:io' show Platform;
 
+import 'package:get_storage/get_storage.dart';
+import 'package:get_storage/get_storage.dart';
+
 class AppController extends GetxController {
   static AppController instance = Get.find();
   final RxBool firstTime = false.obs;
-  final RxString appVersion = "beta 1.0.3".obs;
+  final RxString appVersion = "1.0.0".obs;
   final RxString osVersion = "".obs;
+  final RxBool inAppWebView = true.obs;
+  late final GetStorage _getStorage;
 
   @override
   void onInit() {
     super.onInit();
     osVersion.value = Platform.operatingSystemVersion;
+    _getStorage = GetStorage();
 
     if (GetStorage().read(GetStorageKey.FIRST_TIME) == null) {
       firstTime.value = true;
@@ -54,5 +60,19 @@ class AppController extends GetxController {
       Get.toNamed(routeFromMessage);
       print(routeFromMessage);
     });
+
+    _getStorage.read(GetStorageKey.IN_APP_WEB_VIEW) == null
+        ? _getStorage.write(GetStorageKey.IN_APP_WEB_VIEW, inAppWebView.value)
+        : inAppWebView.value = _getStorage.read(GetStorageKey.IN_APP_WEB_VIEW);
+  }
+
+  switchInAppWebView() {
+    if (_getStorage.read(GetStorageKey.IN_APP_WEB_VIEW)) {
+      _getStorage.write(GetStorageKey.IN_APP_WEB_VIEW, false);
+      inAppWebView.value = false;
+    } else {
+      _getStorage.write(GetStorageKey.IN_APP_WEB_VIEW, true);
+      inAppWebView.value = true;
+    }
   }
 }

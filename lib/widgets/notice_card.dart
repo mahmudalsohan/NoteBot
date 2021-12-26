@@ -87,7 +87,9 @@ class NoticeCard extends StatelessWidget {
                       color: Colors.grey,
                     ),
                     onPressed: () {
-                      Share.share(shareLink ?? "Error Link");
+                      Share.share(
+                        "$shareLink \n\n-Sharing from our NoteBOT App",
+                      );
                     },
                   ),
                 ],

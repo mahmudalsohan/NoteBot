@@ -1,7 +1,7 @@
 import 'package:butex_notebot/constants/asset_path.dart';
 import 'package:butex_notebot/constants/get_storage_key.dart';
 import 'package:butex_notebot/models/on_boarding_info.dart';
-import 'package:butex_notebot/views/auth_view/auth_view.dart';
+import 'package:butex_notebot/views/authentication/auth_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/state_manager.dart';

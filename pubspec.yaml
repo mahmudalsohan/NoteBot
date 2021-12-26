@@ -45,6 +45,9 @@ dependencies:
   connectivity_plus: ^2.1.0
   share_plus: ^3.0.4
   skeleton_text: ^3.0.0
+  webview_flutter: ^3.0.0
+  flutter_easyloading: ^3.0.3
+
 
 
 dev_dependencies:

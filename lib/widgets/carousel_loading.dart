@@ -1,4 +1,5 @@
 import 'package:butex_notebot/constants/colors.dart';
+import 'package:butex_notebot/constants/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
@@ -16,7 +17,9 @@ class CarouselLoading extends StatelessWidget {
         right: 30,
       ),
       child: SkeletonAnimation(
-        shimmerColor: Colors.white54,
+        shimmerColor: themeController.isDarkMode.value
+            ? Colors.white54
+            : Colors.grey.shade200,
         borderRadius: BorderRadius.circular(15),
         child: Container(
           decoration: BoxDecoration(
@@ -29,7 +32,7 @@ class CarouselLoading extends StatelessWidget {
               ),
             ],
             borderRadius: BorderRadius.circular(15),
-            color: Colors.grey,
+            color: Theme.of(context).colorScheme.onBackground,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -37,47 +40,68 @@ class CarouselLoading extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(
                         vertical: 5,
-                        horizontal: 5,
+                        horizontal: 10,
                       ),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(15),
+                          color: AppColors().kCarouselShimmerBGColor,
+                          borderRadius: BorderRadius.circular(2),
                         ),
-                        width: Get.width * 0.35,
+                        //width: Get.width * 0.35,
                         height: 15,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 5,
-                      ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(15),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 5,
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: AppColors().kCarouselShimmerBGColor,
+                              borderRadius: BorderRadius.circular(1),
+                            ),
+                            width: Get.width * 0.30,
+                            height: 5,
+                          ),
                         ),
-                        width: Get.width * 0.20,
-                        height: 5,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 5,
-                      ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(15),
+                        SizedBox(height: 10),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 5,
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: AppColors().kCarouselShimmerBGColor,
+                              borderRadius: BorderRadius.circular(1),
+                            ),
+                            width: Get.width * 0.20,
+                            height: 5,
+                          ),
                         ),
-                        width: Get.width * 0.25,
-                        height: 5,
-                      ),
+                        SizedBox(height: 10),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 5,
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: AppColors().kCarouselShimmerBGColor,
+                              borderRadius: BorderRadius.circular(1),
+                            ),
+                            width: Get.width * 0.25,
+                            height: 5,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -93,7 +117,7 @@ class CarouselLoading extends StatelessWidget {
                   ),
                   child: CircleAvatar(
                     radius: double.infinity,
-                    backgroundColor: Colors.grey[300],
+                    backgroundColor: AppColors().kCarouselShimmerBGColor,
                   ),
                 ),
               ),

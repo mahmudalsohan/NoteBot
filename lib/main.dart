@@ -1,14 +1,15 @@
 import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/constants/firebase.dart';
 import 'package:butex_notebot/constants/themes.dart';
-import 'package:butex_notebot/views/auth_view/auth_view.dart';
-import 'package:butex_notebot/views/home_view/home_view.dart';
-import 'package:butex_notebot/views/onboarding_view/onboarding_view.dart';
+import 'package:butex_notebot/views/authentication/auth_view.dart';
+import 'package:butex_notebot/views/home/home_view.dart';
+import 'package:butex_notebot/views/onboarding/onboarding_view.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'constants/get_storage.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 Future<void> backgroundMessageHandler(RemoteMessage message) async {
   print(message.data.toString());
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
             : AppThemes.lightThemeMode,
         home: appController.firstTime.value ? OnBoardingView() : AuthView(),
         defaultTransition: Transition.rightToLeft,
+        builder: EasyLoading.init(),
       ),
     );
   }

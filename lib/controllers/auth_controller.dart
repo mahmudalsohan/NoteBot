@@ -1,10 +1,10 @@
 import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/models/user_model.dart';
 import 'package:butex_notebot/networking/http_service.dart';
-import 'package:butex_notebot/views/auth_view/auth_view.dart';
-import 'package:butex_notebot/views/auth_view/auth_widgets/auth_institute_selection_view.dart';
-import 'package:butex_notebot/views/auth_view/auth_widgets/auth_user_data.dart';
-import 'package:butex_notebot/views/home_view/home_view.dart';
+import 'package:butex_notebot/views/authentication/auth_view.dart';
+import 'package:butex_notebot/views/authentication/auth_widgets/auth_institute_selection_view.dart';
+import 'package:butex_notebot/views/authentication/auth_widgets/auth_user_data.dart';
+import 'package:butex_notebot/views/home/home_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';

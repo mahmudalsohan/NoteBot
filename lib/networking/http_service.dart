@@ -17,6 +17,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_config/flutter_config.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class HttpService {
   late Dio _dio;
@@ -39,10 +40,13 @@ class HttpService {
         },
         onResponse: (response, handler) {
           print("onResponse: ${response.data}");
+          EasyLoading.dismiss();
           return handler.next(response);
         },
         onError: (DioError e, handler) async {
           await logErr(e.message);
+          EasyLoading.dismiss();
+          EasyLoading.showError('Not Available');
           print("onError: ${e.response!.statusCode}");
           print("onError: ${e.message}");
 
@@ -53,7 +57,7 @@ class HttpService {
   }
 
   //get a response providing the endpoint (baseURL excluded)
-  Future<Response> _getResponse(String endPoint) async {
+  Future<Response> get(String endPoint) async {
     Response response;
     print("BASE_URL: ${networkController.BASE_URL.value}");
     try {
@@ -68,7 +72,7 @@ class HttpService {
   //get all the subjects of a level
   Future<List<Subject>> getSubjects({required int level}) async {
     List<Subject> data = <Subject>[];
-    var response = await _getResponse("app/notes/$level");
+    var response = await get("app/notes/$level");
 
     data = (response.data as List).map((e) => Subject.fromJson(e)).toList();
     return data;
@@ -79,7 +83,7 @@ class HttpService {
     print("getTopics: $subjectRoute");
     List<Topic> data = <Topic>[];
 
-    var response = await _getResponse(subjectRoute);
+    var response = await get(subjectRoute);
 
     data = (response.data as List)
         .map(
@@ -93,7 +97,7 @@ class HttpService {
   Future<List<TopicContent>> getTopicContent(String topicRoute) async {
     List<TopicContent> data = <TopicContent>[];
 
-    var response = await _getResponse(topicRoute);
+    var response = await get(topicRoute);
 
     data = (response.data as List)
         .map(
@@ -108,7 +112,7 @@ class HttpService {
   Future<List<Notice>> getNotices({required String noticeRoute}) async {
     List<Notice> data = <Notice>[];
 
-    var response = await _getResponse(noticeRoute);
+    var response = await get(noticeRoute);
 
     data = (response.data as List)
         .map(
@@ -122,7 +126,7 @@ class HttpService {
   //get subjects for lab reports
   Future<List<LabSubject>> getLabSubjects(int level) async {
     List<LabSubject> data = <LabSubject>[];
-    var response = await _getResponse("app/labs/$level");
+    var response = await get("app/labs/$level");
 
     data = (response.data as List).map((e) => LabSubject.fromJson(e)).toList();
 
@@ -132,7 +136,7 @@ class HttpService {
   //get Topics for lab reports
   Future<List<LabTopics>> getLabTopics(String route) async {
     List<LabTopics> data = <LabTopics>[];
-    var response = await _getResponse(route);
+    var response = await get(route);
 
     data = (response.data as List).map((e) => LabTopics.fromJson(e)).toList();
 
@@ -142,7 +146,7 @@ class HttpService {
   //get subjects for lab reports
   Future<List<LabTopicContent>> getLabTopicContent(String route) async {
     List<LabTopicContent> data = <LabTopicContent>[];
-    var response = await _getResponse(route);
+    var response = await get(route);
 
     data = (response.data as List)
         .map((e) => LabTopicContent.fromJson(e))
@@ -154,7 +158,7 @@ class HttpService {
   //get Batches for Syllabus
   Future<List<SyllabusBatch>> getSyllabusBatches(String route) async {
     List<SyllabusBatch> data = <SyllabusBatch>[];
-    var response = await _getResponse(route);
+    var response = await get(route);
 
     data =
         (response.data as List).map((e) => SyllabusBatch.fromJson(e)).toList();
@@ -165,7 +169,7 @@ class HttpService {
   //get departments for Syllabus
   Future<List<Departments>> getDepartments(String route) async {
     List<Departments> data = <Departments>[];
-    var response = await _getResponse(route);
+    var response = await get(route);
 
     data = (response.data as List).map((e) => Departments.fromJson(e)).toList();
 
@@ -175,7 +179,7 @@ class HttpService {
   //get syllabus for Syllabus
   Future<List<LevelAndTerm>> getSyllabus(String route) async {
     List<LevelAndTerm> data = <LevelAndTerm>[];
-    var response = await _getResponse(route);
+    var response = await get(route);
 
     data =
         (response.data as List).map((e) => LevelAndTerm.fromJson(e)).toList();
@@ -215,7 +219,7 @@ class HttpService {
     final String postUrl = FlutterConfig.get('LOG_ERR_URL');
     String date =
         "${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}";
-    String? email = FirebaseAuth.instance.currentUser!.email;
+    String? email = FirebaseAuth.instance.currentUser?.email;
     String os = appController.osVersion.value;
 
     var res = await Dio().post(

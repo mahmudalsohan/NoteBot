@@ -11,20 +11,30 @@ String baseRequestToJson(BaseRequest data) => json.encode(data.toJson());
 
 class BaseRequest {
   BaseRequest({
+    required this.adStatus,
+    required this.appVersion,
     required this.apiInfo,
     required this.inMemoryOf,
     required this.sponsoredContent,
     required this.communities,
     required this.tools,
+    required this.results,
+    required this.routines,
   });
 
+  bool adStatus;
+  String appVersion;
   ApiInfo apiInfo;
   List<InMemoryOf> inMemoryOf;
   List<SponsoredContent> sponsoredContent;
   List<Community> communities;
   List<Tool> tools;
+  List<Result> results;
+  List<Routine> routines;
 
   factory BaseRequest.fromJson(Map<String, dynamic> json) => BaseRequest(
+        adStatus: json["adStatus"],
+        appVersion: json["app-version"],
         apiInfo: ApiInfo.fromJson(json["apiInfo"]),
         inMemoryOf: List<InMemoryOf>.from(
             json["inMemoryOf"].map((x) => InMemoryOf.fromJson(x))),
@@ -33,15 +43,23 @@ class BaseRequest {
         communities: List<Community>.from(
             json["communities"].map((x) => Community.fromJson(x))),
         tools: List<Tool>.from(json["tools"].map((x) => Tool.fromJson(x))),
+        results:
+            List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
+        routines: List<Routine>.from(
+            json["routines"].map((x) => Routine.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
+        "adStatus": adStatus,
+        "app-version": appVersion,
         "apiInfo": apiInfo.toJson(),
         "inMemoryOf": List<dynamic>.from(inMemoryOf.map((x) => x.toJson())),
         "sponsoredContent":
             List<dynamic>.from(sponsoredContent.map((x) => x.toJson())),
         "communities": List<dynamic>.from(communities.map((x) => x.toJson())),
         "tools": List<dynamic>.from(tools.map((x) => x.toJson())),
+        "results": List<dynamic>.from(results.map((x) => x.toJson())),
+        "routines": List<dynamic>.from(routines.map((x) => x.toJson())),
       };
 }
 
@@ -149,6 +167,58 @@ class InMemoryOf {
       };
 }
 
+class Result {
+  Result({
+    required this.date,
+    required this.title,
+    required this.url,
+  });
+
+  String date;
+  String title;
+  String url;
+
+  factory Result.fromJson(Map<String, dynamic> json) => Result(
+        date: json["date"],
+        title: json["title"],
+        url: json["url"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "date": date,
+        "title": title,
+        "url": url,
+      };
+}
+
+class Routine {
+  Routine({
+    required this.date,
+    required this.type,
+    required this.title,
+    required this.url,
+  });
+
+  String date;
+  String type;
+  String title;
+  String url;
+
+  factory Routine.fromJson(Map<String, dynamic> json) => Routine(
+        date: json["date"],
+        type: json["type"],
+        title: json["title"],
+        url: json["url"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "date": date,
+        "type": type,
+        "title": title,
+        "url": url,
+      };
+}
+
 class SponsoredContent {
   SponsoredContent({
     required this.title,
@@ -190,18 +260,22 @@ class Tool {
   Tool({
     required this.title,
     required this.url,
+    required this.imgUrl,
   });
 
   String title;
   String url;
+  String imgUrl;
 
   factory Tool.fromJson(Map<String, dynamic> json) => Tool(
         title: json["title"],
         url: json["url"],
+        imgUrl: json["imgUrl"],
       );
 
   Map<String, dynamic> toJson() => {
         "title": title,
         "url": url,
+        "imgUrl": imgUrl,
       };
 }

@@ -7,6 +7,7 @@ Widget contentListTile({
   String? route,
   Widget? trailer,
   Widget? leading,
+  Widget? subtitle,
   required Function onTap,
 }) {
   return Padding(
@@ -19,15 +20,14 @@ Widget contentListTile({
       child: ListTile(
         onTap: () => onTap(),
         trailing: trailer,
-        title: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Text(
-              title,
-              style: TextStyle(fontSize: 20),
-            ),
+        title: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Text(
+            title,
+            style: TextStyle(fontSize: 20),
           ),
         ),
+        subtitle: subtitle,
       ),
     ),
   );
