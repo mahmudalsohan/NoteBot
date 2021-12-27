@@ -41,7 +41,9 @@ class AboutUsView extends StatelessWidget {
               MemorialSection(),
               //SizedBox(height: 20),
               Image.asset(
-                logoHawkersBlack,
+                themeController.isDarkMode.value
+                    ? logoHawkersWhite
+                    : logoHawkersBlack,
                 height: 20,
               ),
               SizedBox(height: 10),

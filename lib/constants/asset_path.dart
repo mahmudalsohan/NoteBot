@@ -5,6 +5,7 @@ final String logoNotebot = _getImagePath("notebot.png");
 final String logoHawkers = _getImagePath("Hawkers_white.png");
 final String logoCircleHawkers = _getImagePath("hawkers_inCircle.png");
 final String logoHawkersBlack = _getImagePath("hawkers_black.png");
+final String logoHawkersWhite = _getImagePath("hawkers_white_logo.png");
 final String logoNoteBird = _getImagePath("notebird.png");
 
 //Images

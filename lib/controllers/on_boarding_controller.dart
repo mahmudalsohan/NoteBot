@@ -25,7 +25,7 @@ class OnBoardingController extends GetxController {
     OnboardingInfo(imageOnboard1, 'Go Easy !',
         'Using your favourite NoteBOT is easier than ever '),
     OnboardingInfo(imageOnboard2, 'Packed With Features !',
-        'Checks Notes, Lab Reports, Syllabus, Notice and much more, All in one place'),
+        'Check Notes, Lab Reports, Syllabus, Notice and much more!\nAll in one place'),
     OnboardingInfo(imageOnboard3, 'Our BUTEX, Our NoteBOT',
         'ONE Institute, ONE App and Thousands of awesome people like you...')
   ];
