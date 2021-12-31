@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 
-import 'leaderboard_screen.dart';
+import 'leaderboard/leaderboard_screen.dart';
 import 'notebird_play.dart';
 
 class NotebirdHomeScreen extends StatelessWidget {

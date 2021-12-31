@@ -8,6 +8,7 @@ import 'package:butex_notebot/widgets/skeleton_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
 import '../../../widgets/slidable_list_tile.dart';
 
 class NotesSubjectsView extends GetView<NotesSubjectController> {
@@ -55,7 +56,12 @@ class NotesSubjectsView extends GetView<NotesSubjectController> {
                           title: subjectData.subName,
                           trailer: subjectData.url == null
                               ? Icon(Icons.arrow_forward_ios_sharp)
-                              : Icon(Icons.launch),
+                              : IconButton(
+                                  onPressed: () {
+                                    Share.share("${subjectData.url}");
+                                  },
+                                  icon: Icon(Icons.share),
+                                ),
                           onTap: () {
                             if (subjectData.url == null) {
                               Get.to(() => TopicsView(

@@ -193,16 +193,18 @@ class HttpService {
     required String? id,
     required String? batch,
     required String? email,
+    required String? imgUrl,
   }) async {
     final String postUrl = FlutterConfig.get('SEND_USER_DATA_URL');
     var response = await Dio().post(
       postUrl,
       data: {
-        "email": email,
+        "email": "$email",
         "uni_id": id,
         "batch": batch,
         "dept": dept,
         "role": "user",
+        "imgUrl": "$imgUrl",
       },
       queryParameters: {
         "adminKey": FlutterConfig.get('ADMIN_KEY'),
@@ -272,10 +274,10 @@ class HttpService {
   //get Hall of Fame
   Future<NoteBirdHof> getHOF() async {
     NoteBirdHof noteBirdHof;
-    var response = await Dio().get("https://api.triptex.me/games/notebird");
+    var response = await Dio().get(FlutterConfig.get('GAME_SCORE_URL'));
 
     noteBirdHof = NoteBirdHof.fromJson(response.data);
-
+    EasyLoading.dismiss();
     return noteBirdHof;
   }
 }

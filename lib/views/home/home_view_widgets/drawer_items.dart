@@ -35,19 +35,26 @@ class NavigationDrawer extends StatelessWidget {
           ),
           drawerListTile(
             onTap: () {
-              if (appController.inAppWebView.value) {
-                UrlLauncher.openUrl(
-                  url: "https://notebot.netlify.app/#/",
-                  context: context,
-                );
-              } else {
-                UrlLauncher.openUrl(
-                  url: "https://notebot.netlify.app/#/",
-                  context: context,
-                );
-              }
+              UrlLauncher.openUrl(
+                url: "https://forms.gle/iwMSHxjg8doKRQ9T6",
+                context: context,
+              );
             },
-            leading: Icon(Icons.language_outlined),
+            leading: Icon(
+              Icons.rate_review_outlined,
+            ),
+            title: 'Send Feedback',
+          ),
+          drawerListTile(
+            onTap: () {
+              UrlLauncher.openUrl(
+                url: "https://notebot.netlify.app/#/",
+                context: context,
+              );
+            },
+            leading: Icon(
+              Icons.language_outlined,
+            ),
             title: 'Notebot Web',
           ),
           drawerListTile(
@@ -59,6 +66,8 @@ class NavigationDrawer extends StatelessWidget {
             },
             leading: Image.asset(
               iconMessenger,
+              color:
+                  themeController.isDarkMode.value ? Colors.white : Colors.grey,
               height: 20,
               width: 20,
             ),
@@ -68,7 +77,9 @@ class NavigationDrawer extends StatelessWidget {
             onTap: () {
               Get.to(() => CommunitiesHomeView());
             },
-            leading: Icon(Icons.people_alt_sharp),
+            leading: Icon(
+              Icons.people_alt_sharp,
+            ),
             title: 'Communities',
           ),
           drawerListTile(
@@ -89,7 +100,6 @@ class NavigationDrawer extends StatelessWidget {
             },
             leading: Icon(
               Icons.phone,
-              color: Colors.green,
             ),
             title: 'BUTEX Phonebook',
           ),
@@ -100,14 +110,18 @@ class NavigationDrawer extends StatelessWidget {
                 context: context,
               );
             },
-            leading: Icon(Icons.book_outlined),
+            leading: Icon(
+              Icons.book_outlined,
+            ),
             title: 'Submit Notes',
           ),
           drawerListTile(
             onTap: () {
               Get.to(() => SettingsView());
             },
-            leading: Icon(Icons.settings),
+            leading: Icon(
+              Icons.settings,
+            ),
             title: 'Settings',
           ),
           drawerListTile(
@@ -119,7 +133,8 @@ class NavigationDrawer extends StatelessWidget {
             },
             leading: Image.asset(
               iconFacebook,
-              color: Color(0xff3b5998),
+              color:
+                  themeController.isDarkMode.value ? Colors.white : Colors.grey,
               height: 20,
               width: 20,
             ),
@@ -134,7 +149,6 @@ class NavigationDrawer extends StatelessWidget {
             },
             leading: Icon(
               Icons.star,
-              color: Colors.yellow,
             ),
             title: 'Rate this App',
           ),
@@ -148,7 +162,9 @@ class NavigationDrawer extends StatelessWidget {
                 ),
               );
             },
-            leading: Icon(Icons.privacy_tip_outlined),
+            leading: Icon(
+              Icons.privacy_tip_outlined,
+            ),
             title: 'Privacy Policy',
           ),
           Obx(
@@ -158,7 +174,9 @@ class NavigationDrawer extends StatelessWidget {
               },
               leading: authController.isLoading.value
                   ? CircularProgressIndicator()
-                  : Icon(Icons.logout_outlined),
+                  : Icon(
+                      Icons.logout_outlined,
+                    ),
               title: 'Log Out',
             ),
           )

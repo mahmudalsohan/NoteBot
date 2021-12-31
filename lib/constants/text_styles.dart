@@ -12,7 +12,6 @@ class AppTextStyles {
 
   var kFunctionTileTextStyle = GoogleFonts.montserrat(
     color: AppColors().kPrimaryTextColor,
-    fontSize: 15,
   );
   var kAppBarTitleTextStyle = GoogleFonts.montserrat(
     color: Colors.white,

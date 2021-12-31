@@ -41,7 +41,7 @@ class FunctionTile extends StatelessWidget {
           children: [
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(12.0),
                 child: Image(
                   image: image,
                   fit: BoxFit.contain,
@@ -51,6 +51,8 @@ class FunctionTile extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(
                 bottom: 10,
+                right: 5,
+                left: 5,
               ),
               child: Text(
                 title,

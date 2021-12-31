@@ -7,6 +7,7 @@ import 'package:butex_notebot/widgets/skeleton_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'lab_topic_content_controller.dart';
 
@@ -70,7 +71,17 @@ class LabTopicContentView extends GetView<LabTopicContentController> {
                             context: context,
                           );
                         },
-                        trailer: Icon(Icons.launch),
+                        trailer: IconButton(
+                          onPressed: () {
+                            Share.share("${topicContentData.url}");
+                          },
+                          icon: IconButton(
+                            onPressed: () {
+                              Share.share("${topicContentData.url}");
+                            },
+                            icon: Icon(Icons.share),
+                          ),
+                        ),
                       );
                     },
                   ),

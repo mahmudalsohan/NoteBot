@@ -13,7 +13,7 @@ import 'package:get_storage/get_storage.dart';
 class AppController extends GetxController {
   static AppController instance = Get.find();
   final RxBool firstTime = false.obs;
-  final RxString appVersion = "1.0.0".obs;
+  final RxString appVersion = "1.0.2".obs;
   final RxString osVersion = "".obs;
   final RxBool inAppWebView = true.obs;
   late final GetStorage _getStorage;

@@ -35,6 +35,7 @@ class User {
     required this.batch,
     required this.dept,
     required this.role,
+    required this.imgUrl,
   });
 
   String email;
@@ -42,6 +43,7 @@ class User {
   String batch;
   String dept;
   String role;
+  String? imgUrl;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         email: json["email"],
@@ -49,6 +51,7 @@ class User {
         batch: json["batch"],
         dept: json["dept"],
         role: json["role"],
+        imgUrl: json["imgUrl"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -57,5 +60,6 @@ class User {
         "batch": batch,
         "dept": dept,
         "role": role,
+        "imgUrl": imgUrl,
       };
 }

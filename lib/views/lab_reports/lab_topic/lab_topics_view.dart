@@ -13,6 +13,7 @@ import 'package:butex_notebot/widgets/skeleton_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'lab_topic_controller.dart';
 
@@ -68,12 +69,17 @@ class LabTopicsView extends GetView<LabTopicController> {
                               context: context,
                               trailer: topicData.url == null
                                   ? Icon(Icons.arrow_forward_ios_sharp)
-                                  : Icon(Icons.launch),
+                                  : IconButton(
+                                      onPressed: () {
+                                        Share.share("${topicData.url}");
+                                      },
+                                      icon: Icon(Icons.share),
+                                    ),
                               onTap: () {
                                 if (topicData.url == null) {
-                                  Get.to(() => NotesTopicContentView(
+                                  Get.to(() => LabTopicContentView(
                                         topicName: topicData.topic,
-                                        topicRoute: topicData.route,
+                                        route: topicData.route,
                                       ));
                                 } else {
                                   UrlLauncher.openUrl(

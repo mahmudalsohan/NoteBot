@@ -18,17 +18,27 @@ class SettingsView extends StatelessWidget {
             children: [
               ListTile(
                 title: Text("Theme"),
-                trailing: Obx(() => DropdownButton(
-                      value: themeController.isDarkMode.value,
-                      items: themeController.darkModeState.map((bool state) {
-                        return DropdownMenuItem(
-                          value: state,
-                          child: Text(state ? "Dark" : "Light"),
-                        );
-                      }).toList(),
-                      onChanged: (newState) {
-                        themeController.changeTheme();
-                      },
+                trailing: Obx(() => Container(
+                      margin: EdgeInsets.symmetric(vertical: 10),
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Theme.of(context).colorScheme.primary),
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                      child: DropdownButton(
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        underline: SizedBox(),
+                        value: themeController.isDarkMode.value,
+                        items: themeController.darkModeState.map((bool state) {
+                          return DropdownMenuItem(
+                            value: state,
+                            child: Text(state ? "Dark" : "Light"),
+                          );
+                        }).toList(),
+                        onChanged: (newState) {
+                          themeController.changeTheme();
+                        },
+                      ),
                     )),
               ),
               Divider(),
@@ -48,17 +58,27 @@ class SettingsView extends StatelessWidget {
               Obx(
                 () => ListTile(
                   title: Text("Grid Layout"),
-                  trailing: DropdownButton(
-                      value: homeViewController.selectedGrid.value,
-                      icon: const Icon(Icons.keyboard_arrow_down),
-                      items: homeViewController.gridLayout.map((String items) {
-                        return DropdownMenuItem(
-                            value: items, child: Text(items));
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        homeViewController.selectedGrid.value = newValue!;
-                        homeViewController.updateGrid();
-                      }),
+                  trailing: Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: Theme.of(context).colorScheme.primary),
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    child: DropdownButton(
+                        underline: SizedBox(),
+                        value: homeViewController.selectedGrid.value,
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        items:
+                            homeViewController.gridLayout.map((String items) {
+                          return DropdownMenuItem(
+                              value: items, child: Text(items));
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          homeViewController.selectedGrid.value = newValue!;
+                          homeViewController.updateGrid();
+                        }),
+                  ),
                 ),
               ),
               //GridToggleContainer(),

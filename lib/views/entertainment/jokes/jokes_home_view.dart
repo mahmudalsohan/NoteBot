@@ -76,7 +76,7 @@ class JokesHomeView extends GetView<JokesController> {
                         iconVisible: false,
                         text: controller.isLoading.value
                             ? Center(child: CupertinoActivityIndicator())
-                            : Text("Once More !"),
+                            : Center(child: Text("Once More !")),
                         buttonColor: Theme.of(context).colorScheme.primary,
                         onTap: () {
                           controller.getJoke();

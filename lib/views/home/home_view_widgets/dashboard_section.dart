@@ -39,7 +39,7 @@ class DashboardSection extends StatelessWidget {
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             crossAxisCount: homeViewController.CAC.value,
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(30),
             crossAxisSpacing: homeViewController.CAS.value,
             mainAxisSpacing: homeViewController.MAS.value,
             children: [
@@ -51,7 +51,7 @@ class DashboardSection extends StatelessWidget {
                 },
               ),
               FunctionTile(
-                title: "Lab Reports",
+                title: "Reports",
                 image: AssetImage(imageLabReportSection),
                 onPress: () {
                   Get.to(() => LabLevelsView());

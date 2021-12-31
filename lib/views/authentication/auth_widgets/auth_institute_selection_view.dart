@@ -21,16 +21,25 @@ class AuthInstituteSelectionView extends StatelessWidget {
                 TopContainer(title: "Choose Your Institute"),
                 Column(
                   children: [
-                    DropdownButton(
-                        value: authController.dropdownValue.value,
-                        icon: const Icon(Icons.keyboard_arrow_down),
-                        items: authController.universities.map((String items) {
-                          return DropdownMenuItem(
-                              value: items, child: Text(items));
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          authController.dropdownValue.value = newValue!;
-                        }),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Theme.of(context).colorScheme.primary),
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                      child: DropdownButton(
+                          underline: SizedBox(),
+                          value: authController.dropdownValue.value,
+                          icon: const Icon(Icons.keyboard_arrow_down),
+                          items:
+                              authController.universities.map((String items) {
+                            return DropdownMenuItem(
+                                value: items, child: Text(items));
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            authController.dropdownValue.value = newValue!;
+                          }),
+                    ),
                     SizedBox(height: 20),
                     SocialSignInButton(
                       onTap: () async {

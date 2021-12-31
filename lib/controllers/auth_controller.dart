@@ -171,6 +171,7 @@ class AuthController extends GetxController {
   redirectFromInstitute() async {
     isLoading.value = true;
     final String? email = FirebaseAuth.instance.currentUser!.email;
+    final String? imgUrl = FirebaseAuth.instance.currentUser!.photoURL;
     UserModel? userModel;
 
     if (dropdownValue.value == "BUTEX") {
@@ -182,6 +183,7 @@ class AuthController extends GetxController {
         id: uni_id.value,
         batch: batch.value,
         email: email,
+        imgUrl: imgUrl,
       );
 
       Get.offAll(() => HomeView());
@@ -193,6 +195,7 @@ class AuthController extends GetxController {
         id: authController.uni_id.value,
         batch: authController.batch.value,
         email: email,
+        imgUrl: imgUrl,
       );
 
       Get.offAll(() => HomeView());
@@ -204,6 +207,7 @@ class AuthController extends GetxController {
   redirectButexian(String id) async {
     isLoading.value = true;
     final String? email = FirebaseAuth.instance.currentUser!.email;
+    final String? imgUrl = FirebaseAuth.instance.currentUser!.photoURL;
     UserModel? userModel;
 
     //butexian has no id
@@ -213,6 +217,7 @@ class AuthController extends GetxController {
         id: uni_id.value,
         batch: batch.value,
         email: email,
+        imgUrl: imgUrl,
       );
       Get.offAll(() => HomeView());
       isLoading.value = false;
@@ -231,6 +236,7 @@ class AuthController extends GetxController {
           id: uni_id.value,
           batch: batch.value,
           email: email,
+          imgUrl: imgUrl,
         );
         Get.offAll(() => HomeView());
         isLoading.value = false;
