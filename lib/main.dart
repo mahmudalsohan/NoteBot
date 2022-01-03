@@ -23,6 +23,7 @@ void main() async {
   await initializeFirebase.then((value) {
     FirebaseMessaging.onBackgroundMessage(backgroundMessageHandler);
     initializeControllers();
+    print("Changed");
   });
   runApp(MyApp());
 }
