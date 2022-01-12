@@ -3,7 +3,6 @@ import 'package:butex_notebot/constants/controller.dart';
 import 'package:butex_notebot/constants/text_styles.dart';
 import 'package:butex_notebot/views/notes/subject/notes_subjects_view.dart';
 import 'package:butex_notebot/widgets/appBar_widget.dart';
-import 'package:butex_notebot/widgets/custom_snackbar.dart';
 import 'package:butex_notebot/widgets/level_selection_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';

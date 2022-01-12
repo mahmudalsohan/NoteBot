@@ -218,6 +218,7 @@ class HttpService {
     }
   }
 
+  //send error to backend
   Future<LogErrorModel?> logErr(String err) async {
     final String postUrl = FlutterConfig.get('LOG_ERR_URL');
     String date =
@@ -244,6 +245,7 @@ class HttpService {
     }
   }
 
+  //send game high score in backend
   Future<NoteBirdModel?> postHighScore(int highScore) async {
     final String postUrl = FlutterConfig.get('GAME_SCORE_URL');
 
