@@ -33,82 +33,121 @@ class NotesSubjectsView extends GetView<NotesSubjectController> {
               icon: Icon(Icons.home))
         ],
       ),
-      body: Obx(
-        () => Container(
-          child: FutureBuilder<List<Subject>>(
-            future: controller.subject.value,
-            builder: (BuildContext context, snapshot) {
-              if (snapshot.hasData) {
-                var subjectList = snapshot.data;
-                return RefreshIndicator(
-                  onRefresh: () {
-                    EasyLoading.show(status: "Loading...");
-                    return controller.reload();
-                  },
-                  child: ListView.separated(
-                    itemCount: subjectList!.length,
-                    separatorBuilder: (BuildContext context, int index) =>
-                        Divider(color: Colors.grey),
-                    itemBuilder: (context, index) {
-                      var subjectData = subjectList[index];
-                      return SlidableListTile(
-                          route: subjectData.route,
-                          title: subjectData.subName,
-                          trailer: subjectData.url == null
-                              ? Icon(Icons.arrow_forward_ios_sharp)
-                              : IconButton(
-                                  onPressed: () {
-                                    Share.share("${subjectData.url}");
-                                  },
-                                  icon: Icon(Icons.share),
-                                ),
-                          onTap: () {
-                            if (subjectData.url == null) {
-                              Get.to(() => TopicsView(
-                                    subjectRoute: subjectData.route,
-                                    subjectName: subjectData.subName,
-                                  ));
-                            } else {
-                              UrlLauncher.openUrl(
-                                url: subjectData.url,
-                                context: context,
-                              );
-                            }
-                          });
+      body: Obx(() => Stack(
+            children: [
+              Positioned(
+                top: 0,
+                child: Container(
+                  height: 30,
+                  width: Get.width,
+                  color: Color(0xffff6600),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Your score didn't appear? "),
+                      InkWell(
+                        onTap: () {
+                          UrlLauncher.openUrl(
+                              url: "https://m.me/tripto.afsin",
+                              context: context);
+                        },
+                        child: Text(
+                          "Contact Support",
+                          style: TextStyle(
+                            //color: Color(0xff7F34D9),
+                            //color: Color(0xff7F34D9),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 15,
+                  right: 15,
+                  top: 30,
+                ),
+                child: Container(
+                  child: FutureBuilder<List<Subject>>(
+                    future: controller.subject.value,
+                    builder: (BuildContext context, snapshot) {
+                      if (snapshot.hasData) {
+                        var subjectList = snapshot.data;
+                        return RefreshIndicator(
+                          onRefresh: () {
+                            EasyLoading.show(status: "Loading...");
+                            return controller.reload();
+                          },
+                          child: ListView.separated(
+                            itemCount: subjectList!.length,
+                            separatorBuilder:
+                                (BuildContext context, int index) =>
+                                    Divider(color: Colors.grey),
+                            itemBuilder: (context, index) {
+                              var subjectData = subjectList[index];
+                              return SlidableListTile(
+                                  route: subjectData.route,
+                                  title: subjectData.subName,
+                                  trailer: subjectData.url == null
+                                      ? Icon(Icons.arrow_forward_ios_sharp)
+                                      : IconButton(
+                                          onPressed: () {
+                                            Share.share("${subjectData.url}");
+                                          },
+                                          icon: Icon(Icons.share),
+                                        ),
+                                  onTap: () {
+                                    if (subjectData.url == null) {
+                                      Get.to(() => TopicsView(
+                                            subjectRoute: subjectData.route,
+                                            subjectName: subjectData.subName,
+                                          ));
+                                    } else {
+                                      UrlLauncher.openUrl(
+                                        url: subjectData.url,
+                                        context: context,
+                                      );
+                                    }
+                                  });
+                            },
+                          ),
+                        );
+                      }
+                      //
+                      //
+                      else if (snapshot.hasError) {
+                        return RefreshIndicator(
+                          onRefresh: () {
+                            EasyLoading.show(status: "Loading...");
+                            return controller.reload();
+                          },
+                          child: SingleChildScrollView(
+                            physics: ClampingScrollPhysics(
+                                parent: AlwaysScrollableScrollPhysics()),
+                            child: ErrorScreen(
+                              errMsg: "Not Available",
+                            ),
+                          ),
+                        );
+                        //
+                        //
+                      } else {
+                        return RefreshIndicator(
+                            onRefresh: () {
+                              EasyLoading.show(status: "Loading...");
+                              return controller.reload();
+                            },
+                            child: SkeletonLoading());
+                      }
                     },
                   ),
-                );
-              }
-              //
-              //
-              else if (snapshot.hasError) {
-                return RefreshIndicator(
-                  onRefresh: () {
-                    EasyLoading.show(status: "Loading...");
-                    return controller.reload();
-                  },
-                  child: SingleChildScrollView(
-                    physics: ClampingScrollPhysics(
-                        parent: AlwaysScrollableScrollPhysics()),
-                    child: ErrorScreen(
-                      errMsg: "Not Available",
-                    ),
-                  ),
-                );
-                //
-                //
-              } else {
-                return RefreshIndicator(
-                    onRefresh: () {
-                      EasyLoading.show(status: "Loading...");
-                      return controller.reload();
-                    },
-                    child: SkeletonLoading());
-              }
-            },
-          ),
-        ),
-      ),
+                ),
+              ),
+            ],
+          )),
     );
   }
 }

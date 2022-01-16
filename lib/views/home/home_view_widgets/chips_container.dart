@@ -89,9 +89,10 @@ class ChipsContainer extends StatelessWidget {
 
   _showDialog(chipTitle) {
     return Get.defaultDialog(
-      title: "WARNING!!!",
+      titlePadding: EdgeInsets.only(top: 12, bottom: 10),
+      title: "⚠️Warning !",
       titleStyle: TextStyle(),
-      middleText: "Remove $chipTitle from shortcut?",
+      middleText: "Do you want to remove $chipTitle from shortcuts ?",
       confirm: TextButton(
         onPressed: () {
           Get.back();
