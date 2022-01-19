@@ -31,7 +31,7 @@ class HttpService {
     initializeInterceptors();
   }
 
-  //to monitor request, response and error
+  //monitor request, response and error
   initializeInterceptors() {
     _dio.interceptors.add(
       InterceptorsWrapper(
