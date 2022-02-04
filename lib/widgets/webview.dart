@@ -1,3 +1,4 @@
+import 'package:butex_notebot/services/open_url.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -53,6 +54,16 @@ class _OpenWebViewState extends State<OpenWebView> {
                   initialUrl: widget.url,
                   onWebViewCreated: (controller) {
                     this.controller = controller;
+                  },
+                  navigationDelegate: (NavigationRequest request) {
+                    if (request.url.startsWith('tel')) {
+                      print('blocking navigation to $request}');
+                      UrlLauncher.openUrl(url: request.url, context: context);
+                      return NavigationDecision.prevent;
+                    }
+
+                    print('allowing navigation to $request');
+                    return NavigationDecision.navigate;
                   },
                   onProgress: (progress) =>
                       setState(() => this.progress = progress / 100),
