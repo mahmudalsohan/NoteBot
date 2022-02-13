@@ -10,14 +10,11 @@ import 'package:get/get.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'constants/get_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:alice/alice.dart';
 
 Future<void> backgroundMessageHandler(RemoteMessage message) async {
   print(message.data.toString());
   print(message.notification!.title);
 }
-
-Alice alice = Alice(showNotification: false);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,7 +50,6 @@ class MyApp extends StatelessWidget {
         home: appController.firstTime.value ? OnBoardingView() : AuthView(),
         defaultTransition: Transition.rightToLeft,
         builder: EasyLoading.init(),
-        navigatorKey: alice.getNavigatorKey(),
       ),
     );
   }

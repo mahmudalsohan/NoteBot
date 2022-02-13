@@ -1,4 +1,5 @@
 import 'package:butex_notebot/constants/asset_path.dart';
+import 'package:butex_notebot/views/entertainment/noterunner/noterunner_home_view.dart';
 import 'package:butex_notebot/widgets/appBar_widget.dart';
 import 'package:butex_notebot/widgets/function_tile_widget.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,13 @@ class EntertainmentHomeScreen extends StatelessWidget {
                   image: AssetImage(logoNoteBird),
                   onPress: () {
                     Get.to(() => NotebirdHomeScreen());
+                  },
+                ),
+                FunctionTile(
+                  title: "Note Runner",
+                  image: AssetImage(logoNoteRunner),
+                  onPress: () {
+                    Get.to(() => NoteRunnerHomeView());
                   },
                 ),
                 FunctionTile(

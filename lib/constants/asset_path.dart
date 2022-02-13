@@ -7,6 +7,7 @@ final String logoCircleHawkers = _getImagePath("hawkers_inCircle.png");
 final String logoHawkersBlack = _getImagePath("hawkers_black.png");
 final String logoHawkersWhite = _getImagePath("hawkers_white_logo.png");
 final String logoNoteBird = _getImagePath("notebird.png");
+final String logoNoteRunner = _getImagePath("noterunner.png");
 
 //Images
 final String imageNotesSection = _getImagePath("bookshelf.png");
@@ -26,6 +27,7 @@ final String imageOnboard1 = _getImagePath("vector1.png");
 final String imageOnboard2 = _getImagePath("vector2.png");
 final String imageOnboard3 = _getImagePath("notebotXbutex.png");
 final String imageJokeSection = _getImagePath("joke.png");
+final String imageCactus = _getImagePath("cactus.png");
 
 //Icons
 final String iconMessenger = _getImagePath("messenger.png");

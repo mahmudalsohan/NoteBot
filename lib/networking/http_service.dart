@@ -61,7 +61,6 @@ class HttpService {
         },
       ),
     );
-    _dio.interceptors.add(alice.getDioInterceptor());
   }
 
   //get a response providing the endpoint (baseURL excluded)
