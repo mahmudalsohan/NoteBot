@@ -43,6 +43,7 @@ dependencies:
   skeleton_text: ^3.0.0
   webview_flutter: ^3.0.0
   flutter_easyloading: ^3.0.3
+  alice: ^0.2.5
 
 
 

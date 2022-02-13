@@ -4,6 +4,7 @@ import 'package:butex_notebot/views/about_us/about_us_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import '../../main.dart';
 import 'home_view_widgets/carousel.dart';
 import 'home_view_widgets/dashboard_section.dart';
 import 'home_view_widgets/drawer_items.dart';
@@ -59,6 +60,10 @@ class HomeView extends StatelessWidget {
         ],
       ),
       drawer: NavigationDrawer(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => alice.showInspector(),
+        child: Icon(Icons.add),
+      ),
       body: RefreshIndicator(
         onRefresh: () async {
           await networkController.checkConnectivity();

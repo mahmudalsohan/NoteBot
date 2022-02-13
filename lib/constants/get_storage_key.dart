@@ -5,4 +5,5 @@ class GetStorageKey {
   static final FIRST_TIME = "show_boarding_screen";
   static final IN_APP_WEB_VIEW = "link opens internally";
   static final GRID_COUNT = "dashboard_grid_count";
+  static final ACTIVE_SERVER = "selected_base_url";
 }

@@ -1,4 +1,5 @@
 import 'package:butex_notebot/constants/controller.dart';
+import 'package:butex_notebot/main.dart';
 import 'package:butex_notebot/models/departments.dart';
 import 'package:butex_notebot/models/lab_subject_model.dart';
 import 'package:butex_notebot/models/lab_topic_content.dart';
@@ -15,7 +16,6 @@ import 'package:butex_notebot/models/topic_model.dart';
 import 'package:butex_notebot/models/user_model.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -25,22 +25,29 @@ class HttpService {
   HttpService() {
     _dio = Dio(
       BaseOptions(
-        baseUrl: networkController.BASE_URL.value,
+        baseUrl: networkController.selectedBaseURL.value,
       ),
     );
+    print('baseUrl: ${networkController.selectedBaseURL.value}');
     initializeInterceptors();
   }
 
   //monitor request, response and error
   initializeInterceptors() {
+    late DateTime reqTime;
+    late DateTime resTime;
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
+          reqTime = DateTime.now();
           return handler.next(options);
         },
         onResponse: (response, handler) {
           print("onResponse: ${response.data}");
+          resTime = DateTime.now();
           EasyLoading.dismiss();
+          var duration = resTime.difference(reqTime).inMilliseconds;
+          print("duration: $duration");
           return handler.next(response);
         },
         onError: (DioError e, handler) async {
@@ -54,12 +61,13 @@ class HttpService {
         },
       ),
     );
+    _dio.interceptors.add(alice.getDioInterceptor());
   }
 
   //get a response providing the endpoint (baseURL excluded)
   Future<Response> get(String endPoint) async {
     Response response;
-    print("BASE_URL: ${networkController.BASE_URL.value}");
+
     try {
       response = await _dio.get(endPoint);
     } on DioError catch (e) {

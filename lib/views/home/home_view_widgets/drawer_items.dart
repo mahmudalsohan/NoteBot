@@ -88,7 +88,7 @@ class NavigationDrawer extends StatelessWidget {
                 Get.to(
                   () => OpenWebView(
                     title: "BUTEX PhoneBook",
-                    url: "https://triptoafsin.github.io/BUTEX-PhoneBook/",
+                    url: "https://triptoafsin.github.io/butex-phonebook-v2/",
                   ),
                 );
               } else {
